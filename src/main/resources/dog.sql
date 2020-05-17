@@ -1011,3 +1011,13 @@ insert into dog (name, gender, age, race, pure_race, weight, owner_name, owner_l
 insert into dog (name, gender, age, race, pure_race, weight, owner_name, owner_last_name) values ('Charlena', 'Female', 7, 'GOLDEN-RETRIEVER', false, 12.93, 'Alfi', 'Greenshiels');
 insert into dog (name, gender, age, race, pure_race, weight, owner_name, owner_last_name) values ('Dulciana', 'Female', 5, 'SHEPPARD', false, 34.27, 'Saudra', 'Dancy');
 insert into dog (name, gender, age, race, pure_race, weight, owner_name, owner_last_name) values ('Iain', 'Male', 2, 'TERRIER', true, 8.79, 'Dun', 'Wordley');
+
+ALTER TABLE `hibernate_students`.`dog`
+CHANGE COLUMN `name` `dog_name` VARCHAR(50) NULL DEFAULT NULL ,
+CHANGE COLUMN `gender` `dog_gender` VARCHAR(50) NULL DEFAULT NULL ,
+CHANGE COLUMN `age` `dog_age` INT(11) NULL DEFAULT NULL ,
+CHANGE COLUMN `race` `dog_race` VARCHAR(50) NULL DEFAULT NULL ,
+CHANGE COLUMN `pure_race` `dog_pure_race` TINYINT(1) NULL DEFAULT NULL ,
+CHANGE COLUMN `weight` `dog_weight` DECIMAL(4,2) NULL DEFAULT NULL ;
+
+UPDATE `dog` SET `dog_race` = 'GOLDEN_RETRIEVER' WHERE (`dog_race` = 'GOLDEN-RETRIEVER');

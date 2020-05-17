@@ -1,16 +1,10 @@
-package eu.mrndesign.matned.searchEngine;
+package eu.mrndesign.matned.searchEngine.data.jFrame;
 
-import org.joda.time.LocalDate;
-import org.joda.time.LocalTime;
-import eu.mrndesign.matned.searchEngine.fileOperations.ActualSession;
-import eu.mrndesign.matned.searchEngine.fileOperations.FileOps;
-import eu.mrndesign.matned.searchEngine.fileOperations.Search;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.io.FileNotFoundException;
-import java.util.List;
+
 
 public class Frame {
 
@@ -20,16 +14,10 @@ public class Frame {
     private JTextField inputRegexTextField;
     private JLabel resultLabel;
     private String result = "Search result:\n\n";
-    private String regex;
-    private SearchEngine searchEngine;
-    private List<String> resourceList;
     private JLabel resultTexted;
     private JButton historyButton;
-    private ActualSession newSession;
 
-    public Frame(List resourceList) {
-        this.resourceList = resourceList;
-        newSession = new ActualSession();
+    public Frame() {
     }
 
     public void initialize() {
@@ -56,13 +44,7 @@ public class Frame {
             @Override
             public void windowClosing(WindowEvent e) {
                 System.out.println("Closed");
-                try {
-                    newSession.setSessionEndTime(new LocalTime());
-                    newSession.setSessionEndDate(new LocalDate());
-                    FileOps.writeStringToFile(newSession.toString() + FileOps.readStringFromFile());
-                } catch (FileNotFoundException ex) {
-                    System.out.println("No file found");
-                }
+
             }
         });
     }
@@ -74,12 +56,7 @@ public class Frame {
         inputRegexTextField.addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent keyEvent) {
-                if (keyEvent.getKeyChar() == 10) {
-                    resultLabel.setText("");
-                    regex = inputRegexTextField.getText();
-                    resultLabel.setText("<html>" + searchEngine() + "</html>");
-                    newSession.getSessionSearchesList().add(new Search(regex, searchEngine.isSearchedItemInResource(regex), searchEngine.getTitlesList().size()));
-                }
+
             }
 
             @Override
@@ -101,11 +78,7 @@ public class Frame {
         acceptButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                resultLabel.setText("");
-                regex = inputRegexTextField.getText();
-                resultLabel.setText("<html>" + searchEngine() + "</html>");
-                newSession.getSessionSearchesList().add(new Search(regex, searchEngine.isSearchedItemInResource(regex), searchEngine.getContentList().size()));
-                System.out.println(searchEngine.getTitlesList().size());
+
             }
         });
         return acceptButton;
@@ -119,12 +92,7 @@ public class Frame {
         historyButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                resultLabel.setText("");
-                try {
-                    resultLabel.setText("<html>" + newSession + FileOps.readStringFromFile() + "</html>");
-                } catch (FileNotFoundException e) {
-                    resultLabel.setText("No file found !!!");
-                }
+
             }
         });
         return historyButton;
@@ -146,18 +114,5 @@ public class Frame {
         return imageLabel;
     }
 
-    public String searchEngine() {
-        String temp = resultLabel.getText();
-        searchEngine = new SearchEngine(this.resourceList);
-        searchEngine.isSearchedItemInResource(regex);
-        if (searchEngine.getTitlesList().size() <= 0) {
-            temp = "No entries for '" + regex + "'";
-        } else {
-            for (int i = 0; i < searchEngine.getTitlesList().size(); i++) {
-                temp += searchEngine.getTitlesList().get(i) + "\n    - " + searchEngine.getContentList().get(i);
-            }
-        }
-        return temp;
-    }
 
 }
