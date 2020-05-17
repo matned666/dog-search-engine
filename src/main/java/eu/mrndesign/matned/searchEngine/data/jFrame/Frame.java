@@ -15,7 +15,6 @@ public class Frame {
     private JLabel resultLabel;
     private String result = "Search result:\n\n";
     private JLabel resultTexted;
-    private JButton historyButton;
 
     public Frame() {
     }
@@ -35,7 +34,6 @@ public class Frame {
         frame.add(resultLabel());
         frame.add(imageLabel());
         frame.add(resultTexted);
-        frame.add(historyButton());
         frame.add(sign);
         resultTexted.setText("<html><p><tr><td valign=\"top\">" + result + "</td></tr></p></html>");
         frame.setLayout(null);
@@ -82,20 +80,6 @@ public class Frame {
             }
         });
         return acceptButton;
-    }
-
-    public JButton historyButton() {
-        historyButton = new JButton();
-        historyButton.setBounds(420, 100, 180, 20);
-        historyButton.setFont(new Font("Arial", Font.PLAIN, 15));
-        historyButton.setText("View session history");
-        historyButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-
-            }
-        });
-        return historyButton;
     }
 
     private JScrollPane resultLabel() {
