@@ -11,7 +11,8 @@ public class Main {
 
 
         DogDao dogDao = new DogDao();
-        dogDao.setFirstResult(100);
+        dogDao.setDogName1("bas");
+        dogDao.setDogName2("baszzzzzzzzz");
         List<Dog> dogs = dogDao.find();
         for (Dog el :
                 dogs) {

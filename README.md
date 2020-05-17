@@ -13,8 +13,8 @@ It is with a table creation and 1000 records (dog.sql).
 
 Hibernate.cfg.xml file is also in resources, but you'd have to 
 check it in my first commit.
-You have to add your database name, host, and user with privileges
-and of course password.
+You have to add your database name, host, and user with 
+privileges, of course password and mapping class to Dog.
 
 My website: http://mrndesign.eu
 
