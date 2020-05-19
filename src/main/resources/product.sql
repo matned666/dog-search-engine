@@ -13228,3 +13228,7 @@ insert into product (name, value, product_details_id) values ('ranitidine hydroc
 insert into product (name, value, product_details_id) values ('DIOSCOREA VILLOSA ROOT, GINGER', 148192, 461);
 insert into product (name, value, product_details_id) values ('Dextroamphetamine Sulfate', 169256, 434);
 insert into product (name, value, product_details_id) values ('Ibuprofen', 178553, 935);
+
+ALTER TABLE `product`
+CHANGE COLUMN `name` `product_name` VARCHAR(1000) NULL DEFAULT NULL ,
+CHANGE COLUMN `value` `product_value` INT(11) NULL DEFAULT NULL;

@@ -6,7 +6,7 @@ public interface SearchEngineScreenInterface {
 
 
     interface ScreenListener {
-        void onSearch_WelcomeScreen();
+        void onBackToDatabaseChoice_WelcomeScreen();
 
     }
 

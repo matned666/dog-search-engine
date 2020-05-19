@@ -23,24 +23,10 @@ public class HibernateUtil {
             Configuration configuration = new Configuration();
             configuration.configure("/hibernate.cfg.xml");
             sessionFactory = configuration.buildSessionFactory();
-            addAllEntities(configuration);
         } catch (HibernateException e) {
             System.err.println(e.getMessage());
             throw e;
         }
-    }
-
-    private static void addAllEntities(Configuration configuration)  {
-        collectAllDBEntities();
-        for (DBCollection el :
-                dbCollection) {
-            try {
-                configuration.addAnnotatedClass(Class.forName(el.getDbName()));
-            } catch (ClassNotFoundException e) {
-                System.err.println("Class: "+el.getDbName()+" not found !!");
-            }
-        }
-
     }
 
 

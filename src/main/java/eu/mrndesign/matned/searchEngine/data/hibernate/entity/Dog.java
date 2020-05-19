@@ -4,7 +4,6 @@ import eu.mrndesign.matned.searchEngine.data.hibernate.entity.enums.DogRace;
 import lombok.*;
 
 import javax.persistence.*;
-import java.lang.reflect.Field;
 
 @Builder
 @Data
