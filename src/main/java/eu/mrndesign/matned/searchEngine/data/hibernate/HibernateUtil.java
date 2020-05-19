@@ -6,22 +6,21 @@ import org.hibernate.cfg.Configuration;
 
 public class HibernateUtil {
 
-    private static final SessionFactory ourSessionFactory;
+    private static final SessionFactory sessionFactory;
 
     static {
 
         try {
-            System.out.println("Konfiguruje hibernate");
             Configuration configuration = new Configuration();
             configuration.configure("/hibernate.cfg.xml");
-            ourSessionFactory = configuration.buildSessionFactory();
+            sessionFactory = configuration.buildSessionFactory();
         } catch (HibernateException e) {
             System.err.println(e.getMessage());
             throw e;
         }
     }
 
-    public static SessionFactory getOurSessionFactory() {
-        return ourSessionFactory;
+    public static SessionFactory getSessionFactory() {
+        return sessionFactory;
     }
 }

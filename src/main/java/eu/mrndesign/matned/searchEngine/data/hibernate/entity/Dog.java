@@ -16,8 +16,7 @@ import java.lang.reflect.Field;
 public class Dog {
 
     @Id
-    @GeneratedValue(strategy
-            = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="dog_id")
     private int dogId;
 
@@ -45,6 +44,8 @@ public class Dog {
 
     @Column(name="owner_last_name")
     private String ownerLastName;
+
+
 
 
 }

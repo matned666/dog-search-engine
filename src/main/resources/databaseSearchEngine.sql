@@ -1,4 +1,13 @@
 drop table if exists `dog`;
+drop table if exists `db_collection`;
+
+
+create table `db_collection` (
+    `db_id` INT NOT NULL AUTO_INCREMENT,
+	`db_name` VARCHAR(50),
+    PRIMARY KEY (`db_id`)
+);
+
 create table `dog` (
     `dog_id` INT NOT NULL AUTO_INCREMENT,
 	`name` VARCHAR(50),

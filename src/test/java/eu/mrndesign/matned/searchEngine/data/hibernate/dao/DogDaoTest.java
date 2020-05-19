@@ -26,38 +26,7 @@ import static org.mockito.Mockito.*;
 
 class DogDaoTest<DBConnection> {
 
-//    void setup() {
-//        view = mock(DashboardContract.View.class);
-//        machineStorage = mock(CashMachineStorage.class);
-//        Card card = new Card.Builder("src\\main\\resources\\testcard.card")
-//                .ownerName("Roman")
-//                .ownerSurname("Pawlak")
-//                .balance("2000")
-//                .build();
-//        presenter = new DashboardPresenter(view, machineStorage, card);
-//    }
 
-//    @Test
-//    void withdrawCash() throws Exception{
-//        when(machineStorage.availableMoney()).thenReturn(
-//                Arrays.asList(
-//                        Cash.BANK_NOTE_50,
-//                        Cash.BANK_NOTE_20,
-//                        Cash.BANK_NOTE_100,
-//                        Cash.BANK_NOTE_20,
-//                        Cash.BANK_NOTE_50,
-//                        Cash.BANK_NOTE_20,
-//                        Cash.BANK_NOTE_100,
-//                        Cash.BANK_NOTE_20));
-//
-//        presenter.getCash("170");
-//        verify(view).onWithdrawalConfirm(
-//                Arrays.asList(
-//                        Cash.BANK_NOTE_100,
-//                        Cash.BANK_NOTE_50,
-//                        Cash.BANK_NOTE_20
-//                ));
-//    }
     @InjectMocks private HibernateUtil hibernateUtil;
     @Mock private Connection mockConnection;
     @Mock private Statement mockStatement;

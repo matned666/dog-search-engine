@@ -1,4 +1,4 @@
-package eu.mrndesign.matned.searchEngine.data.jFrame;
+package eu.mrndesign.matned.searchEngine.data.jFrame.searchEngine;
 
 
 import javax.swing.*;
@@ -6,7 +6,7 @@ import java.awt.*;
 import java.awt.event.*;
 
 
-public class Frame {
+public class SearchEngineView {
 
     private JFrame frame;
     private JLabel imageLabel;
@@ -16,7 +16,7 @@ public class Frame {
     private String result = "Search result:\n\n";
     private JLabel resultTexted;
 
-    public Frame() {
+    public SearchEngineView() {
     }
 
     public void initialize() {

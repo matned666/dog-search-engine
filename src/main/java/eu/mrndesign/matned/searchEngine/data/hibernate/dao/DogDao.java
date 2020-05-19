@@ -4,7 +4,6 @@ import eu.mrndesign.matned.searchEngine.data.hibernate.HibernateUtil;
 import eu.mrndesign.matned.searchEngine.data.hibernate.entity.Dog;
 import eu.mrndesign.matned.searchEngine.data.hibernate.entity.enums.DogRace;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -43,12 +42,12 @@ public class DogDao {
     private String ownerLastName2;
 
     public DogDao() {
-        initializeFields();
+        initializeCriteria();
 
     }
 
     public void saveOrUpdate(Dog dog){
-        SessionFactory sessionFactory = HibernateUtil.getOurSessionFactory();
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         Transaction transaction = null;
         try(Session session = sessionFactory.openSession()) {
             transaction = session.beginTransaction();
@@ -65,7 +64,7 @@ public class DogDao {
 
     public List<Dog> find() {
         List result = new LinkedList<>();
-        SessionFactory sessionFactory = HibernateUtil.getOurSessionFactory();
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         try(Session session = sessionFactory.openSession()) {
             CriteriaBuilder cb = session.getCriteriaBuilder();
             CriteriaQuery<Dog> criteriaQuery = cb.createQuery(Dog.class);
@@ -95,7 +94,7 @@ public class DogDao {
         return result;
     }
 
-    private void initializeFields() {
+    private void initializeCriteria() {
         firstResult = 0;
         lastResult = firstResult + MAX_RESULTS_ON_SCREEN;
         dogId1 = 0;
