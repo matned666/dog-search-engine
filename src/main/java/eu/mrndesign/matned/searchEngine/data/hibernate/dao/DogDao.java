@@ -78,10 +78,10 @@ public class DogDao implements DaoInterface<Dog>{
             Root<Dog> rootTable = criteriaQuery.from(Dog.class);
             criteriaQuery.select(rootTable)
                     .where(
-//                            cb.like(rootTable.get("dogName"), dogName1)
-                            cb.and(
+                            cb.like(rootTable.get("dogName"), dogName1)
+//                            cb.and(
 //                                    cb.between(rootTable.get("dogId"), dogId1, dogId2),
-                                    cb.between(rootTable.get("dogName"), dogName1, dogName2)
+//                                    cb.between(rootTable.get("dogName"), dogName1, dogName2)
 //                                    cb.between(rootTable.get("dogGender"), dogGender2, dogGender1),
 //                                    cb.between(rootTable.get("dogAge"), dogAge1, dogAge2),
 //                                    cb.between(rootTable.get("dogRace"), dogRace1, dogRace2),
@@ -89,7 +89,7 @@ public class DogDao implements DaoInterface<Dog>{
 //                                    cb.between(rootTable.get("dogWeight"), dogWeight1, dogWeight2),
 //                                    cb.between(rootTable.get("ownerName"), ownerName1, ownerName2),
 //                                    cb.between(rootTable.get("ownerLastName"), ownerLastName1, ownerLastName2)
-                            )
+//                            )
                     );
             result.addAll(session.createQuery(criteriaQuery)
 //                    .setFirstResult(firstResult)

@@ -9,7 +9,6 @@ import javax.persistence.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
 @Entity
 @Table(name = "dog")
 public class Dog {
@@ -45,6 +44,16 @@ public class Dog {
     private String ownerLastName;
 
 
-
-
+    @Override
+    public String toString() {
+        return
+                "Id: " + dogId +
+                ", Name: " + dogName.toUpperCase() +
+                ", Gender: " + dogGender  +
+                ", Age: " + dogAge +
+                ", Race: " + dogRace.toString().toLowerCase() +
+                ", Weight: " + dogWeight +
+                ", PureRace: " + isDogPureRace +
+                ", Owner: " + ownerName + " "+ownerLastName;
+    }
 }

@@ -74,6 +74,24 @@ public class SearchEngineScreen extends BaseSwingScreen implements SearchEngineS
         inputTextField = new JTextField();
         inputTextField.setText("");
         inputTextField.setBounds(100, 70, 500, 20);
+        inputTextField.addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                if (e.getKeyChar() == 10) {
+                    presenter.search();
+                }
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+
+            }
+        });
         return inputTextField;
     }
 

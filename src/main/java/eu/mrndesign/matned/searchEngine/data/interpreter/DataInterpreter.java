@@ -45,6 +45,8 @@ public class DataInterpreter  {
 //                return dao.find();
 //            }
             default: {
+                if (item.trim().equals("")) item = "%";
+
                 dao = new DogDao(item);
                 return dao.find();
             }
