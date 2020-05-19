@@ -11,4 +11,8 @@ public class ScreenManager implements SearchEngineScreenInterface.ScreenListener
 
     }
 
+    @Override
+    public void onSearch_WelcomeScreen() {
+
+    }
 }

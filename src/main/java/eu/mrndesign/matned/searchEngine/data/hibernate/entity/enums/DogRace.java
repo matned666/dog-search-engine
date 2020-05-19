@@ -7,7 +7,7 @@ public enum DogRace {
     GOLDEN_RETRIEVER,
     BASSET,
     GREYHOUND,
-    CHIUHUAHUA,
+    CHIHUAHUA,
     MOPS,
     HUSKY,
     DOG,

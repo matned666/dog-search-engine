@@ -10,8 +10,7 @@ public class Main {
 
 
         DogDao dogDao = new DogDao();
-        dogDao.setDogName1("bas");
-        dogDao.setDogName2("baszzzzzzzzz");
+
         List<Dog> dogs = dogDao.find();
         for (Dog el :
                 dogs) {
