@@ -3,7 +3,9 @@ package eu.mrndesign.matned.searchEngine.data.hibernate.dao;
 import eu.mrndesign.matned.searchEngine.data.hibernate.HibernateUtil;
 import eu.mrndesign.matned.searchEngine.data.hibernate.entity.Dog;
 import eu.mrndesign.matned.searchEngine.data.hibernate.entity.enums.DogRace;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -12,13 +14,14 @@ import org.hibernate.Transaction;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
-@Data
-public class DogDao {
 
-    public static final int MAX_RESULTS_ON_SCREEN = 10;
+public class DogDao implements DaoInterface<Dog>{
+
+    public static final int MAX_RESULTS_ON_SCREEN = 100;
 
     private int firstResult;
     private int lastResult;
@@ -42,7 +45,11 @@ public class DogDao {
     private String ownerLastName2;
 
     public DogDao() {
+    }
+
+    public DogDao(String item) {
         initializeCriteria();
+        dogName1 = item;
 
     }
 
@@ -61,7 +68,7 @@ public class DogDao {
         }
     }
 
-
+    @Override
     public List<Dog> find() {
         List result = new LinkedList<>();
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
@@ -71,27 +78,35 @@ public class DogDao {
             Root<Dog> rootTable = criteriaQuery.from(Dog.class);
             criteriaQuery.select(rootTable)
                     .where(
+//                            cb.like(rootTable.get("dogName"), dogName1)
                             cb.and(
-                                    cb.between(rootTable.get("dogId"), dogId1, dogId2),
-                                    cb.between(rootTable.get("dogName"), dogName1, dogName2),
-                                    cb.between(rootTable.get("dogGender"), dogGender2, dogGender1),
-                                    cb.between(rootTable.get("dogAge"), dogAge1, dogAge2),
-                                    cb.between(rootTable.get("dogRace"), dogRace1, dogRace2),
-                                    cb.between(rootTable.get("isDogPureRace"), isPureRace1? 1 : 0,isPureRace2? 1 : 0),
-                                    cb.between(rootTable.get("dogWeight"), dogWeight1, dogWeight2),
-                                    cb.between(rootTable.get("ownerName"), ownerName1, ownerName2),
-                                    cb.between(rootTable.get("ownerLastName"), ownerLastName1, ownerLastName2)
+//                                    cb.between(rootTable.get("dogId"), dogId1, dogId2),
+                                    cb.between(rootTable.get("dogName"), dogName1, dogName2)
+//                                    cb.between(rootTable.get("dogGender"), dogGender2, dogGender1),
+//                                    cb.between(rootTable.get("dogAge"), dogAge1, dogAge2),
+//                                    cb.between(rootTable.get("dogRace"), dogRace1, dogRace2),
+//                                    cb.between(rootTable.get("isDogPureRace"), isPureRace1? 1 : 0,isPureRace2? 1 : 0),
+//                                    cb.between(rootTable.get("dogWeight"), dogWeight1, dogWeight2),
+//                                    cb.between(rootTable.get("ownerName"), ownerName1, ownerName2),
+//                                    cb.between(rootTable.get("ownerLastName"), ownerLastName1, ownerLastName2)
                             )
                     );
             result.addAll(session.createQuery(criteriaQuery)
-                    .setFirstResult(firstResult)
-                    .setMaxResults(lastResult)
+//                    .setFirstResult(firstResult)
+//                    .setMaxResults(lastResult)
                     .list());
         }
         catch (HibernateException e){
             e.printStackTrace();
         }
+
+        System.out.println(result);
         return result;
+    }
+
+    @Override
+    public List<String> listOfFields() {
+        return Arrays.asList("NUMBER::Id","VARCHAR::Name","CHECKBOX::Gender::M::F", "NUMBER::Age", "VARCHAR::Race", "NUMBER::Weight", "VARCHAR::Owner name", "VARCHAR::Owner surname");
     }
 
     private void initializeCriteria() {

@@ -1,9 +1,7 @@
 package eu.mrndesign.matned.searchEngine.data.jFrame;
 
 import eu.mrndesign.matned.searchEngine.data.jFrame.searchEngine.SearchEngineScreen;
-import eu.mrndesign.matned.searchEngine.data.jFrame.searchEngine.SearchEngineScreenInterface;
 import eu.mrndesign.matned.searchEngine.data.jFrame.welcomeScreen.WelcomeScreen;
-import eu.mrndesign.matned.searchEngine.data.jFrame.welcomeScreen.WelcomeScreenInterface;
 import lombok.NoArgsConstructor;
 
 
@@ -15,6 +13,7 @@ public class ScreenManager implements
     private SearchEngineScreen searchEngineScreen;
     private WelcomeScreen welcomeScreen;
 
+
     public void start() {
         welcomeScreen = new WelcomeScreen(this);
         welcomeScreen.show();
@@ -22,12 +21,15 @@ public class ScreenManager implements
 
 
     @Override
-    public void onChooseDatabase_WelcomeScreen() {
-
+    public void onChooseDatabase_WelcomeScreen(String choice) {
+        welcomeScreen.hide();
+        searchEngineScreen = new SearchEngineScreen(this, choice);
+        searchEngineScreen.show();
     }
 
     @Override
     public void onBackToDatabaseChoice_WelcomeScreen() {
-
+        searchEngineScreen.hide();
+        start();
     }
 }

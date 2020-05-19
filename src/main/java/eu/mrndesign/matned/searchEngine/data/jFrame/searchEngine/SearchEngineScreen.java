@@ -1,18 +1,39 @@
 package eu.mrndesign.matned.searchEngine.data.jFrame.searchEngine;
 
+import eu.mrndesign.matned.searchEngine.data.jFrame.BaseSwingScreen;
+import lombok.Data;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class SearchEngineScreen implements SearchEngineScreenInterface {
+@Data
+public class SearchEngineScreen extends BaseSwingScreen implements SearchEngineScreenInterface {
 
-    private JFrame frame;
     private JLabel imageLabel;
     private JButton acceptButton;
-    private JTextField inputRegexTextField;
+    private JButton backButton;
+    private JButton advancedOptionsButton;
+    private JTextField inputTextField;
     private JLabel resultLabel;
     private String result = "Search result:\n\n";
     private JLabel resultTexted;
+    private JScrollPane scroller;
+
+    private String choice;
+
+    private ScreenListener listener;
+    private final SearchEngineContract.Presenter presenter;
+    private final SearchEngineContract.View view;
+
+
+    public SearchEngineScreen(ScreenListener listener, String choice) {
+        this.listener = listener;
+        view = new SearchEngineView(this);
+        presenter =  new SearchEnginePresenter(this, view);
+        this.choice = choice;
+        initialize();
+    }
 
     @Override
     public void onSearchButtonPress() {
@@ -30,6 +51,8 @@ public class SearchEngineScreen implements SearchEngineScreenInterface {
         frame.setSize(720, 800);
         frame.setResizable(false);
         frame.add(acceptButton());
+        frame.add(backButton());
+        frame.add(advancedOptionsButton());
         frame.add(inputRegexTextField());
         frame.add(resultLabel());
         frame.add(imageLabel());
@@ -48,38 +71,44 @@ public class SearchEngineScreen implements SearchEngineScreenInterface {
     }
 
     private JTextField inputRegexTextField() {
-        inputRegexTextField = new JTextField();
-        inputRegexTextField.setText("");
-        inputRegexTextField.setBounds(100, 70, 500, 20);
-        inputRegexTextField.addKeyListener(new KeyListener() {
-            @Override
-            public void keyTyped(KeyEvent keyEvent) {
-
-            }
-
-            @Override
-            public void keyPressed(KeyEvent keyEvent) {
-            }
-
-            @Override
-            public void keyReleased(KeyEvent keyEvent) {
-            }
-        });
-        return inputRegexTextField;
+        inputTextField = new JTextField();
+        inputTextField.setText("");
+        inputTextField.setBounds(100, 70, 500, 20);
+        return inputTextField;
     }
 
     public JButton acceptButton() {
         acceptButton = new JButton();
-        acceptButton.setBounds(300, 100, 100, 20);
+        acceptButton.setBounds(320, 100, 100, 20);
         acceptButton.setFont(new Font("Arial", Font.PLAIN, 15));
         acceptButton.setText("Search");
-        acceptButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-
-            }
+        acceptButton.addActionListener(actionEvent -> {
+            presenter.search();
         });
         return acceptButton;
+    }
+
+
+    public JButton backButton() {
+        backButton = new JButton();
+        backButton.setBounds(500, 100, 100, 20);
+        backButton.setFont(new Font("Arial", Font.PLAIN, 15));
+        backButton.setText("Back");
+        backButton.addActionListener(actionEvent -> {
+            listener.onBackToDatabaseChoice_WelcomeScreen();
+        });
+        return backButton;
+    }
+
+    public JButton advancedOptionsButton() {
+        advancedOptionsButton = new JButton();
+        advancedOptionsButton.setBounds(100, 100, 200, 20);
+        advancedOptionsButton.setFont(new Font("Arial", Font.PLAIN, 15));
+        advancedOptionsButton.setText("Advanced options VVV");
+        advancedOptionsButton.addActionListener(actionEvent -> {
+           view.onAdvancedOptionsClick(this);
+        });
+        return advancedOptionsButton;
     }
 
     private JScrollPane resultLabel() {
@@ -87,7 +116,7 @@ public class SearchEngineScreen implements SearchEngineScreenInterface {
         resultLabel.setBounds(20, 140, 660, 470);
         resultLabel.setVerticalAlignment(1);
         resultLabel.setText("");
-        JScrollPane scroller = new JScrollPane(resultLabel);
+        scroller = new JScrollPane(resultLabel);
         scroller.setBounds(20, 140, 660, 500);
         return scroller;
     }
@@ -97,4 +126,6 @@ public class SearchEngineScreen implements SearchEngineScreenInterface {
         imageLabel.setBounds(100, 30, 500, 40);
         return imageLabel;
     }
+
+
 }

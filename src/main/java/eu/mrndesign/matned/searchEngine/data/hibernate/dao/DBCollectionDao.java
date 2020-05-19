@@ -11,14 +11,15 @@ import org.hibernate.SessionFactory;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
 @Data
 @NoArgsConstructor
-public class DBCollectionDao {
+public class DBCollectionDao implements DaoInterface<DBCollection> {
 
-
+    @Override
     public List<DBCollection> find() {
         List result = new LinkedList<>();
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
@@ -33,6 +34,11 @@ public class DBCollectionDao {
             e.printStackTrace();
         }
         return result;
+    }
+
+    @Override
+    public List<String> listOfFields() {
+        return Arrays.asList("NUMBER::Id","VARCHAR::Name");
     }
 
 }

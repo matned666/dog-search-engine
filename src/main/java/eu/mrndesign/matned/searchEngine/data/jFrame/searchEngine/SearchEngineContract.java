@@ -1,20 +1,22 @@
 package eu.mrndesign.matned.searchEngine.data.jFrame.searchEngine;
 
+import java.util.List;
+
 public class SearchEngineContract {
 
     public interface View {
 
-        void onSearch();
+        void onSearch(String list);
         void onNoResult();
-        SearchEngineScreen getSearchEngineScreen();
-        void onAdvancedOptionsClick();
+        void onBack();
+        void onAdvancedOptionsClick(SearchEngineScreen searchEngineScreen);
 
     }
 
     public interface Presenter {
 
-        void search(String value);
-        void onTyping(String value);
+        void search();
+        void changeTermsOfSearch(String value);
 
     }
 

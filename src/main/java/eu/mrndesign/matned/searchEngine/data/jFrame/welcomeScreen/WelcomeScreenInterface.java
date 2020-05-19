@@ -5,6 +5,6 @@ public interface WelcomeScreenInterface {
     void onChooseDatabase();
 
     interface ScreenListener {
-        void onChooseDatabase_WelcomeScreen();
+        void onChooseDatabase_WelcomeScreen(String choice);
     }
 }
