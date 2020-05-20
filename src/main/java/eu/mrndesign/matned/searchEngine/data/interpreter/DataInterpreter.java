@@ -7,13 +7,19 @@ import eu.mrndesign.matned.searchEngine.data.hibernate.dao.ProductDao;
 import eu.mrndesign.matned.searchEngine.data.hibernate.entity.DBCollection;
 import lombok.NoArgsConstructor;
 
+import java.util.LinkedList;
 import java.util.List;
 
-@NoArgsConstructor
-public class DataInterpreter  {
+public class DataInterpreter implements Interpreter  {
 
+    private String entityChoice;
     private DaoInterface dao;
 
+    public DataInterpreter(String entityChoice) {
+        this.entityChoice = entityChoice;
+    }
+
+    @Override
     public String[] getListOfBasesFromDatabase() {
         DBCollectionDao dao = new DBCollectionDao();
         List<DBCollection> list =  dao.find();
@@ -24,18 +30,20 @@ public class DataInterpreter  {
         return array;
     }
 
-    public List<String[]> getListOfFields(String entity) {
-        if(entity.equals("Dog")) {
-            dao = new DogDao();
-            return dao.listOfFields();
-        }else if(entity.equals("")){
-            dao = new ProductDao();
-            return dao.listOfFields();
-        }else return null;
+    @Override
+    public List<AdvancedSearchOptions> getListOptions(String entity) {
+        try{
+            List list = new LinkedList();
+
+        }catch (Exception e){
+            return new LinkedList<>();
+        }
     }
 
-    public List getResultList(String item, String entityChoice) {
+    @Override
+    public List getResultList(String item) {
         switch (entityChoice) {
+            //TODO
 //            case "Dog": {
 //                dao = new DogDao(item);
 //                return dao.find();
@@ -53,4 +61,6 @@ public class DataInterpreter  {
         }
 
     }
+
+
 }

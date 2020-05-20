@@ -106,7 +106,7 @@ public class DogDao implements DaoInterface<Dog>{
 
     @Override
     public List<String> listOfFields() {
-        return Arrays.asList("NUMBER::Id","VARCHAR::Name","CHECKBOX::Gender::M::F", "NUMBER::Age", "VARCHAR::Race", "NUMBER::Weight", "VARCHAR::Owner name", "VARCHAR::Owner surname");
+        return Arrays.asList("NUMBER::Id::","VARCHAR::Name::","CHECKBOX::Gender::M::F", "NUMBER::Age::", "VARCHAR::Race::", "NUMBER::Weight::", "VARCHAR::Owner name::", "VARCHAR::Owner surname::");
     }
 
     private void initializeCriteria() {
