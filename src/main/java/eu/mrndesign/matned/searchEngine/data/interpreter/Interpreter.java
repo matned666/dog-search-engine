@@ -4,8 +4,8 @@ import java.util.List;
 
 public interface Interpreter {
 
-    List getResultList(String item, String entityChoice);
+    List getResultList(String item);
     String[] getListOfBasesFromDatabase();
-    List<String[]> interpretListOfFields(String entity);
+    List<AdvancedSearchOptions> getListOptions(String entity);
 
 }

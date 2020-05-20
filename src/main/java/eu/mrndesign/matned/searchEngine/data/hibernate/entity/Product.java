@@ -9,7 +9,6 @@ import javax.persistence.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
 @Entity
 @Table(name = "product")
 public class Product {
@@ -23,10 +22,18 @@ public class Product {
     private String productName;
 
     @Column(name = "product_value")
-    private int productValue;
+    private Integer productValue;
 
     @Column(name = "product_details_id")
-    private int productDetailsId;
+    private Integer productDetailsId;
 
+    @Override
+    public String toString() {
+        return
+                "Id: " + productId +
+                ", Name: " + productName+
+                ", Value: " + productValue +
+                ", Details Id: " + productDetailsId;
+    }
 }
 

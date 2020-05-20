@@ -100,9 +100,7 @@ public class SearchEngineScreen extends BaseSwingScreen implements SearchEngineS
         acceptButton.setBounds(320, 100, 100, 20);
         acceptButton.setFont(new Font("Arial", Font.PLAIN, 15));
         acceptButton.setText("Search");
-        acceptButton.addActionListener(actionEvent -> {
-            presenter.search();
-        });
+        acceptButton.addActionListener(actionEvent -> presenter.search());
         return acceptButton;
     }
 
@@ -112,9 +110,7 @@ public class SearchEngineScreen extends BaseSwingScreen implements SearchEngineS
         backButton.setBounds(500, 100, 100, 20);
         backButton.setFont(new Font("Arial", Font.PLAIN, 15));
         backButton.setText("Back");
-        backButton.addActionListener(actionEvent -> {
-            listener.onBackToDatabaseChoice_WelcomeScreen();
-        });
+        backButton.addActionListener(actionEvent -> listener.onBackToDatabaseChoice_WelcomeScreen());
         return backButton;
     }
 
@@ -123,9 +119,7 @@ public class SearchEngineScreen extends BaseSwingScreen implements SearchEngineS
         advancedOptionsButton.setBounds(100, 100, 200, 20);
         advancedOptionsButton.setFont(new Font("Arial", Font.PLAIN, 15));
         advancedOptionsButton.setText("Advanced options VVV");
-        advancedOptionsButton.addActionListener(actionEvent -> {
-           view.onAdvancedOptionsClick(this);
-        });
+        advancedOptionsButton.addActionListener(actionEvent -> view.onAdvancedOptionsClick(this));
         return advancedOptionsButton;
     }
 

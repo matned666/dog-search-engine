@@ -16,18 +16,18 @@ public class SearchEnginePresenter implements SearchEngineContract.Presenter{
     public SearchEnginePresenter(SearchEngineScreen screen, SearchEngineContract.View view) {
         this.screen = screen;
         this.view = view;
-        mediator = new DataInterpreter();
     }
 
     @Override
     public void search() {
+        mediator = new DataInterpreter(screen.getChoice());
         view.onSearch(htmlTextListBuild());
     }
 
     private String htmlTextListBuild() {
         String choice = screen.getChoice();
         String value = screen.getInputTextField().getText();
-        List<Object> list = new LinkedList<Object>(mediator.getResultList(value,choice));
+        List<Object> list = new LinkedList<Object>(mediator.getResultList(value));
         StringBuilder builder = new StringBuilder();
         builder.append("<html>");
         for (Object el: list) {

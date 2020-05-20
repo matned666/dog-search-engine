@@ -15,6 +15,9 @@ public class DataInterpreter implements Interpreter  {
     private String entityChoice;
     private DaoInterface dao;
 
+    public DataInterpreter() {
+    }
+
     public DataInterpreter(String entityChoice) {
         this.entityChoice = entityChoice;
     }
@@ -35,6 +38,7 @@ public class DataInterpreter implements Interpreter  {
         try{
             List list = new LinkedList();
 
+            return list;
         }catch (Exception e){
             return new LinkedList<>();
         }
@@ -42,19 +46,18 @@ public class DataInterpreter implements Interpreter  {
 
     @Override
     public List getResultList(String item) {
+        if (item.trim().equals("")) item = "%";
         switch (entityChoice) {
             //TODO
 //            case "Dog": {
 //                dao = new DogDao(item);
 //                return dao.find();
 //            }
-//            case "Product": {
-//                dao = new ProductDao();
-//                return dao.find();
-//            }
+            case "Product": {
+                dao = new ProductDao(item);
+                return dao.find();
+            }
             default: {
-                if (item.trim().equals("")) item = "%";
-
                 dao = new DogDao(item);
                 return dao.find();
             }

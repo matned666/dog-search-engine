@@ -100,7 +100,6 @@ public class DogDao implements DaoInterface<Dog>{
             e.printStackTrace();
         }
 
-        System.out.println(result);
         return result;
     }
 

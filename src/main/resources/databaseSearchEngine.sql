@@ -8,8 +8,8 @@ create table `db_collection` (
     PRIMARY KEY (`db_id`)
 );
 
-INSERT INTO `search_engine`.`db_collection` (`db_name`) VALUES ('Dog');
-INSERT INTO `search_engine`.`db_collection` (`db_name`) VALUES ('Product');
+INSERT INTO `db_collection` (`db_name`) VALUES ('Dog');
+INSERT INTO `db_collection` (`db_name`) VALUES ('Product');
 
 create table `dog` (
     `dog_id` INT NOT NULL AUTO_INCREMENT,
