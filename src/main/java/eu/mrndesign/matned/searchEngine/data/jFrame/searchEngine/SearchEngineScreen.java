@@ -13,6 +13,8 @@ public class SearchEngineScreen extends BaseSwingScreen implements SearchEngineS
     private JLabel imageLabel;
     private JButton acceptButton;
     private JButton backButton;
+    private JButton fieldsButton;
+    private JButton orderByButton;
     private JButton advancedOptionsButton;
     private JTextField inputTextField;
     private JLabel resultLabel;
@@ -45,8 +47,8 @@ public class SearchEngineScreen extends BaseSwingScreen implements SearchEngineS
         resultTexted = new JLabel();
         resultTexted.setBounds(30, 100, 100, 40);
         JLabel sign = new JLabel();
-        sign.setBounds(500, 700, 150, 40);
-        sign.setText("Made by Mateusz Niedbał");
+        sign.setBounds(500, 700, 180, 40);
+        sign.setText("Made by Mateusz Niedbal");
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setSize(720, 800);
         frame.setResizable(false);
@@ -54,8 +56,10 @@ public class SearchEngineScreen extends BaseSwingScreen implements SearchEngineS
         frame.add(backButton());
         frame.add(advancedOptionsButton());
         frame.add(inputRegexTextField());
+        frame.add(orderByButton());
         frame.add(resultLabel());
         frame.add(imageLabel());
+        frame.add(fieldsButton());
         frame.add(resultTexted);
         frame.add(sign);
         resultTexted.setText("<html><p><tr><td valign=\"top\">" + result + "</td></tr></p></html>");
@@ -97,7 +101,7 @@ public class SearchEngineScreen extends BaseSwingScreen implements SearchEngineS
 
     public JButton acceptButton() {
         acceptButton = new JButton();
-        acceptButton.setBounds(320, 100, 100, 20);
+        acceptButton.setBounds(100, 100, 100, 20);
         acceptButton.setFont(new Font("Arial", Font.PLAIN, 15));
         acceptButton.setText("Search");
         acceptButton.addActionListener(actionEvent -> presenter.search());
@@ -105,22 +109,40 @@ public class SearchEngineScreen extends BaseSwingScreen implements SearchEngineS
     }
 
 
+    public JButton advancedOptionsButton() {
+        advancedOptionsButton = new JButton();
+        advancedOptionsButton.setBounds(200, 100, 100, 20);
+        advancedOptionsButton.setFont(new Font("Arial", Font.PLAIN, 10));
+        advancedOptionsButton.setText("Advanced");
+        advancedOptionsButton.addActionListener(actionEvent -> view.onAdvancedOptionsClick(this));
+        return advancedOptionsButton;
+    }
+
+    public JButton fieldsButton() {
+        fieldsButton = new JButton();
+        fieldsButton.setBounds(300, 100, 100, 20);
+        fieldsButton.setFont(new Font("Arial", Font.PLAIN, 10));
+        fieldsButton.setText("Fields show");
+        fieldsButton.addActionListener(actionEvent -> view.onAdvancedOptionsClick(this));
+        return fieldsButton;
+    }
+
+    public JButton orderByButton() {
+        orderByButton = new JButton();
+        orderByButton.setBounds(400, 100, 100, 20);
+        orderByButton.setFont(new Font("Arial", Font.PLAIN, 10));
+        orderByButton.setText("Order by");
+        orderByButton.addActionListener(actionEvent -> view.onAdvancedOptionsClick(this));
+        return orderByButton;
+    }
+
     public JButton backButton() {
         backButton = new JButton();
         backButton.setBounds(500, 100, 100, 20);
-        backButton.setFont(new Font("Arial", Font.PLAIN, 15));
+        backButton.setFont(new Font("Arial", Font.PLAIN, 10));
         backButton.setText("Back");
         backButton.addActionListener(actionEvent -> listener.onBackToDatabaseChoice_WelcomeScreen());
         return backButton;
-    }
-
-    public JButton advancedOptionsButton() {
-        advancedOptionsButton = new JButton();
-        advancedOptionsButton.setBounds(100, 100, 200, 20);
-        advancedOptionsButton.setFont(new Font("Arial", Font.PLAIN, 15));
-        advancedOptionsButton.setText("Advanced options VVV");
-        advancedOptionsButton.addActionListener(actionEvent -> view.onAdvancedOptionsClick(this));
-        return advancedOptionsButton;
     }
 
     private JScrollPane resultLabel() {

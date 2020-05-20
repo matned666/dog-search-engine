@@ -36,8 +36,11 @@ public class DataInterpreter implements Interpreter  {
     @Override
     public List<AdvancedSearchOptions> getListOptions(String entity) {
         try{
-            List list = new LinkedList();
-
+            List<AdvancedSearchOptions> list = new LinkedList();
+            String arr[] = entity.split("::");
+            for (String el: arr){
+                list.add(new AdvancedSearchOptions(el));
+            }
             return list;
         }catch (Exception e){
             return new LinkedList<>();
@@ -48,11 +51,6 @@ public class DataInterpreter implements Interpreter  {
     public List getResultList(String item) {
         if (item.trim().equals("")) item = "%";
         switch (entityChoice) {
-            //TODO
-//            case "Dog": {
-//                dao = new DogDao(item);
-//                return dao.find();
-//            }
             case "Product": {
                 dao = new ProductDao(item);
                 return dao.find();
