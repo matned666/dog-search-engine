@@ -43,7 +43,7 @@ public class DataInterpreter implements Interpreter  {
             }
             return list;
         }catch (Exception e){
-            return new LinkedList<>();
+            return null;
         }
     }
 
