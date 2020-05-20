@@ -1,6 +1,7 @@
 package eu.mrndesign.matned.searchEngine.data.jFrame.searchEngine;
 
 import eu.mrndesign.matned.searchEngine.data.jFrame.BaseSwingScreen;
+import eu.mrndesign.matned.searchEngine.data.jFrame.searchEngine.options.SearchEngineAdvancedBaseOptions;
 import lombok.Data;
 
 import javax.swing.*;
@@ -20,6 +21,7 @@ public class SearchEngineScreen extends BaseSwingScreen implements SearchEngineS
     private JLabel resultLabel;
     private String result = "Search result:\n\n";
     private JLabel resultTexted;
+    private JLabel advancedSearch;
     private JScrollPane scroller;
 
     private String choice;
@@ -58,6 +60,7 @@ public class SearchEngineScreen extends BaseSwingScreen implements SearchEngineS
         frame.add(inputRegexTextField());
         frame.add(orderByButton());
         frame.add(resultLabel());
+        frame.add(advancedSearch());
         frame.add(imageLabel());
         frame.add(fieldsButton());
         frame.add(resultTexted);
@@ -114,7 +117,12 @@ public class SearchEngineScreen extends BaseSwingScreen implements SearchEngineS
         advancedOptionsButton.setBounds(200, 100, 100, 20);
         advancedOptionsButton.setFont(new Font("Arial", Font.PLAIN, 10));
         advancedOptionsButton.setText("Advanced");
-        advancedOptionsButton.addActionListener(actionEvent -> view.onAdvancedOptionsClick(this));
+        advancedOptionsButton.addActionListener(actionEvent -> {
+            view.onAdvancedOptionsClick(this);
+            if(advancedSearch.isVisible()) advancedSearch.setVisible(true);
+            else advancedSearch.setVisible(true);
+
+        });
         return advancedOptionsButton;
     }
 
@@ -152,6 +160,19 @@ public class SearchEngineScreen extends BaseSwingScreen implements SearchEngineS
         resultLabel.setText("");
         scroller = new JScrollPane(resultLabel);
         scroller.setBounds(20, 140, 660, 500);
+        return scroller;
+    }
+
+    private JScrollPane advancedSearch() {
+        advancedSearch = new JLabel();
+        advancedSearch.setBounds(20, 140, 660, 200);
+        advancedSearch.setVerticalAlignment(1);
+        advancedSearch.setText("");
+        scroller = new JScrollPane(advancedSearch);
+        scroller.setBounds(20, 140, 660, 100);
+        SearchEngineAdvancedBaseOptions searchEngineAdvancedOptions = new SearchEngineAdvancedBaseOptions(choice, advancedSearch);
+        searchEngineAdvancedOptions.label();
+        advancedSearch.setVisible(false);
         return scroller;
     }
 

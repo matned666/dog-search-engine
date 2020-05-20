@@ -48,6 +48,7 @@ public class SearchEngineView implements SearchEngineContract.View {
         screen.getResultLabel().setBounds(20, 240, 660, 370);
         screen.getScroller().setBounds(20, 240, 660, 400);
         screen.getResultTexted().setBounds(30, 200, 100, 40);
+
         areAdvancedOptionsOn = true;
     }
 

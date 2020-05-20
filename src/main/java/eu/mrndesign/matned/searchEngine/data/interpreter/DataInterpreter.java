@@ -7,6 +7,7 @@ import eu.mrndesign.matned.searchEngine.data.hibernate.dao.ProductDao;
 import eu.mrndesign.matned.searchEngine.data.hibernate.entity.DBCollection;
 import lombok.NoArgsConstructor;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -37,10 +38,8 @@ public class DataInterpreter implements Interpreter  {
     public List<AdvancedSearchOptions> getListOptions(String entity) {
         try{
             List<AdvancedSearchOptions> list = new LinkedList();
-            String arr[] = entity.split("::");
-            for (String el: arr){
-                list.add(new AdvancedSearchOptions(el));
-            }
+            list.addAll(Arrays.asList((String) entity.split("::"));
+);
             return list;
         }catch (Exception e){
             return null;
