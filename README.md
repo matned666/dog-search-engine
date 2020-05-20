@@ -45,6 +45,13 @@ Add name of the table to the db_collection table
                 return dao.find();<br />
             }<br />
   
+FEATURES:
+- Auto advance search layout based on entity structure
+- Many search options including sorting and sql select
+- Easy new tables implementation - only 4 steps
+- Nice and legible layout
+- GUUUUGLEEE !!!! :-)
+
 
 
 My website: http://mrndesign.eu

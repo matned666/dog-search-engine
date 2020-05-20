@@ -7,13 +7,13 @@ import java.util.LinkedList;
 import java.util.List;
 
 @Data
-public class AdvancedSearchOptions {
+public class AdvancedSearchOption {
 
     private SearchType searchType;
     private String fieldName;
     private List<String> optionsList;
 
-    public AdvancedSearchOptions(String entityFieldInfo) {
+    public AdvancedSearchOption(String entityFieldInfo) {
         getAdvancedOptionsList(entityFieldInfo);
     }
 

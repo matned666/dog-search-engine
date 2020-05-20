@@ -5,9 +5,7 @@ import eu.mrndesign.matned.searchEngine.data.hibernate.dao.DaoInterface;
 import eu.mrndesign.matned.searchEngine.data.hibernate.dao.DogDao;
 import eu.mrndesign.matned.searchEngine.data.hibernate.dao.ProductDao;
 import eu.mrndesign.matned.searchEngine.data.hibernate.entity.DBCollection;
-import lombok.NoArgsConstructor;
 
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -15,6 +13,7 @@ public class DataInterpreter implements Interpreter  {
 
     private String entityChoice;
     private DaoInterface dao;
+    private List<String> optionsList;
 
     public DataInterpreter() {
     }
@@ -35,15 +34,29 @@ public class DataInterpreter implements Interpreter  {
     }
 
     @Override
-    public List<AdvancedSearchOptions> getListOptions(String entity) {
-        try{
-            List<AdvancedSearchOptions> list = new LinkedList();
-            list.addAll(Arrays.asList((String) entity.split("::"));
-);
-            return list;
-        }catch (Exception e){
-            return null;
+    public List<AdvancedSearchOption> getListedOptions() {
+        getListOfOptions(entityChoice);
+        List<AdvancedSearchOption> list = new LinkedList<>();
+
+        for (String s : optionsList) {
+            list.add(new AdvancedSearchOption(s));
         }
+            return list;
+
+    }
+
+    private void getListOfOptions(String entity) {
+        switch (entity) {
+            case "Product": {
+                dao = new ProductDao();
+                break;
+            }
+            case "Dog": {
+                dao = new DogDao();
+                break;
+            }
+        }
+        optionsList = new LinkedList<String>(dao.listOfFields());
     }
 
     @Override

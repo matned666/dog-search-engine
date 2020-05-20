@@ -6,6 +6,6 @@ public interface Interpreter {
 
     List getResultList(String item);
     String[] getListOfBasesFromDatabase();
-    List<AdvancedSearchOptions> getListOptions(String entity);
+    List<AdvancedSearchOption> getListedOptions();
 
 }

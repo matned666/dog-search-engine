@@ -1,7 +1,10 @@
 package eu.mrndesign.matned.searchEngine.data.jFrame.searchEngine;
 
 import eu.mrndesign.matned.searchEngine.data.jFrame.BaseSwingScreen;
+import eu.mrndesign.matned.searchEngine.data.jFrame.searchEngine.options.Options;
 import eu.mrndesign.matned.searchEngine.data.jFrame.searchEngine.options.SearchEngineAdvancedBaseOptions;
+import eu.mrndesign.matned.searchEngine.data.jFrame.searchEngine.options.SearchEngineOrderByBaseOptions;
+import eu.mrndesign.matned.searchEngine.data.jFrame.searchEngine.options.SearchEngineShowFieldsBaseOptions;
 import lombok.Data;
 
 import javax.swing.*;
@@ -10,6 +13,9 @@ import java.awt.event.*;
 
 @Data
 public class SearchEngineScreen extends BaseSwingScreen implements SearchEngineScreenInterface {
+
+    private static final int WIDTH = 660;
+    //TODO - make statics for dimentions
 
     private JLabel imageLabel;
     private JButton acceptButton;
@@ -21,8 +27,13 @@ public class SearchEngineScreen extends BaseSwingScreen implements SearchEngineS
     private JLabel resultLabel;
     private String result = "Search result:\n\n";
     private JLabel resultTexted;
-    private JLabel advancedSearch;
+    private JPanel advancedSearchOptions;
+    private JPanel orderByOptions;
+    private JPanel selectOptions;
     private JScrollPane scroller;
+    private JScrollPane scrollerAdvancedSearchOptions;
+    private JScrollPane scrollerOrderByOptions;
+    private JScrollPane scrollerSelectOptions;
 
     private String choice;
 
@@ -54,17 +65,7 @@ public class SearchEngineScreen extends BaseSwingScreen implements SearchEngineS
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setSize(720, 800);
         frame.setResizable(false);
-        frame.add(acceptButton());
-        frame.add(backButton());
-        frame.add(advancedOptionsButton());
-        frame.add(inputRegexTextField());
-        frame.add(orderByButton());
-        frame.add(resultLabel());
-        frame.add(advancedSearch());
-        frame.add(imageLabel());
-        frame.add(fieldsButton());
-        frame.add(resultTexted);
-        frame.add(sign);
+        addAllComponents(sign);
         resultTexted.setText("<html><p><tr><td valign=\"top\">" + result + "</td></tr></p></html>");
         frame.setLayout(null);
         frame.setVisible(true);
@@ -75,6 +76,28 @@ public class SearchEngineScreen extends BaseSwingScreen implements SearchEngineS
 
             }
         });
+    }
+
+    private void addAllComponents(JLabel sign) {
+        frame.add(acceptButton());
+        frame.add(backButton());
+        frame.add(advancedOptionsButton());
+        frame.add(inputRegexTextField());
+        frame.add(orderByButton());
+        frame.add(resultLabel());
+        frame.add(advancedSearch());
+        frame.add(orderBy());
+        frame.add(select());
+        frame.add(imageLabel());
+        frame.add(fieldsButton());
+        frame.add(resultTexted);
+        frame.add(sign);
+    }
+
+    private JLabel imageLabel() {
+        imageLabel = new JLabel(new ImageIcon("src\\main\\resources\\guugle.png"));
+        imageLabel.setBounds(100, 30, 500, 40);
+        return imageLabel;
     }
 
     private JTextField inputRegexTextField() {
@@ -118,9 +141,9 @@ public class SearchEngineScreen extends BaseSwingScreen implements SearchEngineS
         advancedOptionsButton.setFont(new Font("Arial", Font.PLAIN, 10));
         advancedOptionsButton.setText("Advanced");
         advancedOptionsButton.addActionListener(actionEvent -> {
-            view.onAdvancedOptionsClick(this);
-            if(advancedSearch.isVisible()) advancedSearch.setVisible(true);
-            else advancedSearch.setVisible(true);
+            view.onAdvancedOptionsClick();
+            if(advancedSearchOptions.isVisible()) advancedSearchOptions.setVisible(true);
+            else advancedSearchOptions.setVisible(true);
 
         });
         return advancedOptionsButton;
@@ -131,7 +154,11 @@ public class SearchEngineScreen extends BaseSwingScreen implements SearchEngineS
         fieldsButton.setBounds(300, 100, 100, 20);
         fieldsButton.setFont(new Font("Arial", Font.PLAIN, 10));
         fieldsButton.setText("Fields show");
-        fieldsButton.addActionListener(actionEvent -> view.onAdvancedOptionsClick(this));
+        fieldsButton.addActionListener(actionEvent -> {
+            view.onSelectOptionsClick();
+            if(selectOptions.isVisible()) selectOptions.setVisible(true);
+            else selectOptions.setVisible(true);
+        });
         return fieldsButton;
     }
 
@@ -140,7 +167,11 @@ public class SearchEngineScreen extends BaseSwingScreen implements SearchEngineS
         orderByButton.setBounds(400, 100, 100, 20);
         orderByButton.setFont(new Font("Arial", Font.PLAIN, 10));
         orderByButton.setText("Order by");
-        orderByButton.addActionListener(actionEvent -> view.onAdvancedOptionsClick(this));
+        orderByButton.addActionListener(actionEvent -> {
+            view.onOrderByOptionsClick();
+            if(orderByOptions.isVisible()) orderByOptions.setVisible(true);
+            else orderByOptions.setVisible(true);
+        });
         return orderByButton;
     }
 
@@ -155,32 +186,71 @@ public class SearchEngineScreen extends BaseSwingScreen implements SearchEngineS
 
     private JScrollPane resultLabel() {
         resultLabel = new JLabel();
-        resultLabel.setBounds(20, 140, 660, 470);
+        resultLabel.setBounds(20, 140, WIDTH, 470);
         resultLabel.setVerticalAlignment(1);
         resultLabel.setText("");
         scroller = new JScrollPane(resultLabel);
-        scroller.setBounds(20, 140, 660, 500);
+        scroller.setBounds(20, 140, WIDTH, 500);
         return scroller;
     }
 
     private JScrollPane advancedSearch() {
-        advancedSearch = new JLabel();
-        advancedSearch.setBounds(20, 140, 660, 200);
-        advancedSearch.setVerticalAlignment(1);
-        advancedSearch.setText("");
-        scroller = new JScrollPane(advancedSearch);
-        scroller.setBounds(20, 140, 660, 100);
-        SearchEngineAdvancedBaseOptions searchEngineAdvancedOptions = new SearchEngineAdvancedBaseOptions(choice, advancedSearch);
-        searchEngineAdvancedOptions.label();
-        advancedSearch.setVisible(false);
-        return scroller;
+        advancedSearchOptions = new JPanel();
+        advancedSearchOptions.setLayout(new GridLayout(0,6));
+        JLabel lab = new JLabel("Advanced search: ");
+        advancedSearchOptions.add(lab);
+        for (int i = 0; i < 5; i++) {
+            advancedSearchOptions.add(new JLabel(""));
+        }
+        advancedSearchOptions.setBounds(20, 140, WIDTH, 200);
+        scrollerAdvancedSearchOptions = new JScrollPane(advancedSearchOptions);
+        scrollerAdvancedSearchOptions.setBounds(20, 140, WIDTH, 100);
+        Options searchOptions = new SearchEngineAdvancedBaseOptions(this);
+        searchOptions.make();
+        advancedSearchOptions.setVisible(false);
+        scrollerAdvancedSearchOptions.setVisible(false);
+        return scrollerAdvancedSearchOptions;
     }
 
-    private JLabel imageLabel() {
-        imageLabel = new JLabel(new ImageIcon("src\\main\\resources\\guugle.png"));
-        imageLabel.setBounds(100, 30, 500, 40);
-        return imageLabel;
+
+    private JScrollPane orderBy() {
+        orderByOptions = new JPanel();
+        orderByOptions.setLayout(new GridLayout(0,6));
+        JLabel lab = new JLabel("Order by: ");
+        orderByOptions.add(lab);
+        for (int i = 0; i < 5; i++) {
+            orderByOptions.add(new JLabel(""));
+        }
+        orderByOptions.setBounds(20, 140, WIDTH, 200);
+        scrollerOrderByOptions = new JScrollPane(orderByOptions);
+        scrollerOrderByOptions.setBounds(20, 140, WIDTH, 100);
+        Options searchOptions = new SearchEngineOrderByBaseOptions(this);
+        searchOptions.make();
+        orderByOptions.setVisible(false);
+        scrollerOrderByOptions.setVisible(false);
+        return scrollerOrderByOptions;
     }
+
+
+    private JScrollPane select() {
+        selectOptions = new JPanel();
+        selectOptions.setLayout(new GridLayout(0,6));
+        JLabel lab = new JLabel("Fields to be shown: ");
+        selectOptions.add(lab);
+        for (int i = 0; i < 5; i++) {
+            selectOptions.add(new JLabel(""));
+        }
+        selectOptions.setBounds(20, 140, WIDTH, 200);
+        scrollerSelectOptions = new JScrollPane(selectOptions);
+        scrollerSelectOptions.setBounds(20, 140, WIDTH, 100);
+        Options searchOptions = new SearchEngineShowFieldsBaseOptions(this);
+        searchOptions.make();
+        selectOptions.setVisible(false);
+        scrollerSelectOptions.setVisible(false);
+        return scrollerSelectOptions;
+    }
+
+
 
 
 }

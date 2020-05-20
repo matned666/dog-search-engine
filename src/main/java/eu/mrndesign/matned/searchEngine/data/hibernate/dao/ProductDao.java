@@ -3,6 +3,7 @@ package eu.mrndesign.matned.searchEngine.data.hibernate.dao;
 import eu.mrndesign.matned.searchEngine.data.hibernate.HibernateUtil;
 import eu.mrndesign.matned.searchEngine.data.hibernate.entity.Dog;
 import eu.mrndesign.matned.searchEngine.data.hibernate.entity.Product;
+import lombok.NoArgsConstructor;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -14,6 +15,7 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
+@NoArgsConstructor
 public class ProductDao implements DaoInterface<Product> {
 
     private String prodName;

@@ -7,9 +7,9 @@ public class SearchEngineContract {
     public interface View {
 
         void onSearch(String list);
-        void onNoResult();
-        void onBack();
-        void onAdvancedOptionsClick(SearchEngineScreen searchEngineScreen);
+        void onAdvancedOptionsClick();
+        void onOrderByOptionsClick();
+        void onSelectOptionsClick();
 
     }
 

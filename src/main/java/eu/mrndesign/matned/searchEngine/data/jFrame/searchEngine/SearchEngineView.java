@@ -2,21 +2,20 @@ package eu.mrndesign.matned.searchEngine.data.jFrame.searchEngine;
 
 import lombok.Data;
 
-import java.util.List;
-
 @Data
 public class SearchEngineView implements SearchEngineContract.View {
 
     private boolean areAdvancedOptionsOn;
+    private boolean orderByOptions;
+    private boolean showFieldsOptions;
     private SearchEngineScreen screen;
 
-
-    public SearchEngineView() {
-    }
 
     public SearchEngineView(SearchEngineScreen screen) {
         this.screen = screen;
         areAdvancedOptionsOn = false;
+        orderByOptions = false;
+        showFieldsOptions = false;
     }
 
 
@@ -26,37 +25,91 @@ public class SearchEngineView implements SearchEngineContract.View {
     }
 
     @Override
-    public void onNoResult() {
-
-    }
-
-    @Override
-    public void onBack() {
-
-    }
-
-    @Override
-    public void onAdvancedOptionsClick(SearchEngineScreen searchEngineScreen) {
+    public void onAdvancedOptionsClick() {
         if(!areAdvancedOptionsOn) {
+            resultsGoDown();
             advancedOptionsTurnON();
         }else{
+            resultsGoUp();
             advancedOptionsTurnOFF();
         }
     }
 
-    private void advancedOptionsTurnON() {
-        screen.getResultLabel().setBounds(20, 240, 660, 370);
-        screen.getScroller().setBounds(20, 240, 660, 400);
-        screen.getResultTexted().setBounds(30, 200, 100, 40);
+    @Override
+    public void onOrderByOptionsClick() {
+        if(!orderByOptions) {
+            resultsGoDown();
+            orderByOptionsTurnON();
+        }else{
+            resultsGoUp();
+            orderByOptionsTurnOFF();
+        }
+    }
 
+    @Override
+    public void onSelectOptionsClick() {
+        if(!showFieldsOptions) {
+            resultsGoDown();
+            showFieldsOptionsTurnON();
+        }else{
+            resultsGoUp();
+            showFieldsOptionsTurnOFF();
+        }
+    }
+
+    private void advancedOptionsTurnON() {
+        orderByOptionsTurnOFF();
+        showFieldsOptionsTurnOFF();
+        screen.getAdvancedSearchOptions().setVisible(true);
+        screen.getScrollerAdvancedSearchOptions().setVisible(true);
         areAdvancedOptionsOn = true;
     }
 
+    private void orderByOptionsTurnON() {
+        advancedOptionsTurnOFF();
+        showFieldsOptionsTurnOFF();
+        screen.getOrderByOptions().setVisible(true);
+        screen.getScrollerOrderByOptions().setVisible(true);
+        orderByOptions = true;
+    }
+
+    private void showFieldsOptionsTurnON() {
+        advancedOptionsTurnOFF();
+        orderByOptionsTurnOFF();
+        screen.getSelectOptions().setVisible(true);
+        screen.getScrollerSelectOptions().setVisible(true);
+        showFieldsOptions = true;
+    }
+
     private void advancedOptionsTurnOFF() {
+        screen.getAdvancedSearchOptions().setVisible(false);
+        screen.getScrollerAdvancedSearchOptions().setVisible(false);
+        areAdvancedOptionsOn = false;
+    }
+
+     private void orderByOptionsTurnOFF() {
+        screen.getOrderByOptions().setVisible(false);
+        screen.getScrollerOrderByOptions().setVisible(false);
+        orderByOptions = false;
+    }
+
+     private void showFieldsOptionsTurnOFF() {
+        screen.getSelectOptions().setVisible(false);
+        screen.getScrollerSelectOptions().setVisible(false);
+        showFieldsOptions = false;
+    }
+
+    private void resultsGoDown() {
+        screen.getResultLabel().setBounds(20, 280, 660, 370);
+        screen.getScroller().setBounds(20, 280, 660, 400);
+        screen.getResultTexted().setBounds(30, 240, 100, 40);
+
+    }
+
+    private void resultsGoUp() {
         screen.getResultLabel().setBounds(20, 140, 660, 470);
         screen.getScroller().setBounds(20, 140, 660, 500);
         screen.getResultTexted().setBounds(30, 100, 100, 40);
-        areAdvancedOptionsOn = false;
     }
 
 

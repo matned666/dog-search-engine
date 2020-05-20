@@ -28,13 +28,16 @@ public class SearchEnginePresenter implements SearchEngineContract.Presenter{
         String choice = screen.getChoice();
         String value = screen.getInputTextField().getText();
         List<Object> list = new LinkedList<Object>(mediator.getResultList(value));
-        StringBuilder builder = new StringBuilder();
-        builder.append("<html>");
-        for (Object el: list) {
-            builder.append("<p>").append(el.toString()).append("</p>");
-        }
-        builder.append("</html>");
-        return String.valueOf(builder);
+        if(list.size() > 0) {
+            StringBuilder builder = new StringBuilder();
+            builder.append("<html>");
+            for (Object el : list) {
+                builder.append("<p>").append(el.toString()).append("</p>");
+            }
+            builder.append("</html>");
+            return String.valueOf(builder);
+        } else return "No results";
+
     }
 
     @Override
