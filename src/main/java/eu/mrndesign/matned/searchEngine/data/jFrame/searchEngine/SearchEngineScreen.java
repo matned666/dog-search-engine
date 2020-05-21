@@ -20,6 +20,7 @@ public class SearchEngineScreen extends BaseSwingScreen implements SearchEngineS
     private static final int WIDTH = 660;
     //TODO - make statics for dimentions
 
+    private Options searchOptions;
     private JLabel imageLabel;
     private JLabel infoLabel;
     private JButton acceptButton;
@@ -266,7 +267,7 @@ public class SearchEngineScreen extends BaseSwingScreen implements SearchEngineS
         selectOptions.setBounds(20, 140, WIDTH, 200);
         scrollerSelectOptions = new JScrollPane(selectOptions);
         scrollerSelectOptions.setBounds(20, 140, WIDTH, 100);
-        Options searchOptions = new SearchEngineShowFieldsBaseOptions(this);
+        searchOptions = new SearchEngineShowFieldsBaseOptions(this);
         searchOptions.make();
         selectOptions.setVisible(false);
         scrollerSelectOptions.setVisible(false);

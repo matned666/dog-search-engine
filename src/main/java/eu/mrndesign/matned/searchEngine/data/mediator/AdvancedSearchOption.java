@@ -1,4 +1,4 @@
-package eu.mrndesign.matned.searchEngine.data.interpreter;
+package eu.mrndesign.matned.searchEngine.data.mediator;
 
 import lombok.Data;
 

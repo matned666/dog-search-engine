@@ -1,7 +1,7 @@
 package eu.mrndesign.matned.searchEngine.data.jFrame.searchEngine.options;
 
-import eu.mrndesign.matned.searchEngine.data.interpreter.AdvancedSearchOption;
-import eu.mrndesign.matned.searchEngine.data.interpreter.SearchType;
+import eu.mrndesign.matned.searchEngine.data.mediator.AdvancedSearchOption;
+import eu.mrndesign.matned.searchEngine.data.mediator.SearchType;
 
 import java.util.Comparator;
 

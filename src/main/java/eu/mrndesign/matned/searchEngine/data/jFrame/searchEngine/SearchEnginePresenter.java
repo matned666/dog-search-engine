@@ -1,6 +1,6 @@
 package eu.mrndesign.matned.searchEngine.data.jFrame.searchEngine;
 
-import eu.mrndesign.matned.searchEngine.data.interpreter.DataInterpreter;
+import eu.mrndesign.matned.searchEngine.data.mediator.DataMediator;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -8,7 +8,7 @@ import java.util.List;
 public class SearchEnginePresenter implements SearchEngineContract.Presenter{
 
     private final SearchEngineContract.View view;
-    private DataInterpreter mediator;
+    private DataMediator mediator;
     private SearchEngineScreen screen;
     private int listSize;
 
@@ -22,7 +22,7 @@ public class SearchEnginePresenter implements SearchEngineContract.Presenter{
 
     @Override
     public void search() {
-        mediator = new DataInterpreter(screen.getChoice());
+        mediator = new DataMediator(screen.getChoice());
         view.onSearch(htmlTextListBuild(), listSize);
     }
 
@@ -39,7 +39,7 @@ public class SearchEnginePresenter implements SearchEngineContract.Presenter{
     private String htmlTextListBuild() {
         String choice = screen.getChoice();
         String value = screen.getInputTextField().getText();
-        List<Object> list = new LinkedList<Object>(mediator.getResultList(value));
+        List<Object> list = new LinkedList<Object>(mediator.getResultList(value, screen.getSearchOptions().getOptions()));
         listSize = list.size();
         if(list.size() > 0) {
             StringBuilder builder = new StringBuilder();

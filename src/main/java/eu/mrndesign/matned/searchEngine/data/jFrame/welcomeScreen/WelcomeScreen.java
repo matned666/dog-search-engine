@@ -1,7 +1,7 @@
 package eu.mrndesign.matned.searchEngine.data.jFrame.welcomeScreen;
 
 import eu.mrndesign.matned.searchEngine.data.jFrame.BaseSwingScreen;
-import eu.mrndesign.matned.searchEngine.data.interpreter.DataInterpreter;
+import eu.mrndesign.matned.searchEngine.data.mediator.DataMediator;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,13 +15,13 @@ public class WelcomeScreen extends BaseSwingScreen implements WelcomeScreenInter
     private JButton acceptButton;
     private JLabel imageLabel;
     private JComboBox<String> comboBox;
-    private DataInterpreter dm;
+    private DataMediator dm;
     private JLabel label;
 
 
 
     public WelcomeScreen(ScreenListener listener) {
-        dm = new DataInterpreter();
+        dm = new DataMediator();
         this.listener = listener;
         frame = new JFrame("Welcome");
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);

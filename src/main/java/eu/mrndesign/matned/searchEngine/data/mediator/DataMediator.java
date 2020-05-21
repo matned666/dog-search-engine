@@ -1,24 +1,30 @@
-package eu.mrndesign.matned.searchEngine.data.interpreter;
+package eu.mrndesign.matned.searchEngine.data.mediator;
 
 import eu.mrndesign.matned.searchEngine.data.hibernate.dao.DBCollectionDao;
 import eu.mrndesign.matned.searchEngine.data.hibernate.dao.DaoInterface;
 import eu.mrndesign.matned.searchEngine.data.hibernate.dao.DogDao;
 import eu.mrndesign.matned.searchEngine.data.hibernate.dao.ProductDao;
 import eu.mrndesign.matned.searchEngine.data.hibernate.entity.DBCollection;
+import eu.mrndesign.matned.searchEngine.data.jFrame.searchEngine.options.Options;
+import eu.mrndesign.matned.searchEngine.data.jFrame.searchEngine.options.optionsObject.OptionsInterface;
+import eu.mrndesign.matned.searchEngine.data.jFrame.searchEngine.options.optionsObject.Select;
+import eu.mrndesign.matned.searchEngine.data.mediator.interpreter.OptionsInterpreter;
+import eu.mrndesign.matned.searchEngine.data.mediator.interpreter.SelectInterpreter;
 
 import java.util.LinkedList;
 import java.util.List;
 
-public class DataInterpreter implements Interpreter  {
+public class DataMediator implements Mediator {
 
     private String entityChoice;
     private DaoInterface dao;
     private List<String> optionsList;
+    private OptionsInterpreter interpreter;
 
-    public DataInterpreter() {
+    public DataMediator() {
     }
 
-    public DataInterpreter(String entityChoice) {
+    public DataMediator(String entityChoice) {
         this.entityChoice = entityChoice;
     }
 
@@ -60,15 +66,16 @@ public class DataInterpreter implements Interpreter  {
     }
 
     @Override
-    public List getResultList(String item) {
+    public List getResultList(String item, List<OptionsInterface> list) {
+        interpreter = new SelectInterpreter(list);
         if (item.trim().equals("")) item = "%";
         switch (entityChoice) {
             case "Product": {
-                dao = new ProductDao(item);
+                dao = new ProductDao(item, interpreter.getList());
                 return dao.find();
             }
             default: {
-                dao = new DogDao(item);
+                dao = new DogDao(item, interpreter.getList());
                 return dao.find();
             }
         }

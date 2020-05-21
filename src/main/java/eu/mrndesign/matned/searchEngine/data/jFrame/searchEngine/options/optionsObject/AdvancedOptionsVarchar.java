@@ -1,10 +1,12 @@
 package eu.mrndesign.matned.searchEngine.data.jFrame.searchEngine.options.optionsObject;
 
-import eu.mrndesign.matned.searchEngine.data.interpreter.SearchType;
+import eu.mrndesign.matned.searchEngine.data.mediator.SearchType;
 import lombok.Data;
 import lombok.ToString;
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.util.List;
 
@@ -15,11 +17,17 @@ public class AdvancedOptionsVarchar implements OptionsInterface{
     private SearchType searchType;
     private String fieldName;
     private JCheckBox checkBox;
+    private boolean isChecked;
 
     public AdvancedOptionsVarchar(SearchType searchType, String fieldName) {
         this.searchType = searchType;
         this.fieldName = fieldName;
         this.checkBox = new JCheckBox();
+        isChecked = false;
+        this.checkBox.addChangeListener(e -> {
+            if (isChecked) isChecked = true;
+            else isChecked = false;
+        });
     }
 
 
@@ -44,4 +52,20 @@ public class AdvancedOptionsVarchar implements OptionsInterface{
     public List getContainerLabels() {
         return null;
     }
+
+    @Override
+    public boolean isFirstSelected() {
+        return isChecked;
+    }
+
+    @Override
+    public boolean isSecondSelected() {
+        return false;
+    }
+
+    @Override
+    public List<Boolean> getContainersChecks() {
+        return null;
+    }
+
 }

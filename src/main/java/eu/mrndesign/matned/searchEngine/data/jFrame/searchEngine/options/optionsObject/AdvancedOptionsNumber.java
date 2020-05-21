@@ -1,6 +1,6 @@
 package eu.mrndesign.matned.searchEngine.data.jFrame.searchEngine.options.optionsObject;
 
-import eu.mrndesign.matned.searchEngine.data.interpreter.SearchType;
+import eu.mrndesign.matned.searchEngine.data.mediator.SearchType;
 import lombok.Data;
 import lombok.ToString;
 
@@ -37,6 +37,21 @@ public class AdvancedOptionsNumber implements OptionsInterface{
 
     @Override
     public List getContainerLabels() {
+        return null;
+    }
+
+    @Override
+    public boolean isFirstSelected() {
+        return false;
+    }
+
+    @Override
+    public boolean isSecondSelected() {
+        return false;
+    }
+
+    @Override
+    public List<Boolean> getContainersChecks() {
         return null;
     }
 }

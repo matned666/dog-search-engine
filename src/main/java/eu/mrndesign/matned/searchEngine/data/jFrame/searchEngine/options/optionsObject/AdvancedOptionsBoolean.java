@@ -1,10 +1,12 @@
 package eu.mrndesign.matned.searchEngine.data.jFrame.searchEngine.options.optionsObject;
 
-import eu.mrndesign.matned.searchEngine.data.interpreter.SearchType;
+import eu.mrndesign.matned.searchEngine.data.mediator.SearchType;
 import lombok.Data;
 import lombok.ToString;
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.util.List;
 
@@ -15,7 +17,9 @@ public class AdvancedOptionsBoolean implements OptionsInterface{
     private SearchType searchType;
     private String fieldName;
     private JCheckBox checkBoxTrue;
+    private boolean isCheckBoxTrue;
     private JCheckBox checkBoxFalse;
+    private boolean isCheckBoxFalse;
 
 
 
@@ -23,6 +27,16 @@ public class AdvancedOptionsBoolean implements OptionsInterface{
         this.searchType = searchType;
         this.fieldName = fieldName;
         this.checkBoxTrue = new JCheckBox();
+        isCheckBoxTrue = false;
+        isCheckBoxFalse = false;
+        this.checkBoxTrue.addChangeListener(e -> {
+            if (isCheckBoxTrue) isCheckBoxTrue = true;
+            else isCheckBoxTrue = false;
+        });
+        this.checkBoxFalse.addChangeListener(e -> {
+            if (isCheckBoxFalse) isCheckBoxFalse = true;
+            else isCheckBoxFalse = false;
+        });
         this.checkBoxFalse = new JCheckBox();
     }
 
@@ -43,6 +57,21 @@ public class AdvancedOptionsBoolean implements OptionsInterface{
 
     @Override
     public List getContainerLabels() {
+        return null;
+    }
+
+    @Override
+    public boolean isFirstSelected() {
+        return isCheckBoxTrue;
+    }
+
+    @Override
+    public boolean isSecondSelected() {
+        return isCheckBoxFalse;
+    }
+
+    @Override
+    public List<Boolean> getContainersChecks() {
         return null;
     }
 }

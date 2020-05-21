@@ -1,7 +1,7 @@
 package eu.mrndesign.matned.searchEngine.data.jFrame.searchEngine.options;
 
-import eu.mrndesign.matned.searchEngine.data.interpreter.AdvancedSearchOption;
-import eu.mrndesign.matned.searchEngine.data.interpreter.DataInterpreter;
+import eu.mrndesign.matned.searchEngine.data.mediator.AdvancedSearchOption;
+import eu.mrndesign.matned.searchEngine.data.mediator.DataMediator;
 import eu.mrndesign.matned.searchEngine.data.jFrame.searchEngine.SearchEngineScreen;
 import eu.mrndesign.matned.searchEngine.data.jFrame.searchEngine.options.optionsObject.*;
 import lombok.Data;
@@ -18,7 +18,7 @@ public class SearchEngineAdvancedBaseOptions implements Options {
     private String choice;
     private SearchEngineScreen screen;
 
-    private DataInterpreter interpreter;
+    private DataMediator interpreter;
 
     private List<AdvancedSearchOption> fields;
     private List<OptionsInterface> options;
@@ -28,7 +28,7 @@ public class SearchEngineAdvancedBaseOptions implements Options {
         this.screen = screen;
         this.choice = screen.getChoice();
         this.panel = screen.getAdvancedSearchOptions();
-        interpreter = new DataInterpreter(screen.getChoice());
+        interpreter = new DataMediator(screen.getChoice());
         fields = new LinkedList<>(interpreter.getListedOptions());
         options = new LinkedList<>();
         counter = 0;

@@ -8,7 +8,11 @@ public interface OptionsInterface {
         String getFieldName();
         Component getFirst();
         Component getSecond();
-        java.util.List getContainers();
+        List getContainers();
         List getContainerLabels();
+        boolean isFirstSelected();
+        boolean isSecondSelected();
+        List<Boolean> getContainersChecks();
 
+//        Component getCheck();
 }

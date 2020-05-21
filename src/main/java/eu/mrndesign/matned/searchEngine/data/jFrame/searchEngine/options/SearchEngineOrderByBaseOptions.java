@@ -1,7 +1,9 @@
 package eu.mrndesign.matned.searchEngine.data.jFrame.searchEngine.options;
 
-import eu.mrndesign.matned.searchEngine.data.interpreter.AdvancedSearchOption;
-import eu.mrndesign.matned.searchEngine.data.interpreter.DataInterpreter;
+import eu.mrndesign.matned.searchEngine.data.jFrame.searchEngine.options.optionsObject.OptionsInterface;
+import eu.mrndesign.matned.searchEngine.data.jFrame.searchEngine.options.optionsObject.Select;
+import eu.mrndesign.matned.searchEngine.data.mediator.AdvancedSearchOption;
+import eu.mrndesign.matned.searchEngine.data.mediator.DataMediator;
 import eu.mrndesign.matned.searchEngine.data.jFrame.searchEngine.SearchEngineScreen;
 
 import javax.swing.*;
@@ -16,7 +18,7 @@ public class SearchEngineOrderByBaseOptions implements Options {
 
     public SearchEngineOrderByBaseOptions(SearchEngineScreen screen) {
         this.panel = screen.getOrderByOptions();
-        fields = new LinkedList<>(new DataInterpreter(screen.getChoice()).getListedOptions());
+        fields = new LinkedList<>(new DataMediator(screen.getChoice()).getListedOptions());
 
     }
 
@@ -32,5 +34,10 @@ public class SearchEngineOrderByBaseOptions implements Options {
             panel.add(new JLabel(""));
         }
 
+    }
+
+    @Override
+    public List<OptionsInterface> getOptions() {
+        return null;
     }
 }

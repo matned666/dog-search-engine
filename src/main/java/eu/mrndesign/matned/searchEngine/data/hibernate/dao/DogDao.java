@@ -3,6 +3,8 @@ package eu.mrndesign.matned.searchEngine.data.hibernate.dao;
 import eu.mrndesign.matned.searchEngine.data.hibernate.HibernateUtil;
 import eu.mrndesign.matned.searchEngine.data.hibernate.entity.Dog;
 import eu.mrndesign.matned.searchEngine.data.hibernate.entity.enums.DogRace;
+import eu.mrndesign.matned.searchEngine.data.jFrame.searchEngine.options.optionsObject.OptionsInterface;
+import eu.mrndesign.matned.searchEngine.data.mediator.interpreter.OptionsInterpreter;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,12 +13,9 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
+import javax.persistence.criteria.*;
+import java.util.*;
+import java.util.stream.Collectors;
 
 
 public class DogDao implements DaoInterface<Dog>{
@@ -44,10 +43,14 @@ public class DogDao implements DaoInterface<Dog>{
     private String ownerName2;
     private String ownerLastName2;
 
+    private List<String> list;
+    private List<Path> selections;
+
     public DogDao() {
     }
 
-    public DogDao(String item) {
+    public DogDao(String item, List<String> list) {
+        this.list = list;
         initializeCriteria();
         dogName1 = item;
 
@@ -71,11 +74,19 @@ public class DogDao implements DaoInterface<Dog>{
     @Override
     public List<Dog> find() {
         List result = new LinkedList<>();
+        selections = new LinkedList<>();
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         try(Session session = sessionFactory.openSession()) {
             CriteriaBuilder cb = session.getCriteriaBuilder();
             CriteriaQuery<Dog> criteriaQuery = cb.createQuery(Dog.class);
             Root<Dog> rootTable = criteriaQuery.from(Dog.class);
+            System.out.println(list);
+            for (String el : list) {
+                selections.add(rootTable.get(el));
+            }
+            criteriaQuery.multiselect(list.stream()
+                    .map(f -> rootTable.get(f))
+                    .collect(Collectors.toList()));
             criteriaQuery.select(rootTable)
                     .where(
                             cb.like(rootTable.get("dogName"), dogName1)
