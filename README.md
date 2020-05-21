@@ -17,16 +17,17 @@ check it in my first commit.<br />
 You have to add your database name, host, and user with <br />
 privileges, of course password and mapping class to entities.<br />
 
+#GUIDE
 USE:<br />
-Choose your desired table <br />
-and search<br />
+Choose your desired table and search by pressing entet or search button. That's all<br />
 "a%" gives all entries on letter 'a'<br />
 "al%" entries on 'al'<br />
 ...<br />
-you can open advanced search options.<br />
-you can check fields to search in<br />
-you can check fields to show<br />
+- you can open advanced search options.<br />
+- you can check fields to show in your search <br />
+- you can check fields to show<br />
 
+#INSTALLATION
 BEFORE RUNNING:<br />
 Configure your database data in Hibernate.cfg.xml<br />
  - host, database name, login and password<br />
@@ -45,7 +46,7 @@ Add name of the table to the db_collection table
                 return dao.find();<br />
             }<br />
   
-FEATURES:
+#FEATURES:
 - Auto advance search layout based on entity structure
 - Many search options including sorting and sql select
 - Easy new tables implementation - only 4 steps

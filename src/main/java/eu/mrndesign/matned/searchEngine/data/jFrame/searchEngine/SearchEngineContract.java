@@ -6,7 +6,7 @@ public class SearchEngineContract {
 
     public interface View {
 
-        void onSearch(String list);
+        void onSearch(String list, int size);
         void onAdvancedOptionsClick();
         void onOrderByOptionsClick();
         void onSelectOptionsClick();
@@ -17,6 +17,7 @@ public class SearchEngineContract {
 
         void search();
         void changeTermsOfSearch(String value);
+        int listSize();
 
     }
 

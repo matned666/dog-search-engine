@@ -10,6 +10,9 @@ import lombok.Data;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 @Data
 public class SearchEngineScreen extends BaseSwingScreen implements SearchEngineScreenInterface {
@@ -18,6 +21,7 @@ public class SearchEngineScreen extends BaseSwingScreen implements SearchEngineS
     //TODO - make statics for dimentions
 
     private JLabel imageLabel;
+    private JLabel infoLabel;
     private JButton acceptButton;
     private JButton backButton;
     private JButton fieldsButton;
@@ -60,12 +64,18 @@ public class SearchEngineScreen extends BaseSwingScreen implements SearchEngineS
         resultTexted = new JLabel();
         resultTexted.setBounds(30, 100, 100, 40);
         JLabel sign = new JLabel();
-        sign.setBounds(500, 700, 180, 40);
+        sign.setBounds(500, 680, 180, 40);
         sign.setText("Made by Mateusz Niedbal");
+        frame.add(sign);
+        JLabel link = new JLabel("<html><a href=\"http://www.mrndesign.eu\">http://www.mrndesign.eu</a></html>");
+        link.setBounds(500, 700, 180, 40);
+        link.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        linkPreparation(link);
+        frame.add(link);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setSize(720, 800);
         frame.setResizable(false);
-        addAllComponents(sign);
+        addAllComponents();
         resultTexted.setText("<html><p><tr><td valign=\"top\">" + result + "</td></tr></p></html>");
         frame.setLayout(null);
         frame.setVisible(true);
@@ -78,7 +88,7 @@ public class SearchEngineScreen extends BaseSwingScreen implements SearchEngineS
         });
     }
 
-    private void addAllComponents(JLabel sign) {
+    private void addAllComponents() {
         frame.add(acceptButton());
         frame.add(backButton());
         frame.add(advancedOptionsButton());
@@ -89,15 +99,40 @@ public class SearchEngineScreen extends BaseSwingScreen implements SearchEngineS
         frame.add(orderBy());
         frame.add(select());
         frame.add(imageLabel());
+        frame.add(infoLabel());
         frame.add(fieldsButton());
         frame.add(resultTexted);
-        frame.add(sign);
+    }
+
+    private JScrollPane advancedSearch() {
+        advancedSearchOptions = new JPanel();
+        advancedSearchOptions.setLayout(new GridLayout(0,6));
+        JLabel lab = new JLabel("Advanced search: ");
+        advancedSearchOptions.add(lab);
+        for (int i = 0; i < 5; i++) {
+            advancedSearchOptions.add(new JLabel(""));
+        }
+        advancedSearchOptions.setBounds(20, 140, WIDTH, 200);
+        scrollerAdvancedSearchOptions = new JScrollPane(advancedSearchOptions);
+        scrollerAdvancedSearchOptions.setBounds(20, 140, WIDTH, 100);
+        Options searchOptions = new SearchEngineAdvancedBaseOptions(this);
+        searchOptions.make();
+        advancedSearchOptions.setVisible(false);
+        scrollerAdvancedSearchOptions.setVisible(false);
+        return scrollerAdvancedSearchOptions;
     }
 
     private JLabel imageLabel() {
         imageLabel = new JLabel(new ImageIcon("src\\main\\resources\\guugle.png"));
         imageLabel.setBounds(100, 30, 500, 40);
         return imageLabel;
+    }
+
+    private JLabel infoLabel() {
+        infoLabel = new JLabel("Table '"+choice+"'");
+        infoLabel.setBounds(20, 650, WIDTH, 40);
+        infoLabel.setFont(new Font("Arial", Font.PLAIN, 20));
+        return infoLabel;
     }
 
     private JTextField inputRegexTextField() {
@@ -128,6 +163,8 @@ public class SearchEngineScreen extends BaseSwingScreen implements SearchEngineS
     public JButton acceptButton() {
         acceptButton = new JButton();
         acceptButton.setBounds(100, 100, 100, 20);
+        acceptButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
         acceptButton.setFont(new Font("Arial", Font.PLAIN, 15));
         acceptButton.setText("Search");
         acceptButton.addActionListener(actionEvent -> presenter.search());
@@ -138,6 +175,7 @@ public class SearchEngineScreen extends BaseSwingScreen implements SearchEngineS
     public JButton advancedOptionsButton() {
         advancedOptionsButton = new JButton();
         advancedOptionsButton.setBounds(200, 100, 100, 20);
+        advancedOptionsButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         advancedOptionsButton.setFont(new Font("Arial", Font.PLAIN, 10));
         advancedOptionsButton.setText("Advanced");
         advancedOptionsButton.addActionListener(actionEvent -> {
@@ -152,6 +190,7 @@ public class SearchEngineScreen extends BaseSwingScreen implements SearchEngineS
     public JButton fieldsButton() {
         fieldsButton = new JButton();
         fieldsButton.setBounds(300, 100, 100, 20);
+        fieldsButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         fieldsButton.setFont(new Font("Arial", Font.PLAIN, 10));
         fieldsButton.setText("Fields show");
         fieldsButton.addActionListener(actionEvent -> {
@@ -165,6 +204,7 @@ public class SearchEngineScreen extends BaseSwingScreen implements SearchEngineS
     public JButton orderByButton() {
         orderByButton = new JButton();
         orderByButton.setBounds(400, 100, 100, 20);
+        orderByButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         orderByButton.setFont(new Font("Arial", Font.PLAIN, 10));
         orderByButton.setText("Order by");
         orderByButton.addActionListener(actionEvent -> {
@@ -178,6 +218,7 @@ public class SearchEngineScreen extends BaseSwingScreen implements SearchEngineS
     public JButton backButton() {
         backButton = new JButton();
         backButton.setBounds(500, 100, 100, 20);
+        backButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         backButton.setFont(new Font("Arial", Font.PLAIN, 10));
         backButton.setText("Back");
         backButton.addActionListener(actionEvent -> listener.onBackToDatabaseChoice_WelcomeScreen());
@@ -192,24 +233,6 @@ public class SearchEngineScreen extends BaseSwingScreen implements SearchEngineS
         scroller = new JScrollPane(resultLabel);
         scroller.setBounds(20, 140, WIDTH, 500);
         return scroller;
-    }
-
-    private JScrollPane advancedSearch() {
-        advancedSearchOptions = new JPanel();
-        advancedSearchOptions.setLayout(new GridLayout(0,6));
-        JLabel lab = new JLabel("Advanced search: ");
-        advancedSearchOptions.add(lab);
-        for (int i = 0; i < 5; i++) {
-            advancedSearchOptions.add(new JLabel(""));
-        }
-        advancedSearchOptions.setBounds(20, 140, WIDTH, 200);
-        scrollerAdvancedSearchOptions = new JScrollPane(advancedSearchOptions);
-        scrollerAdvancedSearchOptions.setBounds(20, 140, WIDTH, 100);
-        Options searchOptions = new SearchEngineAdvancedBaseOptions(this);
-        searchOptions.make();
-        advancedSearchOptions.setVisible(false);
-        scrollerAdvancedSearchOptions.setVisible(false);
-        return scrollerAdvancedSearchOptions;
     }
 
 
@@ -249,6 +272,42 @@ public class SearchEngineScreen extends BaseSwingScreen implements SearchEngineS
         scrollerSelectOptions.setVisible(false);
         return scrollerSelectOptions;
     }
+
+    private void linkPreparation(JLabel link) {
+        link.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                try {
+                    Desktop.getDesktop().browse(new URI("http://mrndesign.eu"));
+                } catch (URISyntaxException | IOException ex) {
+                    //It looks like there's a problem
+                }
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+            }
+        });
+    }
+
+
+
 
 
 

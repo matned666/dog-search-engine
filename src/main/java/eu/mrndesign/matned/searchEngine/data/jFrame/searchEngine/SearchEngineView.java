@@ -20,8 +20,11 @@ public class SearchEngineView implements SearchEngineContract.View {
 
 
     @Override
-    public void onSearch(String list) {
+    public void onSearch(String list, int size) {
+
         screen.getResultLabel().setText(list);
+        screen.getInfoLabel().setText("Table '"+screen.getChoice()+"', number of results: "+size);
+
     }
 
     @Override
@@ -100,8 +103,8 @@ public class SearchEngineView implements SearchEngineContract.View {
     }
 
     private void resultsGoDown() {
-        screen.getResultLabel().setBounds(20, 280, 660, 370);
-        screen.getScroller().setBounds(20, 280, 660, 400);
+        screen.getResultLabel().setBounds(20, 280, 660, 330);
+        screen.getScroller().setBounds(20, 280, 660, 360);
         screen.getResultTexted().setBounds(30, 240, 100, 40);
 
     }
