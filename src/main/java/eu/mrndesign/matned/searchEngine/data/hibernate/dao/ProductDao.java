@@ -5,6 +5,9 @@ import eu.mrndesign.matned.searchEngine.data.hibernate.entity.Dog;
 import eu.mrndesign.matned.searchEngine.data.hibernate.entity.Product;
 import eu.mrndesign.matned.searchEngine.data.jFrame.searchEngine.options.optionsObject.OptionsInterface;
 import eu.mrndesign.matned.searchEngine.data.mediator.interpreter.OptionsInterpreter;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -17,17 +20,23 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
-@NoArgsConstructor
 public class ProductDao implements DaoInterface<Product> {
+
+    private String item;
+    private OptionsInterpreter advancedInterpreter;
+    private OptionsInterpreter orderInterpreter;
+    private OptionsInterpreter selectInterpreter;
 
     private String prodName;
 
-    public ProductDao(String prodName) {
-        this.prodName = prodName;
+    public ProductDao() {
     }
 
-    public ProductDao(String item, List<String> list) {
-
+    public ProductDao(String item, OptionsInterpreter advancedInterpreter, OptionsInterpreter orderInterpreter, OptionsInterpreter selectInterpreter) {
+        this.item = item;
+        this.advancedInterpreter = advancedInterpreter;
+        this.orderInterpreter = orderInterpreter;
+        this.selectInterpreter = selectInterpreter;
     }
 
     @Override
@@ -56,6 +65,6 @@ public class ProductDao implements DaoInterface<Product> {
 
     @Override
     public List<String> listOfFields() {
-        return Arrays.asList("NUMBER::Id","VARCHAR::Name","NUMBER::Value","NUMBER::Project details id");
+        return Arrays.asList("NUMBER::productId::","VARCHAR::productName::","NUMBER::productValue::","NUMBER::productDetailsId::");
     }
 }

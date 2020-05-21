@@ -7,15 +7,13 @@ import java.util.List;
 
 public class SelectInterpreter implements OptionsInterpreter {
 
-    List<OptionsInterface> options;
+    private List<OptionsInterface> options;
 
-    List<String> fieldNames;
-    List<Boolean> checks;
+    private List<String> fieldNames;
 
     public SelectInterpreter(List<OptionsInterface> options) {
         this.options = options;
         fieldNames = new LinkedList<>();
-        checks = new LinkedList<>();
         initialize();
     }
 
@@ -26,7 +24,22 @@ public class SelectInterpreter implements OptionsInterpreter {
     }
 
     @Override
-    public List getList() {
+    public List<String> getFieldNameList() {
         return fieldNames;
+    }
+
+    @Override
+    public List<Boolean> getChecksList() {
+        return null;
+    }
+
+    @Override
+    public List<String[]> getOptionsList() {
+        return null;
+    }
+
+    @Override
+    public List<Boolean[]> getOptionsChecksList() {
+        return null;
     }
 }

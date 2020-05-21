@@ -1,21 +1,21 @@
 package eu.mrndesign.matned.searchEngine.data.jFrame.searchEngine.options.optionsObject;
 
 import eu.mrndesign.matned.searchEngine.data.mediator.SearchType;
-import lombok.Data;
 import lombok.ToString;
 
+import javax.swing.*;
 import java.awt.*;
 import java.util.LinkedList;
 import java.util.List;
 
-@Data
+
 @ToString
 public class AdvancedOptionsCheckbox implements OptionsInterface{
 
     private SearchType searchType;
     private String fieldName;
     private List<String> containersLabels;
-    private List<Checkbox> containers;
+    private List<JCheckBox> containers;
     private List<Boolean> checks;
 
     public AdvancedOptionsCheckbox(SearchType searchType, String fieldName, List labels) {
@@ -30,11 +30,16 @@ public class AdvancedOptionsCheckbox implements OptionsInterface{
 
     private void initializeLists() {
         for (String ignored : containersLabels) {
-            containers.add(new Checkbox());
+            containers.add(new JCheckBox());
             checks.add(false);
         }
     }
 
+
+    @Override
+    public String getFieldName() {
+        return fieldName;
+    }
 
     @Override
     public Component getFirst() {
@@ -44,6 +49,21 @@ public class AdvancedOptionsCheckbox implements OptionsInterface{
     @Override
     public Component getSecond() {
         return null;
+    }
+
+    @Override
+    public Integer getFirstNumber() {
+        return null;
+    }
+
+    @Override
+    public Integer getSecondNumber() {
+        return null;
+    }
+
+    @Override
+    public List getContainers() {
+        return containers;
     }
 
     @Override

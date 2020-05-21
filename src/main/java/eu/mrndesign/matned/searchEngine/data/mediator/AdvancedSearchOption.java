@@ -30,6 +30,7 @@ public class AdvancedSearchOption {
             case "CHECKBOX": return SearchType.CHECKBOX;
             case "NUMBER": return SearchType.NUMBER;
             case "BOOLEAN": return SearchType.BOOLEAN;
+            case "ENUM": return SearchType.ENUM;
             default: return SearchType.VARCHAR;
         }
     }

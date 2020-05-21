@@ -39,7 +39,7 @@ public class SearchEnginePresenter implements SearchEngineContract.Presenter{
     private String htmlTextListBuild() {
         String choice = screen.getChoice();
         String value = screen.getInputTextField().getText();
-        List<Object> list = new LinkedList<Object>(mediator.getResultList(value, screen.getSearchOptions().getOptions()));
+        List<Object> list = new LinkedList<Object>(mediator.getResultList(value, screen.getAdvancedOptions().getOptions(), screen.getOrderOptions().getOptions(), screen.getSearchOptions().getOptions()));
         listSize = list.size();
         if(list.size() > 0) {
             StringBuilder builder = new StringBuilder();

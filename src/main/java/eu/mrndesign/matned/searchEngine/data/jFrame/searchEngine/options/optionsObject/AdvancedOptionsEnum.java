@@ -1,41 +1,40 @@
 package eu.mrndesign.matned.searchEngine.data.jFrame.searchEngine.options.optionsObject;
 
+import eu.mrndesign.matned.searchEngine.data.mediator.SearchType;
 import lombok.Data;
 import lombok.ToString;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.LinkedList;
 import java.util.List;
 
 @Data
 @ToString
-public class Select implements OptionsInterface{
-    String fieldName;
-    JCheckBox check;
-    boolean isChecked;
+public class AdvancedOptionsEnum implements OptionsInterface{
+
+    private SearchType searchType;
+    private String fieldName;
+    private JComboBox enumList;
 
 
-    public Select(String fieldName) {
+
+
+    public AdvancedOptionsEnum(SearchType searchType, String fieldName, List<String> enumList) {
+        this.searchType = searchType;
         this.fieldName = fieldName;
-        check = new JCheckBox();
-        isChecked = false;
-        isChecked = false;
-
-        this.check.addActionListener(e -> {
-            if (!isChecked) {
-                isChecked = true;
-            }
-            else {
-                isChecked = false;
-            }
-        });
+        List<String> enums = new LinkedList<>();
+        enums.add("ALL");
+        enums.addAll(enumList);
+        String[] e = new String[enums.size()];
+        enums.toArray(e);
+        this.enumList = new JComboBox(e);
+        this.enumList.setSelectedIndex(0);
     }
-
-
 
     @Override
     public Component getFirst() {
-        return check;
+        return enumList;
     }
 
     @Override
@@ -55,17 +54,17 @@ public class Select implements OptionsInterface{
 
     @Override
     public List getContainers() {
-        return null;
+        return new LinkedList();
     }
 
     @Override
     public List getContainerLabels() {
-        return null;
+        return new LinkedList();
     }
 
     @Override
     public boolean isFirstSelected() {
-        return isChecked;
+        return false;
     }
 
     @Override
@@ -75,6 +74,6 @@ public class Select implements OptionsInterface{
 
     @Override
     public List<Boolean> getContainersChecks() {
-        return null;
+        return new LinkedList();
     }
 }

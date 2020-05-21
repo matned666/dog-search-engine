@@ -4,5 +4,6 @@ public enum SearchType {
     CHECKBOX,
     NUMBER,
     VARCHAR,
-    BOOLEAN
+    BOOLEAN,
+    ENUM;
 }

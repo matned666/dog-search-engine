@@ -5,9 +5,8 @@ import lombok.Data;
 import lombok.ToString;
 
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import java.awt.*;
+import java.util.LinkedList;
 import java.util.List;
 
 @Data
@@ -27,16 +26,11 @@ public class AdvancedOptionsBoolean implements OptionsInterface{
         this.searchType = searchType;
         this.fieldName = fieldName;
         this.checkBoxTrue = new JCheckBox();
+        this.checkBoxFalse = new JCheckBox();
         isCheckBoxTrue = false;
         isCheckBoxFalse = false;
-        this.checkBoxTrue.addChangeListener(e -> {
-            if (isCheckBoxTrue) isCheckBoxTrue = true;
-            else isCheckBoxTrue = false;
-        });
-        this.checkBoxFalse.addChangeListener(e -> {
-            if (isCheckBoxFalse) isCheckBoxFalse = true;
-            else isCheckBoxFalse = false;
-        });
+        this.checkBoxTrue.addActionListener(e -> isCheckBoxTrue = !isCheckBoxTrue);
+        this.checkBoxFalse.addActionListener(e -> isCheckBoxFalse = !isCheckBoxFalse);
         this.checkBoxFalse = new JCheckBox();
     }
 
@@ -51,13 +45,23 @@ public class AdvancedOptionsBoolean implements OptionsInterface{
     }
 
     @Override
-    public List getContainers() {
+    public Integer getFirstNumber() {
         return null;
     }
 
     @Override
-    public List getContainerLabels() {
+    public Integer getSecondNumber() {
         return null;
+    }
+
+    @Override
+    public List getContainers() {
+        return new LinkedList();
+    }
+
+    @Override
+    public List getContainerLabels() {
+        return new LinkedList();
     }
 
     @Override
@@ -72,6 +76,6 @@ public class AdvancedOptionsBoolean implements OptionsInterface{
 
     @Override
     public List<Boolean> getContainersChecks() {
-        return null;
+        return new LinkedList();
     }
 }

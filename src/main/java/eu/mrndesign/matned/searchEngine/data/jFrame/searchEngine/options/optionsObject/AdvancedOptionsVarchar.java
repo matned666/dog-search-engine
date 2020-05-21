@@ -5,9 +5,8 @@ import lombok.Data;
 import lombok.ToString;
 
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import java.awt.*;
+import java.util.LinkedList;
 import java.util.List;
 
 @Data
@@ -24,10 +23,7 @@ public class AdvancedOptionsVarchar implements OptionsInterface{
         this.fieldName = fieldName;
         this.checkBox = new JCheckBox();
         isChecked = false;
-        this.checkBox.addChangeListener(e -> {
-            if (isChecked) isChecked = true;
-            else isChecked = false;
-        });
+        this.checkBox.addActionListener(e -> isChecked = !isChecked);
     }
 
 
@@ -36,7 +32,7 @@ public class AdvancedOptionsVarchar implements OptionsInterface{
         return checkBox;
     }
 
-    //TODO -->  remove some methods that are not in use
+    //TODO -->  try to remove some methods that are not in use
 
     @Override
     public Component getSecond() {
@@ -44,13 +40,23 @@ public class AdvancedOptionsVarchar implements OptionsInterface{
     }
 
     @Override
-    public List getContainers() {
+    public Integer getFirstNumber() {
         return null;
     }
 
     @Override
-    public List getContainerLabels() {
+    public Integer getSecondNumber() {
         return null;
+    }
+
+    @Override
+    public List getContainers() {
+        return new LinkedList();
+    }
+
+    @Override
+    public List getContainerLabels() {
+        return new LinkedList();
     }
 
     @Override
@@ -65,7 +71,7 @@ public class AdvancedOptionsVarchar implements OptionsInterface{
 
     @Override
     public List<Boolean> getContainersChecks() {
-        return null;
+        return new LinkedList();
     }
 
 }

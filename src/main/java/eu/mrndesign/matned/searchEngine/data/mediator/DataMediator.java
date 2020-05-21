@@ -5,10 +5,10 @@ import eu.mrndesign.matned.searchEngine.data.hibernate.dao.DaoInterface;
 import eu.mrndesign.matned.searchEngine.data.hibernate.dao.DogDao;
 import eu.mrndesign.matned.searchEngine.data.hibernate.dao.ProductDao;
 import eu.mrndesign.matned.searchEngine.data.hibernate.entity.DBCollection;
-import eu.mrndesign.matned.searchEngine.data.jFrame.searchEngine.options.Options;
 import eu.mrndesign.matned.searchEngine.data.jFrame.searchEngine.options.optionsObject.OptionsInterface;
-import eu.mrndesign.matned.searchEngine.data.jFrame.searchEngine.options.optionsObject.Select;
+import eu.mrndesign.matned.searchEngine.data.mediator.interpreter.AdvancedSearchInterpreter;
 import eu.mrndesign.matned.searchEngine.data.mediator.interpreter.OptionsInterpreter;
+import eu.mrndesign.matned.searchEngine.data.mediator.interpreter.OrderByInterpreter;
 import eu.mrndesign.matned.searchEngine.data.mediator.interpreter.SelectInterpreter;
 
 import java.util.LinkedList;
@@ -19,7 +19,9 @@ public class DataMediator implements Mediator {
     private String entityChoice;
     private DaoInterface dao;
     private List<String> optionsList;
-    private OptionsInterpreter interpreter;
+    private OptionsInterpreter advancedInterpreter;
+    private OptionsInterpreter orderInterpreter;
+    private OptionsInterpreter selectInterpreter;
 
     public DataMediator() {
     }
@@ -66,16 +68,18 @@ public class DataMediator implements Mediator {
     }
 
     @Override
-    public List getResultList(String item, List<OptionsInterface> list) {
-        interpreter = new SelectInterpreter(list);
+    public List getResultList(String item, List<OptionsInterface> advanced, List<OptionsInterface> order, List<OptionsInterface> selects) {
+        advancedInterpreter = new AdvancedSearchInterpreter(selects);
+        orderInterpreter = new OrderByInterpreter(selects);
+        selectInterpreter = new SelectInterpreter(selects);
         if (item.trim().equals("")) item = "%";
         switch (entityChoice) {
             case "Product": {
-                dao = new ProductDao(item, interpreter.getList());
+                dao = new ProductDao(item,advancedInterpreter,orderInterpreter,selectInterpreter);
                 return dao.find();
             }
             default: {
-                dao = new DogDao(item, interpreter.getList());
+                dao = new DogDao(item,advancedInterpreter,orderInterpreter,selectInterpreter);
                 return dao.find();
             }
         }

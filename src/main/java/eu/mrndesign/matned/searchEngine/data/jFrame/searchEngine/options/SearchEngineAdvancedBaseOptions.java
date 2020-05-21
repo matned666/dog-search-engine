@@ -47,6 +47,10 @@ public class SearchEngineAdvancedBaseOptions implements Options {
                     numberCase(el);
                     break;
                 }
+                case ENUM: {
+                    enumCase(el);
+                    break;
+                }
                 case CHECKBOX: {
                     checkboxCase(el);
                     break;
@@ -58,6 +62,16 @@ public class SearchEngineAdvancedBaseOptions implements Options {
             }
             counter++;
         }
+    }
+
+    private void enumCase(AdvancedSearchOption el) {
+        options.add(new AdvancedOptionsEnum(el.getSearchType(),el.getFieldName(),el.getOptionsList()));
+        screen.getAdvancedSearchOptions().add(new JLabel("Search in: "+el.getFieldName() + ": "));
+        screen.getAdvancedSearchOptions().add(options.get(counter).getFirst());
+        screen.getAdvancedSearchOptions().add(new JLabel(""));
+        screen.getAdvancedSearchOptions().add(new JLabel(""));
+        screen.getAdvancedSearchOptions().add(new JLabel(""));
+        screen.getAdvancedSearchOptions().add(new JLabel(""));
     }
 
     private void varcharCase(AdvancedSearchOption el) {
@@ -81,17 +95,18 @@ public class SearchEngineAdvancedBaseOptions implements Options {
     }
 
     private void checkboxCase(AdvancedSearchOption el) {
+        int count = 1;
         options.add(new AdvancedOptionsCheckbox(el.getSearchType(), el.getFieldName(), el.getOptionsList()));
         screen.getAdvancedSearchOptions().add(new JLabel(el.getFieldName()+" "));
         for (int i = 0; i < options.get(counter).getContainerLabels().size(); i++) {
             screen.getAdvancedSearchOptions().add(new JLabel(options.get(counter).getContainerLabels().get(i)+": "));
             screen.getAdvancedSearchOptions().add((Component) options.get(counter).getContainers().get(i));
+            count+=2;
         }
-        screen.getAdvancedSearchOptions().add(new JLabel(""));
-        screen.getAdvancedSearchOptions().add(new JLabel(""));
-        screen.getAdvancedSearchOptions().add(new JLabel(""));
-        screen.getAdvancedSearchOptions().add(new JLabel(""));
-        screen.getAdvancedSearchOptions().add(new JLabel(""));
+        int counterVar = count * 6 + count;
+        for (int i = 0; i < counterVar%counter+1; i++) {
+            screen.getAdvancedSearchOptions().add(new JLabel(""));
+        }
     }
 
     private void booleanCase(AdvancedSearchOption el) {

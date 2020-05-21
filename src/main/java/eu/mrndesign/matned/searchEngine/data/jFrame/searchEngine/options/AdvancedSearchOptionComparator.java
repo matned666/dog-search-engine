@@ -9,19 +9,25 @@ public class AdvancedSearchOptionComparator implements Comparator<AdvancedSearch
 
     @Override
     public int compare(AdvancedSearchOption o1, AdvancedSearchOption o2) {
-        if (o1.getSearchType() == SearchType.VARCHAR && (o2.getSearchType() == SearchType.NUMBER || o2.getSearchType() == SearchType.CHECKBOX || o2.getSearchType() == SearchType.BOOLEAN))
+        if (o1.getSearchType() == SearchType.VARCHAR && (o2.getSearchType() == SearchType.NUMBER || o2.getSearchType() == SearchType.CHECKBOX || o2.getSearchType() == SearchType.BOOLEAN || o2.getSearchType() == SearchType.ENUM))
+            return -1;
+        else if (o1.getSearchType() == SearchType.ENUM && (o2.getSearchType() == SearchType.NUMBER || o2.getSearchType() == SearchType.CHECKBOX || o2.getSearchType() == SearchType.BOOLEAN))
             return -1;
         else if (o1.getSearchType() == SearchType.NUMBER && (o2.getSearchType() == SearchType.CHECKBOX || o2.getSearchType() == SearchType.BOOLEAN))
-            return -1;
-        else if (o1.getSearchType() == SearchType.NUMBER && o2.getSearchType() == SearchType.VARCHAR)
-            return 1;
+        return -1;
         else if (o1.getSearchType() == SearchType.CHECKBOX && o2.getSearchType() == SearchType.BOOLEAN)
             return -1;
-        else if(o1.getSearchType() == SearchType.CHECKBOX && (o2.getSearchType() == SearchType.NUMBER || o2.getSearchType() == SearchType.VARCHAR))
+         else if (o1.getSearchType() == SearchType.ENUM && o2.getSearchType() == SearchType.VARCHAR)
             return 1;
-        else if (o1.getSearchType() == SearchType.BOOLEAN && (o2.getSearchType() == SearchType.NUMBER || o2.getSearchType() == SearchType.CHECKBOX || o2.getSearchType() == SearchType.VARCHAR))
+        else if (o1.getSearchType() == SearchType.NUMBER && (o2.getSearchType() == SearchType.VARCHAR|| o2.getSearchType() == SearchType.ENUM))
+        return 1;
+        else if(o1.getSearchType() == SearchType.CHECKBOX && (o2.getSearchType() == SearchType.NUMBER || o2.getSearchType() == SearchType.VARCHAR || o2.getSearchType() == SearchType.ENUM))
+            return 1;
+        else if (o1.getSearchType() == SearchType.BOOLEAN && (o2.getSearchType() == SearchType.NUMBER || o2.getSearchType() == SearchType.CHECKBOX || o2.getSearchType() == SearchType.VARCHAR || o2.getSearchType() == SearchType.ENUM))
             return 1;
         else if (o1.getSearchType() == SearchType.VARCHAR && o2.getSearchType() == SearchType.VARCHAR)
+            return 0;
+        else if (o1.getSearchType() == SearchType.ENUM && o2.getSearchType() == SearchType.ENUM)
             return 0;
         else if (o1.getSearchType() == SearchType.NUMBER && o2.getSearchType() == SearchType.NUMBER)
             return 0;
