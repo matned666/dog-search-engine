@@ -19,13 +19,13 @@ privileges, of course password and mapping class to entities.<br />
 
 #GUIDE
 USE:<br />
-Choose your desired table and search by pressing entet or search button. That's all<br />
+Choose your desired table and search by pressing enter or search button. That's all<br />
 "a%" gives all entries on letter 'a'<br />
 "al%" entries on 'al'<br />
 ...<br />
 - you can open advanced search options.<br />
-- you can check fields to show in your search <br />
-- you can check fields to show<br />
+- you can check fields to show in your search TODO<br />
+- you can check fields to show TODO<br />
 
 #INSTALLATION
 BEFORE RUNNING:<br />
