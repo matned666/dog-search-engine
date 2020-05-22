@@ -28,6 +28,12 @@ public class ProductDao implements DaoInterface<Product> {
     private OptionsInterpreter selectInterpreter;
 
     private String prodName;
+    private int id1;
+    private int id2;
+    private int value1;
+    private int value2;
+    private int detailsId1;
+    private int detailsId2;
 
     public ProductDao() {
     }
@@ -37,6 +43,7 @@ public class ProductDao implements DaoInterface<Product> {
         this.advancedInterpreter = advancedInterpreter;
         this.orderInterpreter = orderInterpreter;
         this.selectInterpreter = selectInterpreter;
+        initialize();
     }
 
     @Override
@@ -49,7 +56,12 @@ public class ProductDao implements DaoInterface<Product> {
             Root<Product> rootTable = criteriaQuery.from(Product.class);
             criteriaQuery.select(rootTable)
                     .where(
-                            cb.like(rootTable.get("productName"), prodName)
+                            cb.and(
+                                    cb.like(rootTable.get("productName"), prodName),
+                                    cb.between(rootTable.get("productId"), id1,id2),
+                                    cb.between(rootTable.get("productValue"), value1,value2),
+                                    cb.between(rootTable.get("productDetailsId"), detailsId1,detailsId2)
+                            )
 
                     )
             ;
@@ -66,5 +78,15 @@ public class ProductDao implements DaoInterface<Product> {
     @Override
     public List<String> listOfFields() {
         return Arrays.asList("NUMBER::productId::","VARCHAR::productName::","NUMBER::productValue::","NUMBER::productDetailsId::");
+    }
+
+    private void initialize() {
+        prodName = item;
+        id1 = advancedInterpreter.getIntegers().get(2);
+        id2 = advancedInterpreter.getIntegers().get(3);
+        value1 = advancedInterpreter.getIntegers().get(4);
+        value2 = advancedInterpreter.getIntegers().get(5);
+        detailsId1 = advancedInterpreter.getIntegers().get(6);
+        detailsId2 = advancedInterpreter.getIntegers().get(7);
     }
 }

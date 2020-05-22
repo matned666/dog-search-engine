@@ -1,4 +1,4 @@
-#SEARCH ENGINE 
+#SEARCH ENGINE  ver. 0.1
 
 This is my first training try with an own hibernate program. <br />
 This is a simple JFrame with search engine, connected with<br />
@@ -53,7 +53,11 @@ Add name of the table to the db_collection table
 - Nice and legible layout
 - GUUUUGLEEE !!!! :-)
 
-
+#TODO
+- TESTS !!
+- order by and select functions are not done yet
+- code refactor (for ex. if waterfalls, etc.)
+- result records amount limiter
 
 My website: http://mrndesign.eu
 
