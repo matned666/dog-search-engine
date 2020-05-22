@@ -66,12 +66,12 @@ public class AdvancedOptionsBoolean implements OptionsInterface{
 
     @Override
     public boolean isFirstSelected() {
-        return isCheckBoxTrue;
+        return checkBoxTrue.isSelected();
     }
 
     @Override
     public boolean isSecondSelected() {
-        return isCheckBoxFalse;
+        return checkBoxFalse.isSelected();
     }
 
     @Override

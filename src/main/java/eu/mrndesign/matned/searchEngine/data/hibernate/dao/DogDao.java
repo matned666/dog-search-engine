@@ -146,8 +146,8 @@ public class DogDao implements DaoInterface<Dog>{
         dogName = "%";
         dogGender1 = "Male";
         dogGender2 = "Female";
-        isPureRace2 = true;
-        isPureRace1 = false;
+        isPureRace1 = true;
+        isPureRace2 = false;
         dogId1 = advancedInterpreter.getIntegers().get(8);
         dogId2 = advancedInterpreter.getIntegers().get(9);
         dogAge1 = advancedInterpreter.getIntegers().get(10);
@@ -179,6 +179,8 @@ public class DogDao implements DaoInterface<Dog>{
                 isPureRace2 = false;
             }
         }
+        System.out.println("P1: "+advancedInterpreter.getChecksList().get(16)+"P2: "+advancedInterpreter.getChecksList().get(17));
+
         if (advancedInterpreter.getChecksList().get(14) || advancedInterpreter.getChecksList().get(15)) {
             if (advancedInterpreter.getChecksList().get(14) && !advancedInterpreter.getChecksList().get(15)) {
                 dogGender1 = "Male";
