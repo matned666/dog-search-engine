@@ -143,7 +143,7 @@ public class DogDao implements DaoInterface<Dog>{
     private void initializeCriteria() {
 //        firstResult = 0; TODO
 //        lastResult = firstResult + MAX_RESULTS_ON_SCREEN;
-        dogName = "%";
+        dogName = item;
         dogGender1 = "Male";
         dogGender2 = "Female";
         isPureRace1 = true;
@@ -162,9 +162,21 @@ public class DogDao implements DaoInterface<Dog>{
     }
 
     private void getAdvancedData() {
-        if (advancedInterpreter.getChecksList().get(0)) dogName = item;
-        if (advancedInterpreter.getChecksList().get(2)) ownerName = item;
-        if (advancedInterpreter.getChecksList().get(4)) ownerLastName = item;
+        if (advancedInterpreter.getChecksList().get(0)) {
+            dogName = item;
+            ownerName = "%";
+            ownerLastName = "%";
+        }
+        if (advancedInterpreter.getChecksList().get(2)) {
+            dogName = "%";
+            ownerName = item;
+            ownerLastName = "%";
+        }
+        if (advancedInterpreter.getChecksList().get(4)) {
+            dogName = "%";
+            ownerName = "%";
+            ownerLastName = item;
+        }
         if (!advancedInterpreter.getOptionsList().get(6).equals("ALL")){
             dogRace1 = DogRace.valueOf(advancedInterpreter.getOptionsList().get(6));
             dogRace2 = DogRace.valueOf(advancedInterpreter.getOptionsList().get(6));
@@ -179,7 +191,6 @@ public class DogDao implements DaoInterface<Dog>{
                 isPureRace2 = false;
             }
         }
-        System.out.println("P1: "+advancedInterpreter.getChecksList().get(16)+"P2: "+advancedInterpreter.getChecksList().get(17));
 
         if (advancedInterpreter.getChecksList().get(14) || advancedInterpreter.getChecksList().get(15)) {
             if (advancedInterpreter.getChecksList().get(14) && !advancedInterpreter.getChecksList().get(15)) {
