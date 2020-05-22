@@ -78,4 +78,9 @@ public class AdvancedOptionsBoolean implements OptionsInterface{
     public List<Boolean> getContainersChecks() {
         return new LinkedList();
     }
+
+    @Override
+    public String getEnumChoice() {
+        return null;
+    }
 }

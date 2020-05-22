@@ -15,6 +15,7 @@ public interface OptionsInterface {
         boolean isFirstSelected();
         boolean isSecondSelected();
         List<Boolean> getContainersChecks();
+        String getEnumChoice();
 
 //        Component getCheck();
 }

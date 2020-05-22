@@ -8,6 +8,10 @@ import lombok.Data;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -82,6 +86,16 @@ public class SearchEngineAdvancedBaseOptions implements Options {
         screen.getAdvancedSearchOptions().add(new JLabel(""));
         screen.getAdvancedSearchOptions().add(new JLabel(""));
         screen.getAdvancedSearchOptions().add(new JLabel(""));
+        JCheckBox box = (JCheckBox) options.get(counter).getFirst();
+        box.addItemListener(e -> {
+            for (OptionsInterface el1 : options) {
+                if (el1 instanceof AdvancedOptionsVarchar){
+                    JCheckBox boxEl = (JCheckBox) el1.getFirst();
+                    if (boxEl.isSelected() && !boxEl.equals(box))
+                        boxEl.setSelected(false);
+                }
+            }
+        });
     }
 
     private void numberCase(AdvancedSearchOption el) {

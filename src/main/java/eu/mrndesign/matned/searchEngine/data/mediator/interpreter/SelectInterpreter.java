@@ -29,17 +29,22 @@ public class SelectInterpreter implements OptionsInterpreter {
     }
 
     @Override
+    public List<Integer> getIntegers() {
+        return null;
+    }
+
+    @Override
     public List<Boolean> getChecksList() {
         return null;
     }
 
     @Override
-    public List<String[]> getOptionsList() {
+    public List<String> getOptionsList() {
         return null;
     }
 
     @Override
-    public List<Boolean[]> getOptionsChecksList() {
+    public List<Boolean> getOptionsChecksList() {
         return null;
     }
 }

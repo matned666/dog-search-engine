@@ -74,4 +74,9 @@ public class AdvancedOptionsVarchar implements OptionsInterface{
         return new LinkedList();
     }
 
+    @Override
+    public String getEnumChoice() {
+        return null;
+    }
+
 }

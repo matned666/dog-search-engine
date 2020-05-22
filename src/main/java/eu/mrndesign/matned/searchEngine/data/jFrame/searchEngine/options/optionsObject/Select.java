@@ -77,4 +77,9 @@ public class Select implements OptionsInterface{
     public List<Boolean> getContainersChecks() {
         return null;
     }
+
+    @Override
+    public String getEnumChoice() {
+        return null;
+    }
 }

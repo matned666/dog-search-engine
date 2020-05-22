@@ -148,12 +148,12 @@ public class DogDao implements DaoInterface<Dog>{
         dogGender2 = "Female";
         isPureRace2 = true;
         isPureRace1 = false;
-        dogId1 = 0;
-        dogId2 = 999999;
-        dogAge1 = 0;
-        dogAge2 = 999999;
-        dogWeight1 = 0;
-        dogWeight2 = 999999;
+        dogId1 = advancedInterpreter.getIntegers().get(8);
+        dogId2 = advancedInterpreter.getIntegers().get(9);
+        dogAge1 = advancedInterpreter.getIntegers().get(10);
+        dogAge2 = advancedInterpreter.getIntegers().get(11);
+        dogWeight1 = advancedInterpreter.getIntegers().get(12);
+        dogWeight2 = advancedInterpreter.getIntegers().get(13);
         ownerName = "%";
         ownerLastName = "%";
         dogRace1 = DogRace.AA;
@@ -162,9 +162,32 @@ public class DogDao implements DaoInterface<Dog>{
     }
 
     private void getAdvancedData() {
-        for (int i = 0; i < advancedInterpreter.getFieldNameList().size(); i++) {
-
-
+        if (advancedInterpreter.getChecksList().get(0)) dogName = item;
+        if (advancedInterpreter.getChecksList().get(2)) ownerName = item;
+        if (advancedInterpreter.getChecksList().get(4)) ownerLastName = item;
+        if (!advancedInterpreter.getOptionsList().get(6).equals("ALL")){
+            dogRace1 = DogRace.valueOf(advancedInterpreter.getOptionsList().get(6));
+            dogRace2 = DogRace.valueOf(advancedInterpreter.getOptionsList().get(6));
+        }
+        if(advancedInterpreter.getChecksList().get(16) || advancedInterpreter.getChecksList().get(17)) {
+            if (advancedInterpreter.getChecksList().get(16) && !advancedInterpreter.getChecksList().get(17)) {
+                isPureRace1 = true;
+                isPureRace2 = true;
+            }
+           if (!advancedInterpreter.getChecksList().get(16) && advancedInterpreter.getChecksList().get(17)) {
+                isPureRace1 = false;
+                isPureRace2 = false;
+            }
+        }
+        if (advancedInterpreter.getChecksList().get(14) || advancedInterpreter.getChecksList().get(15)) {
+            if (advancedInterpreter.getChecksList().get(14) && !advancedInterpreter.getChecksList().get(15)) {
+                dogGender1 = "Male";
+                dogGender2 = "Male";
+            }
+            if (!advancedInterpreter.getChecksList().get(14) && advancedInterpreter.getChecksList().get(15)) {
+                dogGender1 = "Female";
+                dogGender2 = "Female";
+            }
         }
     }
 

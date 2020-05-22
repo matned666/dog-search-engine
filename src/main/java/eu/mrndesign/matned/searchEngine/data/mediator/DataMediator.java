@@ -69,8 +69,8 @@ public class DataMediator implements Mediator {
 
     @Override
     public List getResultList(String item, List<OptionsInterface> advanced, List<OptionsInterface> order, List<OptionsInterface> selects) {
-        advancedInterpreter = new AdvancedSearchInterpreter(selects);
-        orderInterpreter = new OrderByInterpreter(selects);
+        advancedInterpreter = new AdvancedSearchInterpreter(advanced);
+        orderInterpreter = new OrderByInterpreter(order);
         selectInterpreter = new SelectInterpreter(selects);
         if (item.trim().equals("")) item = "%";
         switch (entityChoice) {

@@ -43,12 +43,12 @@ public class AdvancedOptionsCheckbox implements OptionsInterface{
 
     @Override
     public Component getFirst() {
-        return null;
+        return containers.get(0);
     }
 
     @Override
     public Component getSecond() {
-        return null;
+        return containers.get(1);
     }
 
     @Override
@@ -73,16 +73,21 @@ public class AdvancedOptionsCheckbox implements OptionsInterface{
 
     @Override
     public boolean isFirstSelected() {
-        return false;
+        return containers.get(0).isSelected();
     }
 
     @Override
     public boolean isSecondSelected() {
-        return false;
+        return containers.get(1).isSelected();
     }
 
     @Override
     public List<Boolean> getContainersChecks() {
         return checks;
+    }
+
+    @Override
+    public String getEnumChoice() {
+        return null;
     }
 }

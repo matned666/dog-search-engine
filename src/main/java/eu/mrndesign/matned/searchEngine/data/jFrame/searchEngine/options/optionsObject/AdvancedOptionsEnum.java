@@ -15,6 +15,7 @@ public class AdvancedOptionsEnum implements OptionsInterface{
 
     private SearchType searchType;
     private String fieldName;
+    private  String selectedItem;
     private JComboBox enumList;
 
 
@@ -75,5 +76,10 @@ public class AdvancedOptionsEnum implements OptionsInterface{
     @Override
     public List<Boolean> getContainersChecks() {
         return new LinkedList();
+    }
+
+    @Override
+    public String getEnumChoice() {
+        return (String) enumList.getSelectedItem();
     }
 }
