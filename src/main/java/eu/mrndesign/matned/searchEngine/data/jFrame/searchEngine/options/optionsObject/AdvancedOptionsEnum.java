@@ -82,4 +82,9 @@ public class AdvancedOptionsEnum implements OptionsInterface{
     public String getEnumChoice() {
         return (String) enumList.getSelectedItem();
     }
+
+    @Override
+    public boolean isChecked() {
+        return false;
+    }
 }

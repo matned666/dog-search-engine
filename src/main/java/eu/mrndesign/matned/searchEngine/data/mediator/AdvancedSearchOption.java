@@ -7,7 +7,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 @Data
-public class AdvancedSearchOption {
+public class AdvancedSearchOption{
 
     private SearchType searchType;
     private String fieldName;

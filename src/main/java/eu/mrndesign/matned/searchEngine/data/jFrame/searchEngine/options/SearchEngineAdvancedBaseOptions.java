@@ -8,10 +8,6 @@ import lombok.Data;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -66,6 +62,15 @@ public class SearchEngineAdvancedBaseOptions implements Options {
             }
             counter++;
         }
+        addListenersToAllFields();
+    }
+
+    private void addListenersToAllFields() {
+        for (OptionsInterface el : options) {
+            if (el instanceof AdvancedOptionsVarchar) {
+                ((AdvancedOptionsVarchar) el).createListener(options);
+            }
+        }
     }
 
     private void enumCase(AdvancedSearchOption el) {
@@ -87,19 +92,11 @@ public class SearchEngineAdvancedBaseOptions implements Options {
         screen.getAdvancedSearchOptions().add(new JLabel(""));
         screen.getAdvancedSearchOptions().add(new JLabel(""));
         JCheckBox box = (JCheckBox) options.get(counter).getFirst();
-        box.addItemListener(e -> {
-            for (OptionsInterface el1 : options) {
-                if (el1 instanceof AdvancedOptionsVarchar){
-                    JCheckBox boxEl = (JCheckBox) el1.getFirst();
-                    if (boxEl.isSelected() && !boxEl.equals(box))
-                        boxEl.setSelected(false);
-                }
-            }
-        });
+
     }
 
     private void numberCase(AdvancedSearchOption el) {
-        options.add(new AdvancedOptionsNumber(el.getSearchType(), el.getFieldName()));
+        options.add(new AdvancedOptionsNumber(el.getSearchType(), el.getFieldName(), screen));
         screen.getAdvancedSearchOptions().add(new JLabel(el.getFieldName()+" between"));
         screen.getAdvancedSearchOptions().add(options.get(counter).getFirst());
         screen.getAdvancedSearchOptions().add(new JLabel("and"));

@@ -17,13 +17,27 @@ public class AdvancedOptionsVarchar implements OptionsInterface{
     private String fieldName;
     private JCheckBox checkBox;
     private boolean isChecked;
+    private List<OptionsInterface> options;
 
     public AdvancedOptionsVarchar(SearchType searchType, String fieldName) {
         this.searchType = searchType;
         this.fieldName = fieldName;
         this.checkBox = new JCheckBox();
         isChecked = false;
-        this.checkBox.addActionListener(e -> isChecked = !isChecked);
+    }
+
+    public void createListener(List<OptionsInterface> options) {
+        this.options = options;
+        this.checkBox.addActionListener(e -> {
+            isChecked = !isChecked;
+            for (OptionsInterface el1 : options) {
+                if (el1 instanceof AdvancedOptionsVarchar){
+                    JCheckBox boxEl = (JCheckBox) el1.getFirst();
+                    if (boxEl.isSelected() && !boxEl.equals(this.checkBox))
+                        boxEl.setSelected(false);
+                }
+            }
+        });
     }
 
 

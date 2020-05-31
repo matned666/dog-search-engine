@@ -1,5 +1,6 @@
 package eu.mrndesign.matned.searchEngine.data.jFrame.searchEngine.options.optionsObject;
 
+import eu.mrndesign.matned.searchEngine.data.jFrame.searchEngine.SearchEngineScreen;
 import eu.mrndesign.matned.searchEngine.data.mediator.SearchType;
 import eu.mrndesign.matned.searchEngine.data.statics.Check;
 import lombok.Data;
@@ -26,9 +27,10 @@ public class AdvancedOptionsNumber implements OptionsInterface{
     private String fieldName;
     private JTextField first;
     private JTextField last;
+    private SearchEngineScreen screen;
 
-
-    public AdvancedOptionsNumber(SearchType searchType, String fieldName) {
+    public AdvancedOptionsNumber(SearchType searchType, String fieldName, SearchEngineScreen screen) {
+        this.screen = screen;
         this.searchType = searchType;
         this.fieldName = fieldName;
         first = new JTextField(String.valueOf(DEFAULT_NUM_FIRST));
@@ -91,11 +93,19 @@ public class AdvancedOptionsNumber implements OptionsInterface{
         return null;
     }
 
+    @Override
+    public boolean isChecked() {
+        return false;
+    }
+
+
     private void keyListener(JTextField textField, int defaultNum) {
         textField.addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent e) {
-
+                if (e.getKeyChar() == 10) {
+                    screen.getPresenter().search();
+                }
             }
 
             @Override

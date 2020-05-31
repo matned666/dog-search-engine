@@ -142,7 +142,12 @@ public class SearchEngineScreen extends BaseSwingScreen implements SearchEngineS
         inputTextField = new JTextField();
         inputTextField.setText("");
         inputTextField.setBounds(100, 70, 500, 20);
-        inputTextField.addKeyListener(new KeyListener() {
+        searchOnKeyTypedEnter(inputTextField);
+        return inputTextField;
+    }
+
+    private void searchOnKeyTypedEnter(JTextField textfield) {
+        textfield.addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent e) {
                 if (e.getKeyChar() == 10) {
@@ -160,7 +165,6 @@ public class SearchEngineScreen extends BaseSwingScreen implements SearchEngineS
 
             }
         });
-        return inputTextField;
     }
 
     public JButton acceptButton() {

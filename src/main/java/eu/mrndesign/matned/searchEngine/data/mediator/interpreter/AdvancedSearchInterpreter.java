@@ -61,6 +61,11 @@ public class AdvancedSearchInterpreter implements OptionsInterpreter {
     }
 
     @Override
+    public OptionsInterface getCheckedOption() {
+        return null;
+    }
+
+    @Override
     public List<Boolean> getOptionsChecksList() {
         return optionCheckList;
     }

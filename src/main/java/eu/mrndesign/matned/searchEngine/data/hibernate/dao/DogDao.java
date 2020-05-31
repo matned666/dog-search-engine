@@ -60,21 +60,6 @@ public class DogDao implements DaoInterface<Dog>{
         initializeCriteria();
     }
 
-    public void saveOrUpdate(Dog dog){
-        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-        Transaction transaction = null;
-        try(Session session = sessionFactory.openSession()) {
-            transaction = session.beginTransaction();
-            session.saveOrUpdate(dog);
-            transaction.commit();
-        }
-        catch (HibernateException e){
-            if (transaction != null) {
-                transaction.rollback();
-            }
-        }
-    }
-
     @Override
     public List<Dog> find() {
         List result = new LinkedList<>();
@@ -114,7 +99,8 @@ public class DogDao implements DaoInterface<Dog>{
                                             ),
                                     cb.between(rootTable.get("dogWeight"), dogWeight1, dogWeight2)
                             )
-                    );
+                    )
+            .orderBy((List<Order>) rootTable.get(orderInterpreter.getCheckedOption().getFieldName()));
             result.addAll(session.createQuery(criteriaQuery)
 //                    .setFirstResult(firstResult)
 //                    .setMaxResults(lastResult)

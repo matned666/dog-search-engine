@@ -11,14 +11,45 @@ import java.util.List;
 @ToString
 public class OrderBy implements OptionsInterface {
 
-    String fieldName;
-    JCheckBox order;
-    JCheckBox desc;
+    private String fieldName;
+    private JCheckBox order;
+    private JCheckBox desc;
+    private boolean isChecked;
+    private boolean isDesc;
+    private List<OptionsInterface> options;
 
     public OrderBy(String fieldName) {
         this.fieldName = fieldName;
         order = new JCheckBox();
         desc = new JCheckBox();
+        isChecked = false;
+        isDesc = false;
+    }
+
+    public void createListeners(List<OptionsInterface> options) {
+        this.options = options;
+        this.order.addActionListener(e -> {
+            isChecked = !isChecked;
+            isDesc = false;
+            for (OptionsInterface el1 : options) {
+                if (el1 instanceof AdvancedOptionsVarchar){
+                    JCheckBox boxEl = (JCheckBox) el1.getFirst();
+                    if (boxEl.isSelected() && !boxEl.equals(this.order))
+                        boxEl.setSelected(false);
+                }
+            }
+        });
+       this.desc.addActionListener(e -> {
+            isChecked = !isChecked;
+           isDesc = true;
+           for (OptionsInterface el1 : options) {
+                if (el1 instanceof AdvancedOptionsVarchar){
+                    JCheckBox boxEl = (JCheckBox) el1.getFirst();
+                    if (boxEl.isSelected() && !boxEl.equals(this.desc))
+                        boxEl.setSelected(false);
+                }
+            }
+        });
     }
 
     @Override

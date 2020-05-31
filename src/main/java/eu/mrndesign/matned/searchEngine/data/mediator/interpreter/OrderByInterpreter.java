@@ -1,6 +1,7 @@
 package eu.mrndesign.matned.searchEngine.data.mediator.interpreter;
 
 import eu.mrndesign.matned.searchEngine.data.jFrame.searchEngine.options.optionsObject.OptionsInterface;
+import eu.mrndesign.matned.searchEngine.data.jFrame.searchEngine.options.optionsObject.OrderBy;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -8,7 +9,7 @@ import java.util.List;
 public class OrderByInterpreter implements OptionsInterpreter {
 
     private List<OptionsInterface> options;
-
+    private OrderBy option;
     private List<String> fieldNames;
 
     public OrderByInterpreter(List<OptionsInterface> options) {
@@ -18,9 +19,10 @@ public class OrderByInterpreter implements OptionsInterpreter {
     }
 
     private void initialize() {
-//        for (OptionsInterface element : options) {
-//            if (element.isFirstSelected()) fieldNames.add(element.getFieldName());
-//        } TODO - check and repair
+        for (OptionsInterface element : options) {
+            if (element.isFirstSelected()) fieldNames.add(element.getFieldName());
+        }
+//        TODO - check and repair
     }
 
     @Override
@@ -41,6 +43,16 @@ public class OrderByInterpreter implements OptionsInterpreter {
     @Override
     public List<String> getOptionsList() {
         return null;
+    }
+
+    @Override
+    public OptionsInterface getCheckedOption() {
+        for (OptionsInterface el: options) {
+            if(el.isChecked()){
+                option = (OrderBy) el;
+            }
+        }
+        return option;
     }
 
     @Override

@@ -90,4 +90,9 @@ public class AdvancedOptionsCheckbox implements OptionsInterface{
     public String getEnumChoice() {
         return null;
     }
+
+    @Override
+    public boolean isChecked() {
+        return false;
+    }
 }

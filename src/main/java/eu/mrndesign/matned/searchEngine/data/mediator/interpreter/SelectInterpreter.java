@@ -44,6 +44,11 @@ public class SelectInterpreter implements OptionsInterpreter {
     }
 
     @Override
+    public OptionsInterface getCheckedOption() {
+        return null;
+    }
+
+    @Override
     public List<Boolean> getOptionsChecksList() {
         return null;
     }
