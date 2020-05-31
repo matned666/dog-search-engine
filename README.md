@@ -1,4 +1,4 @@
-SEARCH ENGINE  ver. 0.1
+# SEARCH ENGINE  ver. 0.1
 
 This is my first training try with an own hibernate program. <br />
 This is a simple JFrame with search engine, connected with<br />
@@ -17,7 +17,7 @@ check it in my first commit.<br />
 You have to add your database name, host, and user with <br />
 privileges, of course password and mapping class to entities.<br />
 
-GUIDE
+## GUIDE
 USE:<br />
 Choose your desired table and search by pressing enter or search button. That's all<br />
 "a%" gives all entries on letter 'a'<br />
@@ -27,14 +27,14 @@ Choose your desired table and search by pressing enter or search button. That's 
 - you can check fields to show in your search TODO<br />
 - you can check fields to show TODO<br />
 
-INSTALLATION
+## INSTALLATION
 BEFORE RUNNING:<br />
 Configure your database data in Hibernate.cfg.xml<br />
  - host, database name, login and password<br />
  - add Entities <mapping class = "eu.mrndesign.matned.searchEngine.data.hibernate.entity.Product"/><br />
 Create database and run database queries (/resources) to create first tables and entries.<br />
 
-IF YOU D LIKE TO ATTACH ANOTHER DATABASE TABLE:<br />
+## IF YOU D LIKE TO ATTACH ANOTHER DATABASE TABLE:<br />
 Add name of the table to the db_collection table 
 - Create Entity
 - Create Dao implementing DaoInterface 
@@ -46,14 +46,14 @@ Add name of the table to the db_collection table
                 return dao.find();<br />
             }<br />
   
-FEATURES:
+## FEATURES:
 - Auto advance search layout based on entity structure
 - Many search options including sorting and sql select
 - Easy new tables implementation - only 4 steps
 - Nice and legible layout
 - GUUUUGLEEE !!!! :-)
 
-TODO
+### TODO
 - TESTS !!
 - order by and select functions are not done yet
 - code refactor (for ex. if waterfalls, etc.)
