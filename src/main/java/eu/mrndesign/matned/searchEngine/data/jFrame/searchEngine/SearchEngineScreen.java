@@ -5,6 +5,7 @@ import eu.mrndesign.matned.searchEngine.data.jFrame.searchEngine.options.Options
 import eu.mrndesign.matned.searchEngine.data.jFrame.searchEngine.options.SearchEngineAdvancedBaseOptions;
 import eu.mrndesign.matned.searchEngine.data.jFrame.searchEngine.options.SearchEngineOrderByBaseOptions;
 import eu.mrndesign.matned.searchEngine.data.jFrame.searchEngine.options.SearchEngineShowFieldsBaseOptions;
+import eu.mrndesign.matned.searchEngine.data.jFrame.searchEngine.options.optionsObject.OrderBy;
 import lombok.Data;
 
 import javax.swing.*;
@@ -23,6 +24,8 @@ public class SearchEngineScreen extends BaseSwingScreen implements SearchEngineS
     private Options searchOptions;
     private Options advancedOptions;
     private Options orderOptions;
+
+
     private JLabel imageLabel;
     private JLabel infoLabel;
     private JButton acceptButton;

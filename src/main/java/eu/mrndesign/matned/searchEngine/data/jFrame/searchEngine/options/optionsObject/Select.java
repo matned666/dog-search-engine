@@ -1,5 +1,6 @@
 package eu.mrndesign.matned.searchEngine.data.jFrame.searchEngine.options.optionsObject;
 
+import eu.mrndesign.matned.searchEngine.data.mediator.SearchType;
 import lombok.Data;
 import lombok.ToString;
 
@@ -7,11 +8,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 
-@Data
-@ToString
 public class Select implements OptionsInterface{
-    String fieldName;
-    JCheckBox check;
+    private String fieldName;
+    private JCheckBox check;
     boolean isChecked;
 
 
@@ -32,6 +31,10 @@ public class Select implements OptionsInterface{
     }
 
 
+    @Override
+    public String getFieldName() {
+        return fieldName;
+    }
 
     @Override
     public Component getFirst() {
@@ -74,6 +77,11 @@ public class Select implements OptionsInterface{
     }
 
     @Override
+    public SearchType getSearchType() {
+        return null;
+    }
+
+    @Override
     public List<Boolean> getContainersChecks() {
         return null;
     }
@@ -81,5 +89,30 @@ public class Select implements OptionsInterface{
     @Override
     public String getEnumChoice() {
         return null;
+    }
+
+    @Override
+    public boolean isChecked() {
+        return false;
+    }
+
+    @Override
+    public void createListeners(List<OptionsInterface> options) {
+
+    }
+
+    @Override
+    public boolean isDesc() {
+        return false;
+    }
+
+    @Override
+    public void setChecked(boolean setter) {
+
+    }
+
+    @Override
+    public void setDesc(boolean setter) {
+
     }
 }

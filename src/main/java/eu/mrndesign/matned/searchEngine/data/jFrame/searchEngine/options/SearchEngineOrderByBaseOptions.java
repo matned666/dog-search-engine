@@ -43,14 +43,12 @@ public class SearchEngineOrderByBaseOptions implements Options {
 
     private void addListenersToAllFields() {
         for (OptionsInterface el : options) {
-            if (el instanceof AdvancedOptionsVarchar) {
-                ((AdvancedOptionsVarchar) el).createListener(options);
+                el.createListeners(options);
             }
-        }
     }
 
     @Override
     public List<OptionsInterface> getOptions() {
-        return null;
+        return options;
     }
 }

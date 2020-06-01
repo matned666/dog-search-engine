@@ -17,16 +17,6 @@ check it in my first commit.<br />
 You have to add your database name, host, and user with <br />
 privileges, of course password and mapping class to entities.<br />
 
-## GUIDE
-USE:<br />
-Choose your desired table and search by pressing enter or search button. That's all<br />
-"a%" gives all entries on letter 'a'<br />
-"al%" entries on 'al'<br />
-...<br />
-- you can open advanced search options.<br />
-- you can check fields to show in your search TODO<br />
-- you can check fields to show TODO<br />
-
 ## INSTALLATION
 BEFORE RUNNING:<br />
 Configure your database data in Hibernate.cfg.xml<br />
@@ -53,7 +43,17 @@ Add name of the table to the db_collection table
 - Nice and legible layout
 - GUUUUGLEEE !!!! :-)
 
-### TODO
+## GUIDE
+USE:<br />
+Choose your desired table and search by pressing enter or search button. That's all<br />
+"a%" gives all entries on letter 'a'<br />
+"al%" entries on 'al'<br />
+...<br />
+- you can open advanced search options.<br />
+- you can check fields to show in your search TODO<br />
+- you can check fields to show TODO<br />
+#
+###### TODO
 - TESTS !!
 - order by and select functions are not done yet
 - code refactor (for ex. if waterfalls, etc.)

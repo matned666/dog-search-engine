@@ -2,7 +2,6 @@ package eu.mrndesign.matned.searchEngine.data.jFrame.searchEngine.options.option
 
 import eu.mrndesign.matned.searchEngine.data.mediator.SearchType;
 import lombok.Data;
-import lombok.ToString;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,7 +9,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 @Data
-@ToString
 public class AdvancedOptionsBoolean implements OptionsInterface{
 
     private SearchType searchType;
@@ -87,5 +85,25 @@ public class AdvancedOptionsBoolean implements OptionsInterface{
     @Override
     public boolean isChecked() {
         return false;
+    }
+
+    @Override
+    public void createListeners(List<OptionsInterface> options) {
+
+    }
+
+    @Override
+    public boolean isDesc() {
+        return false;
+    }
+
+    @Override
+    public void setChecked(boolean setter) {
+
+    }
+
+    @Override
+    public void setDesc(boolean setter) {
+
     }
 }

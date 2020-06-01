@@ -7,7 +7,6 @@ import eu.mrndesign.matned.searchEngine.data.mediator.interpreter.OptionsInterpr
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 
 import javax.persistence.criteria.*;
 import java.util.*;
@@ -21,6 +20,8 @@ public class DogDao implements DaoInterface<Dog>{
     private OptionsInterpreter advancedInterpreter;
     private OptionsInterpreter orderInterpreter;
     private OptionsInterpreter selectInterpreter;
+
+    private String orderBy;
 
     private int firstResult;
     private int lastResult;
@@ -62,6 +63,7 @@ public class DogDao implements DaoInterface<Dog>{
 
     @Override
     public List<Dog> find() {
+        orderBy = orderInterpreter.orderBy() != null ?orderInterpreter.orderBy() : "dogId";
         List result = new LinkedList<>();
         selections = new LinkedList<>();
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
@@ -99,8 +101,9 @@ public class DogDao implements DaoInterface<Dog>{
                                             ),
                                     cb.between(rootTable.get("dogWeight"), dogWeight1, dogWeight2)
                             )
-                    )
-            .orderBy((List<Order>) rootTable.get(orderInterpreter.getCheckedOption().getFieldName()));
+                    );
+
+            criteriaQuery.orderBy(orderInterpreter.isDesc() ? cb.desc(rootTable.get(orderBy)) : cb.asc(rootTable.get(orderBy)));
             result.addAll(session.createQuery(criteriaQuery)
 //                    .setFirstResult(firstResult)
 //                    .setMaxResults(lastResult)

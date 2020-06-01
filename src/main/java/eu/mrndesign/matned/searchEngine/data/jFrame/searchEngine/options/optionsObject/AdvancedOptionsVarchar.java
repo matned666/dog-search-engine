@@ -10,7 +10,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 @Data
-@ToString
 public class AdvancedOptionsVarchar implements OptionsInterface{
 
     private SearchType searchType;
@@ -29,14 +28,15 @@ public class AdvancedOptionsVarchar implements OptionsInterface{
     public void createListener(List<OptionsInterface> options) {
         this.options = options;
         this.checkBox.addActionListener(e -> {
-            isChecked = !isChecked;
             for (OptionsInterface el1 : options) {
-                if (el1 instanceof AdvancedOptionsVarchar){
+                if (el1.getSearchType() == SearchType.VARCHAR){
                     JCheckBox boxEl = (JCheckBox) el1.getFirst();
-                    if (boxEl.isSelected() && !boxEl.equals(this.checkBox))
-                        boxEl.setSelected(false);
+                    boxEl.setSelected(false);
+                    isChecked = false;
                 }
             }
+            this.isChecked = true;
+            this.checkBox.setSelected(true);
         });
     }
 
@@ -91,6 +91,21 @@ public class AdvancedOptionsVarchar implements OptionsInterface{
     @Override
     public String getEnumChoice() {
         return null;
+    }
+
+    @Override
+    public void createListeners(List<OptionsInterface> options) {
+
+    }
+
+    @Override
+    public boolean isDesc() {
+        return false;
+    }
+
+    @Override
+    public void setDesc(boolean setter) {
+
     }
 
 }

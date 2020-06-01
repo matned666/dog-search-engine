@@ -1,14 +1,17 @@
 package eu.mrndesign.matned.searchEngine.data.mediator.interpreter;
 
 import eu.mrndesign.matned.searchEngine.data.jFrame.searchEngine.options.optionsObject.OptionsInterface;
+import lombok.Data;
 
 import java.util.LinkedList;
 import java.util.List;
 
+@Data
 public class AdvancedSearchInterpreter implements OptionsInterpreter {
 
     private List<OptionsInterface> options;
 
+    boolean isDesc;
     private List<String> fieldNames;
     private List<Boolean> checks;
     private List<String> optionList;
@@ -60,13 +63,11 @@ public class AdvancedSearchInterpreter implements OptionsInterpreter {
         return optionList;
     }
 
+
     @Override
-    public OptionsInterface getCheckedOption() {
+    public String orderBy() {
         return null;
     }
 
-    @Override
-    public List<Boolean> getOptionsChecksList() {
-        return optionCheckList;
-    }
+
 }

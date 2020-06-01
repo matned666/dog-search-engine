@@ -26,6 +26,7 @@ public class ProductDao implements DaoInterface<Product> {
     private OptionsInterpreter advancedInterpreter;
     private OptionsInterpreter orderInterpreter;
     private OptionsInterpreter selectInterpreter;
+    private String orderBy;
 
     private String prodName;
     private int id1;
@@ -48,6 +49,7 @@ public class ProductDao implements DaoInterface<Product> {
 
     @Override
     public List<Product> find() {
+        orderBy = orderInterpreter.orderBy() != null ?orderInterpreter.orderBy() : "productId";
         List result = new LinkedList<>();
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         try(Session session = sessionFactory.openSession()) {
@@ -62,9 +64,8 @@ public class ProductDao implements DaoInterface<Product> {
                                     cb.between(rootTable.get("productValue"), value1,value2),
                                     cb.between(rootTable.get("productDetailsId"), detailsId1,detailsId2)
                             )
-
-                    )
-            ;
+                    );
+            criteriaQuery.orderBy(orderInterpreter.isDesc() ? cb.desc(rootTable.get(orderBy)) : cb.asc(rootTable.get(orderBy)));
             result.addAll(session.createQuery(criteriaQuery)
                     .list());
         }

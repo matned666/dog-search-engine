@@ -17,7 +17,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 
-@ToString
 public class AdvancedOptionsNumber implements OptionsInterface{
 
 
@@ -84,6 +83,11 @@ public class AdvancedOptionsNumber implements OptionsInterface{
     }
 
     @Override
+    public SearchType getSearchType() {
+        return searchType;
+    }
+
+    @Override
     public List<Boolean> getContainersChecks() {
         return new LinkedList();
     }
@@ -96,6 +100,26 @@ public class AdvancedOptionsNumber implements OptionsInterface{
     @Override
     public boolean isChecked() {
         return false;
+    }
+
+    @Override
+    public void createListeners(List<OptionsInterface> options) {
+
+    }
+
+    @Override
+    public boolean isDesc() {
+        return false;
+    }
+
+    @Override
+    public void setChecked(boolean setter) {
+
+    }
+
+    @Override
+    public void setDesc(boolean setter) {
+
     }
 
 

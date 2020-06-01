@@ -5,6 +5,8 @@ import eu.mrndesign.matned.searchEngine.data.jFrame.searchEngine.options.options
 import java.util.LinkedList;
 import java.util.List;
 
+
+
 public class SelectInterpreter implements OptionsInterpreter {
 
     private List<OptionsInterface> options;
@@ -44,12 +46,14 @@ public class SelectInterpreter implements OptionsInterpreter {
     }
 
     @Override
-    public OptionsInterface getCheckedOption() {
-        return null;
+    public boolean isDesc() {
+        return false;
     }
 
     @Override
-    public List<Boolean> getOptionsChecksList() {
+    public String orderBy() {
         return null;
     }
+
+
 }

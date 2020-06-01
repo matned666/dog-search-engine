@@ -9,7 +9,9 @@ public interface OptionsInterpreter {
     List<Integer> getIntegers();
     List<Boolean> getChecksList();
     List<String> getOptionsList();
-    OptionsInterface getCheckedOption();
-    List<Boolean> getOptionsChecksList();
+//    OptionsInterface getCheckedOption();
+//    List<Boolean> getOptionsChecksList();
+    boolean isDesc();
+    String orderBy();
 
 }

@@ -9,7 +9,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 
-@ToString
 public class AdvancedOptionsCheckbox implements OptionsInterface{
 
     private SearchType searchType;
@@ -82,6 +81,11 @@ public class AdvancedOptionsCheckbox implements OptionsInterface{
     }
 
     @Override
+    public SearchType getSearchType() {
+        return searchType;
+    }
+
+    @Override
     public List<Boolean> getContainersChecks() {
         return checks;
     }
@@ -94,5 +98,25 @@ public class AdvancedOptionsCheckbox implements OptionsInterface{
     @Override
     public boolean isChecked() {
         return false;
+    }
+
+    @Override
+    public void createListeners(List<OptionsInterface> options) {
+
+    }
+
+    @Override
+    public boolean isDesc() {
+        return false;
+    }
+
+    @Override
+    public void setChecked(boolean setter) {
+
+    }
+
+    @Override
+    public void setDesc(boolean setter) {
+
     }
 }
