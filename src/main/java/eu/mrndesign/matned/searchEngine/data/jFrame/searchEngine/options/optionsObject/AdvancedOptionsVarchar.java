@@ -29,11 +29,12 @@ public class AdvancedOptionsVarchar implements OptionsInterface{
         this.options = options;
         this.checkBox.addActionListener(e -> {
             for (OptionsInterface el1 : options) {
-                if (el1.getSearchType() == SearchType.VARCHAR){
-                    JCheckBox boxEl = (JCheckBox) el1.getFirst();
-                    boxEl.setSelected(false);
-                    isChecked = false;
-                }
+
+                    if (el1.getSearchType() == SearchType.VARCHAR) {
+                        JCheckBox boxEl = (JCheckBox) el1.getFirst();
+                        boxEl.setSelected(false);
+                        el1.setChecked(false);;
+                    }
             }
             this.isChecked = true;
             this.checkBox.setSelected(true);

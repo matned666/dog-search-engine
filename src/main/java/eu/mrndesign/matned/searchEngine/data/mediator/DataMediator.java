@@ -83,7 +83,6 @@ public class DataMediator implements Mediator {
                 return dao.find();
             }
         }
-
     }
 
 

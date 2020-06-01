@@ -40,7 +40,7 @@ public class SearchEnginePresenter implements SearchEngineContract.Presenter{
         String value = screen.getInputTextField().getText();
         List<Object> list = new LinkedList<Object>(mediator.getResultList(value, screen.getAdvancedOptions().getOptions(), screen.getOrderOptions().getOptions(), screen.getSearchOptions().getOptions()));
         listSize = list.size();
-        if(list.size() > 0) {
+        if (list.size() > 0) {
             StringBuilder builder = new StringBuilder();
             builder.append("<html>");
             for (Object el : list) {
@@ -51,5 +51,4 @@ public class SearchEnginePresenter implements SearchEngineContract.Presenter{
         } else return "No results";
 
     }
-
 }
