@@ -10,21 +10,17 @@ import org.hibernate.SessionFactory;
 
 import javax.persistence.criteria.*;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class DogDao implements DaoInterface<Dog>{
 
-    public static final int MAX_RESULTS_ON_SCREEN = 100;
+//    private static final int MAX_RESULTS_ON_SCREEN = 100;
 
     private String item;
     private OptionsInterpreter advancedInterpreter;
     private OptionsInterpreter orderInterpreter;
-    private OptionsInterpreter selectInterpreter;
 
-    private String orderBy;
-
-    private int firstResult;
-    private int lastResult;
+//    private int firstResult;
+//    private int lastResult;
     private int dogId1;
     private int dogId2;
     private String dogName;
@@ -43,8 +39,6 @@ public class DogDao implements DaoInterface<Dog>{
 
     private List<String> selectList;
 
-    private List<String[]> listArr;
-    private List<Path> selections;
 
     public DogDao() {
     }
@@ -53,32 +47,26 @@ public class DogDao implements DaoInterface<Dog>{
         this.item = item;
         this.advancedInterpreter = advancedInterpreter;
         this.orderInterpreter = orderInterpreter;
-        this.selectInterpreter = selectInterpreter;
+//        firstResult = 0;
+//        lastResult = MAX_RESULTS_ON_SCREEN;
+
 
         selectList = new LinkedList(selectInterpreter.getFieldNameList());
-        selections = new LinkedList<>();
-        listArr = new LinkedList<>();
         initializeCriteria();
     }
 
     @Override
     public List<Dog> find() {
-        orderBy = orderInterpreter.orderBy() != null ?orderInterpreter.orderBy() : "dogId";
-        List result = new LinkedList<>();
-        selections = new LinkedList<>();
+        String orderBy = orderInterpreter.orderBy() != null ? orderInterpreter.orderBy() : "dogId";
+        List<Dog> result = new LinkedList<>();
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         try(Session session = sessionFactory.openSession()) {
             CriteriaBuilder cb = session.getCriteriaBuilder();
             CriteriaQuery<Dog> criteriaQuery = cb.createQuery(Dog.class);
             Root<Dog> rootTable = criteriaQuery.from(Dog.class);
-            System.out.println(selectList);
-            for (String el : selectList) {
-                selections.add(rootTable.get(el));
-            }
-            criteriaQuery.multiselect(selectList.stream() //TODO - it doesn't work yet
-                    .map(f -> rootTable.get(f))
-                    .collect(Collectors.toList()));
             criteriaQuery.select(rootTable)
+//                    .multiselect(selectList.stream().map(rootTable::get).collect(Collectors.toList()))
+                    //TODO how to create multiple constructors in entity for custom multiselect query ????
                     .where(
                             cb.and(
                                     cb.and(
@@ -102,7 +90,6 @@ public class DogDao implements DaoInterface<Dog>{
                                     cb.between(rootTable.get("dogWeight"), dogWeight1, dogWeight2)
                             )
                     );
-
             criteriaQuery.orderBy(orderInterpreter.isDesc() ? cb.desc(rootTable.get(orderBy)) : cb.asc(rootTable.get(orderBy)));
             result.addAll(session.createQuery(criteriaQuery)
 //                    .setFirstResult(firstResult)
@@ -113,7 +100,22 @@ public class DogDao implements DaoInterface<Dog>{
             e.printStackTrace();
         }
 
+        changeSelect(result); //TODO temporary until multi select works
         return result;
+    }
+
+    private void changeSelect(List<Dog> result) {
+        for (Dog el : result) {
+            if (!selectList.contains("dogId")) el.setDogId(null);
+            if (!selectList.contains("dogName")) el.setDogName(null);
+            if (!selectList.contains("dogGender")) el.setDogGender(null);
+            if (!selectList.contains("dogRace")) el.setDogRace(null);
+            if (!selectList.contains("dogAge")) el.setDogAge(null);
+            if (!selectList.contains("dogWeight")) el.setDogWeight(null);
+            if (!selectList.contains("isDogPureRace")) el.setIsDogPureRace(null);
+            if (!selectList.contains("ownerName")) el.setOwnerName(null);
+            if (!selectList.contains("ownerLastName")) el.setOwnerLastName(null);
+        }
     }
 
     @Override

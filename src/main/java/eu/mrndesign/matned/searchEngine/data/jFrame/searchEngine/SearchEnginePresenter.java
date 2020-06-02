@@ -27,13 +27,8 @@ public class SearchEnginePresenter implements SearchEngineContract.Presenter{
     }
 
     @Override
-    public void changeTermsOfSearch(String value) {
-        //TODO
-    }
+    public void changeSite() {
 
-    @Override
-    public int listSize() {
-        return listSize;
     }
 
     private String htmlTextListBuild() {

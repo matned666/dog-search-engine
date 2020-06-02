@@ -2,12 +2,12 @@ package eu.mrndesign.matned.searchEngine.data.hibernate.entity;
 
 import eu.mrndesign.matned.searchEngine.data.hibernate.entity.enums.DogRace;
 import lombok.*;
+import org.hibernate.annotations.Any;
 
 import javax.persistence.*;
 
-@Builder
 @Data
-@NoArgsConstructor
+@RequiredArgsConstructor
 @AllArgsConstructor
 @Entity
 @Table(name = "dog")
@@ -16,7 +16,7 @@ public class Dog {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="dog_id")
-    private int dogId;
+    private Integer dogId;
 
     @Column(name="dog_name")
     private String dogName;
@@ -35,7 +35,7 @@ public class Dog {
     private Double dogWeight;
 
     @Column(name=" dog_pure_race")
-    private int isDogPureRace;
+    private Integer isDogPureRace;
 
     @Column(name="owner_name")
     private String ownerName;
@@ -43,17 +43,27 @@ public class Dog {
     @Column(name="owner_last_name")
     private String ownerLastName;
 
+    public Dog(String dogName) {
+        this.dogName = dogName;
+    }
+
+    public Dog(Integer dogId, String dogName) {
+        this.dogId = dogId;
+        this.dogName = dogName;
+    }
 
     @Override
     public String toString() {
-        return
-                "Id: " + dogId +
-                ", Name: " + dogName.toUpperCase() +
-                ", Gender: " + dogGender  +
-                ", Age: " + dogAge +
-                ", Race: " + dogRace.toString().toLowerCase() +
-                ", Weight: " + dogWeight +
-                ", PureRace: " + isDogPureRace +
-                ", Owner: " + ownerName + " "+ownerLastName;
+        StringBuilder sb = new StringBuilder();
+        if (dogId != null) sb.append("Id: ").append(dogId).append(";  ");
+        if (dogName != null) sb.append("Name: ").append(dogName.toUpperCase()).append(";  ");
+        if (dogAge != null) sb.append("Age: ").append(dogAge).append(";  ");
+        if (dogGender != null) sb.append("Gender: ").append(dogGender).append(";  ");
+        if (dogRace != null) sb.append("Race: ").append(dogRace.toString().toLowerCase()).append(";  ");
+        if (dogWeight != null) sb.append("Weight: ").append(dogWeight).append(";  ");
+        if (isDogPureRace != null) sb.append("PureRace: ").append(isDogPureRace).append(";  ");
+        if (ownerName != null) sb.append("Owner name: ").append(ownerName).append(";  ");
+        if (ownerLastName != null) sb.append("Owner surname: ").append(ownerLastName).append(";  ");
+        return sb.toString();
     }
 }

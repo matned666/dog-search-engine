@@ -1,14 +1,8 @@
 package eu.mrndesign.matned.searchEngine.data.hibernate.dao;
 
 import eu.mrndesign.matned.searchEngine.data.hibernate.HibernateUtil;
-import eu.mrndesign.matned.searchEngine.data.hibernate.entity.Dog;
 import eu.mrndesign.matned.searchEngine.data.hibernate.entity.Product;
-import eu.mrndesign.matned.searchEngine.data.jFrame.searchEngine.options.optionsObject.OptionsInterface;
 import eu.mrndesign.matned.searchEngine.data.mediator.interpreter.OptionsInterpreter;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -25,8 +19,6 @@ public class ProductDao implements DaoInterface<Product> {
     private String item;
     private OptionsInterpreter advancedInterpreter;
     private OptionsInterpreter orderInterpreter;
-    private OptionsInterpreter selectInterpreter;
-    private String orderBy;
 
     private String prodName;
     private int id1;
@@ -36,6 +28,8 @@ public class ProductDao implements DaoInterface<Product> {
     private int detailsId1;
     private int detailsId2;
 
+    private List<String> selectList;
+
     public ProductDao() {
     }
 
@@ -43,13 +37,13 @@ public class ProductDao implements DaoInterface<Product> {
         this.item = item;
         this.advancedInterpreter = advancedInterpreter;
         this.orderInterpreter = orderInterpreter;
-        this.selectInterpreter = selectInterpreter;
+        selectList = new LinkedList(selectInterpreter.getFieldNameList());
         initialize();
     }
 
     @Override
     public List<Product> find() {
-        orderBy = orderInterpreter.orderBy() != null ?orderInterpreter.orderBy() : "productId";
+        String orderBy = orderInterpreter.orderBy() != null ? orderInterpreter.orderBy() : "productId";
         List result = new LinkedList<>();
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         try(Session session = sessionFactory.openSession()) {
@@ -72,8 +66,17 @@ public class ProductDao implements DaoInterface<Product> {
         catch (HibernateException e){
             e.printStackTrace();
         }
-        System.out.println("List size: "+result.size());
+        changeSelect(result); //TODO temporary until multi select works
         return result;
+    }
+
+    private void changeSelect(List<Product> result) {
+        for (Product el : result) {
+            if (!selectList.contains("productId")) el.setProductId(null);
+            if (!selectList.contains("productName")) el.setProductName(null);
+            if (!selectList.contains("productValue")) el.setProductValue(null);
+            if (!selectList.contains("productDetailsId")) el.setProductDetailsId(null);
+        }
     }
 
     @Override

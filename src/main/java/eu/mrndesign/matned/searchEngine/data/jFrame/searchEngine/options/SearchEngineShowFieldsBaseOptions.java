@@ -13,6 +13,7 @@ import java.util.List;
 
 public class SearchEngineShowFieldsBaseOptions implements Options {
 
+    private static final String ALL_FIELDS = "ALL FIELDS";
     private JPanel panel;
 
 
@@ -36,6 +37,14 @@ public class SearchEngineShowFieldsBaseOptions implements Options {
 
     @Override
     public void make() {
+        options.add(new Select(ALL_FIELDS));
+        panel.add(new JLabel(ALL_FIELDS));
+        panel.add(options.get(counter).getFirst());
+        panel.add(new JLabel(""));
+        panel.add(new JLabel(""));
+        panel.add(new JLabel(""));
+        panel.add(new JLabel(""));
+        counter++;
         for (AdvancedSearchOption el : fields) {
             options.add(new Select(el.getFieldName()));
             panel.add(new JLabel(el.getFieldName()));
@@ -45,6 +54,13 @@ public class SearchEngineShowFieldsBaseOptions implements Options {
             panel.add(new JLabel(""));
             panel.add(new JLabel(""));
             counter++;
+        }
+        addActionListeners();
+    }
+
+    private void addActionListeners() {
+        for (OptionsInterface el: options) {
+            el.createListeners(options);
         }
     }
 }

@@ -45,6 +45,11 @@ public class SearchEngineScreen extends BaseSwingScreen implements SearchEngineS
     private JScrollPane scrollerOrderByOptions;
     private JScrollPane scrollerSelectOptions;
 
+    private JButton leftButton;
+    private JTextField siteNumber;
+    private JButton rightButton;
+
+
     private String choice;
 
     private ScreenListener listener;
@@ -108,6 +113,35 @@ public class SearchEngineScreen extends BaseSwingScreen implements SearchEngineS
         frame.add(infoLabel());
         frame.add(fieldsButton());
         frame.add(resultTexted);
+        createNavigation();
+        frame.add(leftButton);
+        frame.add(siteNumber);
+        frame.add(rightButton);
+    }
+
+    private void createNavigation(){
+        leftButton = new JButton("<<");
+        leftButton.setBounds(450, 650, 50, 20);
+        siteNumber = new JTextField("0");
+        siteNumber.setBounds(510, 650, 50, 20);
+        siteNumber.addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                if (e.getKeyChar() == 10) {
+                    presenter.changeSite();
+                }
+            }
+            @Override
+            public void keyPressed(KeyEvent e) {
+
+            }
+            @Override
+            public void keyReleased(KeyEvent e) {
+
+            }
+        });
+        rightButton = new JButton(">>");
+        rightButton.setBounds(570, 650, 50, 20);
     }
 
     private JScrollPane advancedSearch() {

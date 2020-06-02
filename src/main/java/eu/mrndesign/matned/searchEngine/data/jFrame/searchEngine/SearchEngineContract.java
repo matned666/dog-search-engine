@@ -16,8 +16,7 @@ public class SearchEngineContract {
     public interface Presenter {
 
         void search();
-        void changeTermsOfSearch(String value);
-        int listSize();
+        void changeSite();
 
     }
 

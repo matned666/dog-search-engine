@@ -20,8 +20,13 @@ public class SelectInterpreter implements OptionsInterpreter {
     }
 
     private void initialize() {
-        for (OptionsInterface element : options) {
-            if (element.isFirstSelected()) fieldNames.add(element.getFieldName());
+        if (options.get(0).isChecked()){
+            for (int i = 1; i < options.size(); i++)
+                fieldNames.add(options.get(i).getFieldName());
+            } else {
+            for (OptionsInterface element : options) {
+                if (element.isFirstSelected()) fieldNames.add(element.getFieldName());
+            }
         }
     }
 

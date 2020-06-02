@@ -62,7 +62,6 @@ public class OrderByInterpreter implements OptionsInterpreter {
             if(el.isChecked()){
                 if (el.isDesc()) isDesc = true;
                 fieldName = el.getFieldName();
-                System.out.println("order: "+el.isChecked());
                 break;
 
             }

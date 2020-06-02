@@ -40,7 +40,6 @@ public class AdvancedSearchInterpreter implements OptionsInterpreter {
             optionList.add(element.getEnumChoice());
             optionCheckList.add(element.isFirstSelected());
             optionCheckList.add(element.isSecondSelected());
-            System.out.println("adv: "+element.isChecked());
         }
     }
 
