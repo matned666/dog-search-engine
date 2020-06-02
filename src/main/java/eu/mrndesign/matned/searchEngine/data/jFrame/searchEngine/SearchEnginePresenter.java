@@ -23,6 +23,7 @@ public class SearchEnginePresenter implements SearchEngineContract.Presenter{
     @Override
     public void search() {
         mediator = new DataMediator(screen.getChoice());
+        screen.getSiteNumber().setText(String.valueOf(0));
         view.onSearch(htmlTextListBuild(), listSize);
     }
 
