@@ -14,9 +14,11 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
+import static eu.mrndesign.matned.searchEngine.data.statics.daoStatics.ProductDaoStatics.*;
+import static eu.mrndesign.matned.searchEngine.data.statics.Data.*;
+
 public class ProductDao implements DaoInterface<Product> {
 
-    private static final int MAX_RESULTS_ON_SCREEN = 100;
     private int firstResult;
     private int lastResult;
 
@@ -49,22 +51,14 @@ public class ProductDao implements DaoInterface<Product> {
 
     @Override
     public List<Product> find() {
-        String orderBy = orderInterpreter.orderBy() != null ? orderInterpreter.orderBy() : "productId";
+        String orderBy = orderInterpreter.orderBy() != null ? orderInterpreter.orderBy() : PRODUCT_ID;
         List result = new LinkedList<>();
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         try(Session session = sessionFactory.openSession()) {
             CriteriaBuilder cb = session.getCriteriaBuilder();
             CriteriaQuery<Product> criteriaQuery = cb.createQuery(Product.class);
             Root<Product> rootTable = criteriaQuery.from(Product.class);
-            criteriaQuery.select(rootTable)
-                    .where(
-                            cb.and(
-                                    cb.like(rootTable.get("productName"), prodName),
-                                    cb.between(rootTable.get("productId"), id1,id2),
-                                    cb.between(rootTable.get("productValue"), value1,value2),
-                                    cb.between(rootTable.get("productDetailsId"), detailsId1,detailsId2)
-                            )
-                    );
+            whereStatement(cb, criteriaQuery, rootTable);
             criteriaQuery.orderBy(orderInterpreter.isDesc() ? cb.desc(rootTable.get(orderBy)) : cb.asc(rootTable.get(orderBy)));
             result.addAll(session.createQuery(criteriaQuery)
                     .setFirstResult(firstResult)
@@ -74,22 +68,49 @@ public class ProductDao implements DaoInterface<Product> {
         catch (HibernateException e){
             e.printStackTrace();
         }
-        changeSelect(result); //TODO temporary until multi select works
+        changeSelect(result);
         return result;
-    }
-
-    private void changeSelect(List<Product> result) {
-        for (Product el : result) {
-            if (!selectList.contains("productId")) el.setProductId(null);
-            if (!selectList.contains("productName")) el.setProductName(null);
-            if (!selectList.contains("productValue")) el.setProductValue(null);
-            if (!selectList.contains("productDetailsId")) el.setProductDetailsId(null);
-        }
     }
 
     @Override
     public List<String> listOfFields() {
-        return Arrays.asList("NUMBER::productId::","VARCHAR::productName::","NUMBER::productValue::","NUMBER::productDetailsId::");
+        return Arrays.asList(
+                NUMBER_+PRODUCT_ID+SEP,
+                VARCHAR_+PRODUCT_NAME+SEP,
+                NUMBER_+PRODUCT_VALUE+SEP,
+                NUMBER_+PRODUCT_DETAILS_ID+SEP);
+    }
+
+            /*
+    PRIVATE METHODS
+    -------------------------------
+    Data list indexes:
+    productName 0,1 - constant forced by item
+    productId 2,3
+    productValue 4,5
+    productDetailsId 6,7
+
+     */
+
+    private void whereStatement(CriteriaBuilder cb, CriteriaQuery<Product> criteriaQuery, Root<Product> rootTable) {
+        criteriaQuery.select(rootTable)
+                .where(
+                        cb.and(
+                                cb.like(rootTable.get(PRODUCT_NAME), prodName),
+                                cb.between(rootTable.get(PRODUCT_ID), id1,id2),
+                                cb.between(rootTable.get(PRODUCT_VALUE), value1,value2),
+                                cb.between(rootTable.get(PRODUCT_DETAILS_ID), detailsId1,detailsId2)
+                        )
+                );
+    }
+
+    private void changeSelect(List<Product> result) {
+        for (Product el : result) {
+            if (!selectList.contains(PRODUCT_ID)) el.setProductId(null);
+            if (!selectList.contains(PRODUCT_NAME)) el.setProductName(null);
+            if (!selectList.contains(PRODUCT_VALUE)) el.setProductValue(null);
+            if (!selectList.contains(PRODUCT_DETAILS_ID)) el.setProductDetailsId(null);
+        }
     }
 
     private void initialize() {

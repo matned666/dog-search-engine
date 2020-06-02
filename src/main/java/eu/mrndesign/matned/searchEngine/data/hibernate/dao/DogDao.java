@@ -11,13 +11,10 @@ import org.hibernate.SessionFactory;
 import javax.persistence.criteria.*;
 import java.util.*;
 
+import static eu.mrndesign.matned.searchEngine.data.statics.daoStatics.DogDaoStatics.*;
 import static eu.mrndesign.matned.searchEngine.data.statics.Data.*;
 
 public class DogDao implements DaoInterface<Dog> {
-
-    public static final String ALL_RACES_SHOW = "ALL";
-    public static final String MALE = "Male";
-    public static final String FEMALE = "Female";
 
     private int firstResult;
     private int lastResult;
@@ -44,7 +41,6 @@ public class DogDao implements DaoInterface<Dog> {
 
     private List<String> selectList;
 
-
     public DogDao() {
     }
 
@@ -60,7 +56,7 @@ public class DogDao implements DaoInterface<Dog> {
 
     @Override
     public List<Dog> find() {
-        String orderBy = orderInterpreter.orderBy() != null ? orderInterpreter.orderBy() : "dogId";
+        String orderBy = orderInterpreter.orderBy() != null ? orderInterpreter.orderBy() : DOG_ID;
         List<Dog> result = new LinkedList<>();
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         try (Session session = sessionFactory.openSession()) {
@@ -82,15 +78,15 @@ public class DogDao implements DaoInterface<Dog> {
 
     @Override
     public List<String> listOfFields() {
-        return Arrays.asList("NUMBER::dogId::",
-                "VARCHAR::dogName::",
-                "CHECKBOX::dogGender::M::F",
-                "NUMBER::dogAge::",
-                "ENUM::dogRace::SHEPPARD::TERRIER::GOLDEN_RETRIEVER::BASSET::GREYHOUND::CHIHUAHUA::MOPS::HUSKY::DOG::SPANIEL",
-                "NUMBER::dogWeight::",
-                "BOOLEAN::isDogPureRace::",
-                "VARCHAR::ownerName::",
-                "VARCHAR::ownerLastName::");
+        return Arrays.asList(
+                NUMBER_+DOG_ID+SEP,
+                VARCHAR_+DOG_NAME+SEP,
+                CHECKBOX_+DOG_GENDER+SEP+MALE+SEP+FEMALE,
+                NUMBER_+DOG_AGE+SEP,
+                ENUM_ +DOG_RACE+SEP+ SHEPPARD +SEP+ TERRIER +SEP+ GOLDEN_RETRIEVER +SEP+ BASSET +SEP+ GREYHOUND +SEP+ CHIHUAHUA +SEP+ MOPS +SEP+ HUSKY +SEP+ DOG +SEP+ SPANIEL,
+                BOOLEAN_ +IS_DOG_PURE_RACE,
+                VARCHAR_+OWNER_NAME,
+                VARCHAR_+OWNER_LAST_NAME);
     }
 
 
@@ -113,44 +109,40 @@ public class DogDao implements DaoInterface<Dog> {
 
     private void whereStatement(CriteriaBuilder cb, CriteriaQuery<Dog> criteriaQuery, Root<Dog> rootTable) {
         criteriaQuery.select(rootTable)
-//                    .multiselect(selectList.stream().map(rootTable::get).collect(Collectors.toList()))
-                //TODO how to create multiple constructors in entity for custom multiselect query ????
                 .where(
                         cb.and(
                                 cb.and(
-                                        cb.like(rootTable.get("dogName"), dogName),
-                                        cb.like(rootTable.get("ownerName"), ownerName),
-                                        cb.like(rootTable.get("ownerLastName"), ownerLastName)
+                                        cb.like(rootTable.get(DOG_NAME), dogName),
+                                        cb.like(rootTable.get(OWNER_NAME), ownerName),
+                                        cb.like(rootTable.get(OWNER_LAST_NAME), ownerLastName)
                                 ),
-                                cb.between(rootTable.get("dogId"), dogId1, dogId2),
+                                cb.between(rootTable.get(DOG_ID), dogId1, dogId2),
                                 cb.or(
-                                        cb.equal(rootTable.get("dogGender"), dogGender1),
-                                        cb.equal(rootTable.get("dogGender"), dogGender2)
-
+                                        cb.equal(rootTable.get(DOG_GENDER), dogGender1),
+                                        cb.equal(rootTable.get(DOG_GENDER), dogGender2)
                                 ),
-                                cb.between(rootTable.get("dogRace"), dogRace1, dogRace2),
-                                cb.between(rootTable.get("dogAge"), dogAge1, dogAge2),
+                                cb.between(rootTable.get(DOG_RACE), dogRace1, dogRace2),
+                                cb.between(rootTable.get(DOG_AGE), dogAge1, dogAge2),
                                 cb.or(
-                                        cb.equal(rootTable.get("isDogPureRace"), isPureRace1 ? 1 : 0),
-                                        cb.equal(rootTable.get("isDogPureRace"), isPureRace2 ? 1 : 0)
-
+                                        cb.equal(rootTable.get(IS_DOG_PURE_RACE), isPureRace1 ? 1 : 0),
+                                        cb.equal(rootTable.get(IS_DOG_PURE_RACE), isPureRace2 ? 1 : 0)
                                 ),
-                                cb.between(rootTable.get("dogWeight"), dogWeight1, dogWeight2)
+                                cb.between(rootTable.get(DOG_WEIGHT), dogWeight1, dogWeight2)
                         )
                 );
     }
 
     private void changeSelect(List<Dog> result) {
         for (Dog el : result) {
-            if (!selectList.contains("dogId")) el.setDogId(null);
-            if (!selectList.contains("dogName")) el.setDogName(null);
-            if (!selectList.contains("dogGender")) el.setDogGender(null);
-            if (!selectList.contains("dogRace")) el.setDogRace(null);
-            if (!selectList.contains("dogAge")) el.setDogAge(null);
-            if (!selectList.contains("dogWeight")) el.setDogWeight(null);
-            if (!selectList.contains("isDogPureRace")) el.setIsDogPureRace(null);
-            if (!selectList.contains("ownerName")) el.setOwnerName(null);
-            if (!selectList.contains("ownerLastName")) el.setOwnerLastName(null);
+            if (!selectList.contains(DOG_ID)) el.setDogId(null);
+            if (!selectList.contains(DOG_NAME)) el.setDogName(null);
+            if (!selectList.contains(DOG_GENDER)) el.setDogGender(null);
+            if (!selectList.contains(DOG_RACE)) el.setDogRace(null);
+            if (!selectList.contains(DOG_AGE)) el.setDogAge(null);
+            if (!selectList.contains(DOG_WEIGHT)) el.setDogWeight(null);
+            if (!selectList.contains(IS_DOG_PURE_RACE)) el.setIsDogPureRace(null);
+            if (!selectList.contains(OWNER_NAME)) el.setOwnerName(null);
+            if (!selectList.contains(OWNER_LAST_NAME)) el.setOwnerLastName(null);
         }
     }
 

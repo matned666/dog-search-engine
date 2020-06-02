@@ -9,9 +9,8 @@ import java.util.List;
 
 public class SelectInterpreter implements OptionsInterpreter {
 
-    private List<OptionsInterface> options;
-
-    private List<String> fieldNames;
+    private final List<OptionsInterface> options;
+    private final List<String> fieldNames;
 
     public SelectInterpreter(List<OptionsInterface> options) {
         this.options = options;
