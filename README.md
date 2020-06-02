@@ -27,10 +27,10 @@ Create database and run database queries (/resources) to create first tables and
 ## IF YOU D LIKE TO ATTACH ANOTHER DATABASE TABLE:<br />
 Add name of the table to the db_collection table 
 - Create Entity
-- Create Dao implementing DaoInterface 
+- Create EntityDao implementing DaoInterface 
  - Dao should have list of fields returning as below example:<br />
          return Arrays.asList("NUMBER::Id::",<br />"VARCHAR::Name::",<br />"CHECKBOX::Gender::M::F", <br />"NUMBER::Age::", <br />"VARCHAR::Race::", <br />"NUMBER::Weight::", <br />"VARCHAR::Owner name::", <br />"VARCHAR::Owner surname::");<br /><br />
-- Add case in DataInterpreter getResultList(String item) as below:<br />
+- Add case in DataMediator getResultList(String item) as below:<br />
             case "Dog": { <br />
                dao = new DogDao(item);<br />
                 return dao.find();<br />
@@ -50,12 +50,11 @@ Choose your desired table and search by pressing enter or search button. That's 
 "al%" entries on 'al'<br />
 ...<br />
 - you can open advanced search options.<br />
-- you can check fields to show in your search TODO<br />
-- you can check fields to show TODO<br />
+- you can check fields to show in your search <br />
+- you can check fields to show <br />
 #
 ###### TODO
 - TESTS !!
-- order by and select functions are not done yet
 - code refactor (for ex. if waterfalls, etc.)
 - result records amount limiter
 
