@@ -17,7 +17,6 @@ import static eu.mrndesign.matned.searchEngine.data.statics.Data.*;
 public class DogDao implements DaoInterface<Dog> {
 
     private int firstResult;
-    private int lastResult;
 
     private String item;
     private OptionsInterpreter advancedInterpreter;
@@ -46,10 +45,9 @@ public class DogDao implements DaoInterface<Dog> {
 
     public DogDao(String item, OptionsInterpreter advancedInterpreter, OptionsInterpreter orderInterpreter, OptionsInterpreter selectInterpreter, int pageNo) {
         this.item = item;
+        this.firstResult = MAX_RESULTS_ON_SCREEN * pageNo;
         this.advancedInterpreter = advancedInterpreter;
         this.orderInterpreter = orderInterpreter;
-        firstResult = MAX_RESULTS_ON_SCREEN * pageNo;
-        lastResult = firstResult + MAX_RESULTS_ON_SCREEN;
         selectList = new LinkedList(selectInterpreter.getFieldNameList());
         initializeCriteria();
     }
@@ -67,7 +65,7 @@ public class DogDao implements DaoInterface<Dog> {
             criteriaQuery.orderBy(orderInterpreter.isDesc() ? cb.desc(rootTable.get(orderBy)) : cb.asc(rootTable.get(orderBy)));
             result.addAll(session.createQuery(criteriaQuery)
                     .setFirstResult(firstResult)
-                    .setMaxResults(lastResult)
+                    .setMaxResults(MAX_RESULTS_ON_SCREEN)
                     .list());
         } catch (HibernateException e) {
             e.printStackTrace();
@@ -83,6 +81,7 @@ public class DogDao implements DaoInterface<Dog> {
                 VARCHAR_+DOG_NAME+SEP,
                 CHECKBOX_+DOG_GENDER+SEP+MALE+SEP+FEMALE,
                 NUMBER_+DOG_AGE+SEP,
+                NUMBER_+DOG_WEIGHT+SEP,
                 ENUM_ +DOG_RACE+SEP+ SHEPPARD +SEP+ TERRIER +SEP+ GOLDEN_RETRIEVER +SEP+ BASSET +SEP+ GREYHOUND +SEP+ CHIHUAHUA +SEP+ MOPS +SEP+ HUSKY +SEP+ DOG +SEP+ SPANIEL,
                 BOOLEAN_ +IS_DOG_PURE_RACE,
                 VARCHAR_+OWNER_NAME,

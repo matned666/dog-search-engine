@@ -20,7 +20,6 @@ import static eu.mrndesign.matned.searchEngine.data.statics.Data.*;
 public class UserDao implements DaoInterface<User> {
 
     private int firstResult;
-    private int lastResult;
 
     private String item;
     private OptionsInterpreter advancedInterpreter;
@@ -45,7 +44,6 @@ public class UserDao implements DaoInterface<User> {
         this.advancedInterpreter = advancedInterpreter;
         this.orderInterpreter = orderInterpreter;
         firstResult = MAX_RESULTS_ON_SCREEN * pageNo;
-        lastResult = firstResult + MAX_RESULTS_ON_SCREEN;
         selectList = new LinkedList(selectInterpreter.getFieldNameList());
         initialize();
     }
@@ -63,7 +61,7 @@ public class UserDao implements DaoInterface<User> {
             criteriaQuery.orderBy(orderInterpreter.isDesc() ? cb.desc(rootTable.get(orderBy)) : cb.asc(rootTable.get(orderBy)));
             result.addAll(session.createQuery(criteriaQuery)
                     .setFirstResult(firstResult)
-                    .setMaxResults(lastResult)
+                    .setMaxResults(MAX_RESULTS_ON_SCREEN)
                     .list());
         } catch (HibernateException e) {
             e.printStackTrace();
