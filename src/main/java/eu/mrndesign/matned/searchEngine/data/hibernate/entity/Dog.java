@@ -47,11 +47,6 @@ public class Dog {
         this.dogName = dogName;
     }
 
-    public Dog(Integer dogId, String dogName) {
-        this.dogId = dogId;
-        this.dogName = dogName;
-    }
-
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();

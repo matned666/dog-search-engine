@@ -28,12 +28,19 @@ public class SearchEnginePresenter implements SearchEngineContract.Presenter{
 
     @Override
     public void changeSite() {
-
+        search();
     }
 
     private String htmlTextListBuild() {
         String value = screen.getInputTextField().getText();
-        List<Object> list = new LinkedList<Object>(mediator.getResultList(value, screen.getAdvancedOptions().getOptions(), screen.getOrderOptions().getOptions(), screen.getSearchOptions().getOptions()));
+        List<Object> list = new LinkedList<Object>(
+                mediator.getResultList(
+                        value,
+                        screen.getAdvancedOptions().getOptions(),
+                        screen.getOrderOptions().getOptions(),
+                        screen.getSearchOptions().getOptions(),
+                        Integer.parseInt(screen.getSiteNumber().getText()))
+        );
         listSize = list.size();
         if (list.size() > 0) {
             StringBuilder builder = new StringBuilder();

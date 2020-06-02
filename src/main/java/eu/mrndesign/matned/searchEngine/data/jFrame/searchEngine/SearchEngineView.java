@@ -21,10 +21,7 @@ public class SearchEngineView implements SearchEngineContract.View {
 
     @Override
     public void onSearch(String list, int size) {
-
         screen.getResultLabel().setText(list);
-        screen.getInfoLabel().setText("Table '"+screen.getChoice()+"', number of results: "+size);
-
     }
 
     @Override

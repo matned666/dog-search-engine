@@ -13,14 +13,14 @@ import java.util.*;
 
 public class DogDao implements DaoInterface<Dog>{
 
-//    private static final int MAX_RESULTS_ON_SCREEN = 100;
+    private static final int MAX_RESULTS_ON_SCREEN = 100;
+    private int firstResult;
+    private int lastResult;
 
     private String item;
     private OptionsInterpreter advancedInterpreter;
     private OptionsInterpreter orderInterpreter;
 
-//    private int firstResult;
-//    private int lastResult;
     private int dogId1;
     private int dogId2;
     private String dogName;
@@ -43,12 +43,12 @@ public class DogDao implements DaoInterface<Dog>{
     public DogDao() {
     }
 
-    public DogDao(String item, OptionsInterpreter advancedInterpreter, OptionsInterpreter orderInterpreter, OptionsInterpreter selectInterpreter) {
+    public DogDao(String item, OptionsInterpreter advancedInterpreter, OptionsInterpreter orderInterpreter, OptionsInterpreter selectInterpreter, int pageNo) {
         this.item = item;
         this.advancedInterpreter = advancedInterpreter;
         this.orderInterpreter = orderInterpreter;
-//        firstResult = 0;
-//        lastResult = MAX_RESULTS_ON_SCREEN;
+        firstResult = MAX_RESULTS_ON_SCREEN * pageNo;
+        lastResult = firstResult + MAX_RESULTS_ON_SCREEN;
 
 
         selectList = new LinkedList(selectInterpreter.getFieldNameList());
@@ -92,8 +92,8 @@ public class DogDao implements DaoInterface<Dog>{
                     );
             criteriaQuery.orderBy(orderInterpreter.isDesc() ? cb.desc(rootTable.get(orderBy)) : cb.asc(rootTable.get(orderBy)));
             result.addAll(session.createQuery(criteriaQuery)
-//                    .setFirstResult(firstResult)
-//                    .setMaxResults(lastResult)
+                    .setFirstResult(firstResult)
+                    .setMaxResults(lastResult)
                     .list());
         }
         catch (HibernateException e){

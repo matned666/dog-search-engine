@@ -16,6 +16,10 @@ import java.util.List;
 
 public class ProductDao implements DaoInterface<Product> {
 
+    private static final int MAX_RESULTS_ON_SCREEN = 100;
+    private int firstResult;
+    private int lastResult;
+
     private String item;
     private OptionsInterpreter advancedInterpreter;
     private OptionsInterpreter orderInterpreter;
@@ -33,10 +37,12 @@ public class ProductDao implements DaoInterface<Product> {
     public ProductDao() {
     }
 
-    public ProductDao(String item, OptionsInterpreter advancedInterpreter, OptionsInterpreter orderInterpreter, OptionsInterpreter selectInterpreter) {
+    public ProductDao(String item, OptionsInterpreter advancedInterpreter, OptionsInterpreter orderInterpreter, OptionsInterpreter selectInterpreter, int pageNo) {
         this.item = item;
         this.advancedInterpreter = advancedInterpreter;
         this.orderInterpreter = orderInterpreter;
+        firstResult = MAX_RESULTS_ON_SCREEN * pageNo;
+        lastResult = firstResult + MAX_RESULTS_ON_SCREEN;
         selectList = new LinkedList(selectInterpreter.getFieldNameList());
         initialize();
     }
@@ -61,6 +67,8 @@ public class ProductDao implements DaoInterface<Product> {
                     );
             criteriaQuery.orderBy(orderInterpreter.isDesc() ? cb.desc(rootTable.get(orderBy)) : cb.asc(rootTable.get(orderBy)));
             result.addAll(session.createQuery(criteriaQuery)
+                    .setFirstResult(firstResult)
+                    .setMaxResults(lastResult)
                     .list());
         }
         catch (HibernateException e){

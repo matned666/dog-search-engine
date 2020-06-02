@@ -10,7 +10,6 @@ public class SearchEngineContract {
         void onAdvancedOptionsClick();
         void onOrderByOptionsClick();
         void onSelectOptionsClick();
-
     }
 
     public interface Presenter {

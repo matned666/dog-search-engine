@@ -1,9 +1,6 @@
 package eu.mrndesign.matned.searchEngine.data.mediator;
 
-import eu.mrndesign.matned.searchEngine.data.hibernate.dao.DBCollectionDao;
-import eu.mrndesign.matned.searchEngine.data.hibernate.dao.DaoInterface;
-import eu.mrndesign.matned.searchEngine.data.hibernate.dao.DogDao;
-import eu.mrndesign.matned.searchEngine.data.hibernate.dao.ProductDao;
+import eu.mrndesign.matned.searchEngine.data.hibernate.dao.*;
 import eu.mrndesign.matned.searchEngine.data.hibernate.entity.DBCollection;
 import eu.mrndesign.matned.searchEngine.data.jFrame.searchEngine.options.optionsObject.OptionsInterface;
 import eu.mrndesign.matned.searchEngine.data.mediator.interpreter.AdvancedSearchInterpreter;
@@ -19,9 +16,6 @@ public class DataMediator implements Mediator {
     private String entityChoice;
     private DaoInterface dao;
     private List<String> optionsList;
-    private OptionsInterpreter advancedInterpreter;
-    private OptionsInterpreter orderInterpreter;
-    private OptionsInterpreter selectInterpreter;
 
     public DataMediator() {
     }
@@ -59,6 +53,10 @@ public class DataMediator implements Mediator {
                 dao = new ProductDao();
                 break;
             }
+            case "User": {
+                dao = new UserDao();
+                break;
+            }
             case "Dog": {
                 dao = new DogDao();
                 break;
@@ -68,21 +66,26 @@ public class DataMediator implements Mediator {
     }
 
     @Override
-    public List getResultList(String item, List<OptionsInterface> advanced, List<OptionsInterface> order, List<OptionsInterface> selects) {
-        advancedInterpreter = new AdvancedSearchInterpreter(advanced);
-        orderInterpreter = new OrderByInterpreter(order);
-        selectInterpreter = new SelectInterpreter(selects);
+    public List getResultList(String item, List<OptionsInterface> advanced, List<OptionsInterface> order, List<OptionsInterface> selects, int pageNumber) {
+        OptionsInterpreter advancedInterpreter = new AdvancedSearchInterpreter(advanced);
+        OptionsInterpreter orderInterpreter = new OrderByInterpreter(order);
+        OptionsInterpreter selectInterpreter = new SelectInterpreter(selects);
         if (item.trim().equals("")) item = "%";
         switch (entityChoice) {
             case "Product": {
-                dao = new ProductDao(item,advancedInterpreter,orderInterpreter,selectInterpreter);
+                dao = new ProductDao(item, advancedInterpreter, orderInterpreter, selectInterpreter,pageNumber);
+                return dao.find();
+            }
+            case "User": {
+                dao = new UserDao(item, advancedInterpreter, orderInterpreter, selectInterpreter,pageNumber);
                 return dao.find();
             }
             default: {
-                dao = new DogDao(item,advancedInterpreter,orderInterpreter,selectInterpreter);
+                dao = new DogDao(item, advancedInterpreter, orderInterpreter, selectInterpreter, pageNumber);
                 return dao.find();
             }
         }
+
     }
 
 

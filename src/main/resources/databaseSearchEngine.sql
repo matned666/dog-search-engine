@@ -10,6 +10,7 @@ create table `db_collection` (
 
 INSERT INTO `db_collection` (`db_name`) VALUES ('Dog');
 INSERT INTO `db_collection` (`db_name`) VALUES ('Product');
+INSERT INTO `db_collection` (`db_name`) VALUES ('User');
 
 create table `dog` (
     `dog_id` INT NOT NULL AUTO_INCREMENT,

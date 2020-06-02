@@ -27,7 +27,6 @@ public class SearchEngineScreen extends BaseSwingScreen implements SearchEngineS
 
 
     private JLabel imageLabel;
-    private JLabel infoLabel;
     private JButton acceptButton;
     private JButton backButton;
     private JButton fieldsButton;
@@ -110,7 +109,6 @@ public class SearchEngineScreen extends BaseSwingScreen implements SearchEngineS
         frame.add(orderBy());
         frame.add(select());
         frame.add(imageLabel());
-        frame.add(infoLabel());
         frame.add(fieldsButton());
         frame.add(resultTexted);
         createNavigation();
@@ -121,9 +119,33 @@ public class SearchEngineScreen extends BaseSwingScreen implements SearchEngineS
 
     private void createNavigation(){
         leftButton = new JButton("<<");
-        leftButton.setBounds(450, 650, 50, 20);
         siteNumber = new JTextField("0");
+        rightButton = new JButton(">>");
+        addKeyListenerToSiteNumberTextField();
+        leftButton.setBounds(450, 650, 50, 20);
         siteNumber.setBounds(510, 650, 50, 20);
+        rightButton.setBounds(570, 650, 50, 20);
+        siteNumber.setHorizontalAlignment(SwingConstants.CENTER);
+        addActionListenerSite(leftButton, false);
+        addActionListenerSite(rightButton, true);
+    }
+
+    private void addActionListenerSite(JButton button, boolean isLeadingForward) {
+        button.addActionListener(e -> {
+            int actualSite = Integer.parseInt(siteNumber.getText());
+            if (isLeadingForward) {
+                siteNumber.setText(String.valueOf(actualSite+1));
+                presenter.changeSite();
+            }
+            if (!isLeadingForward && actualSite > 0) {
+                siteNumber.setText(String.valueOf(actualSite-1));
+                presenter.changeSite();
+            }
+
+        });
+    }
+
+    private void addKeyListenerToSiteNumberTextField() {
         siteNumber.addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent e) {
@@ -140,8 +162,6 @@ public class SearchEngineScreen extends BaseSwingScreen implements SearchEngineS
 
             }
         });
-        rightButton = new JButton(">>");
-        rightButton.setBounds(570, 650, 50, 20);
     }
 
     private JScrollPane advancedSearch() {
@@ -168,12 +188,7 @@ public class SearchEngineScreen extends BaseSwingScreen implements SearchEngineS
         return imageLabel;
     }
 
-    private JLabel infoLabel() {
-        infoLabel = new JLabel("Table '"+choice+"'");
-        infoLabel.setBounds(20, 650, WIDTH, 40);
-        infoLabel.setFont(new Font("Arial", Font.PLAIN, 20));
-        return infoLabel;
-    }
+
 
     private JTextField inputRegexTextField() {
         inputTextField = new JTextField();
@@ -272,7 +287,7 @@ public class SearchEngineScreen extends BaseSwingScreen implements SearchEngineS
     private JScrollPane resultLabel() {
         resultLabel = new JLabel();
         resultLabel.setBounds(20, 140, WIDTH, 470);
-        resultLabel.setVerticalAlignment(1);
+        resultLabel.setVerticalAlignment(SwingConstants.TOP);
         resultLabel.setText("");
         scroller = new JScrollPane(resultLabel);
         scroller.setBounds(20, 140, WIDTH, 500);
@@ -323,8 +338,8 @@ public class SearchEngineScreen extends BaseSwingScreen implements SearchEngineS
             public void mouseClicked(MouseEvent e) {
                 try {
                     Desktop.getDesktop().browse(new URI("http://mrndesign.eu"));
-                } catch (URISyntaxException | IOException ex) {
-                    //It looks like there's a problem
+                } catch (URISyntaxException | IOException ignored) {
+
                 }
             }
 
