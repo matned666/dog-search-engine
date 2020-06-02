@@ -1,4 +1,4 @@
-package eu.mrndesign.matned.searchEngine.data.hibernate.entity;
+package eu.mrndesign.matned.searchEngine.data.hibernate.dbCollection;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,7 +11,7 @@ import javax.persistence.*;
 @Data
 @Entity
 @Table(name = "db_collection")
-public class DBCollection {
+public class EntityDBCollection {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,7 +21,7 @@ public class DBCollection {
     @Column(name = "db_name")
     private String dbName;
 
-    public DBCollection(String dbName) {
+    public EntityDBCollection(String dbName) {
         this.dbName = dbName;
     }
 

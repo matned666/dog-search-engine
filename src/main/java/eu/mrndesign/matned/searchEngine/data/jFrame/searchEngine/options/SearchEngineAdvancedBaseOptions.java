@@ -1,6 +1,7 @@
 package eu.mrndesign.matned.searchEngine.data.jFrame.searchEngine.options;
 
 import eu.mrndesign.matned.searchEngine.data.mediator.AdvancedSearchOption;
+import eu.mrndesign.matned.searchEngine.data.mediator.AdvancedSearchOptionInterface;
 import eu.mrndesign.matned.searchEngine.data.mediator.DataMediator;
 import eu.mrndesign.matned.searchEngine.data.jFrame.searchEngine.SearchEngineScreen;
 import eu.mrndesign.matned.searchEngine.data.jFrame.searchEngine.options.optionsObject.*;
@@ -21,7 +22,7 @@ public class SearchEngineAdvancedBaseOptions implements Options {
 
     private DataMediator interpreter;
 
-    private List<AdvancedSearchOption> fields;
+    private List<AdvancedSearchOptionInterface> fields;
     private List<OptionsInterface> options;
     private  int counter;
 
@@ -38,7 +39,7 @@ public class SearchEngineAdvancedBaseOptions implements Options {
     public void make() {
         options = new LinkedList<>();
         fields.sort((a, b) -> new AdvancedSearchOptionComparator().compare(a, b));
-        for (AdvancedSearchOption el : fields) {
+        for (AdvancedSearchOptionInterface el : fields) {
             switch (el.getSearchType()) {
                 case VARCHAR: {
                     varcharCase(el);
@@ -66,7 +67,7 @@ public class SearchEngineAdvancedBaseOptions implements Options {
         addListenersToAllFields();
     }
 
-    private void enumCase(AdvancedSearchOption el) {
+    private void enumCase(AdvancedSearchOptionInterface el) {
         options.add(new AdvancedOptionsEnum(SearchType.ENUM,el.getFieldName(),el.getOptionsList()));
         screen.getAdvancedSearchOptions().add(new JLabel("Search in: "+el.getFieldName() + ": "));
         screen.getAdvancedSearchOptions().add(options.get(counter).getFirst());
@@ -76,7 +77,7 @@ public class SearchEngineAdvancedBaseOptions implements Options {
         screen.getAdvancedSearchOptions().add(new JLabel(""));
     }
 
-    private void varcharCase(AdvancedSearchOption el) {
+    private void varcharCase(AdvancedSearchOptionInterface el) {
         options.add(new AdvancedOptionsVarchar(SearchType.VARCHAR,el.getFieldName()));
         screen.getAdvancedSearchOptions().add(new JLabel("Search in: "+el.getFieldName() + ": "));
         screen.getAdvancedSearchOptions().add(options.get(counter).getFirst());
@@ -88,7 +89,7 @@ public class SearchEngineAdvancedBaseOptions implements Options {
 
     }
 
-    private void numberCase(AdvancedSearchOption el) {
+    private void numberCase(AdvancedSearchOptionInterface el) {
         options.add(new AdvancedOptionsNumber(SearchType.NUMBER, el.getFieldName(), screen));
         screen.getAdvancedSearchOptions().add(new JLabel(el.getFieldName()+" between"));
         screen.getAdvancedSearchOptions().add(options.get(counter).getFirst());
@@ -98,7 +99,7 @@ public class SearchEngineAdvancedBaseOptions implements Options {
         screen.getAdvancedSearchOptions().add(new JLabel(""));
     }
 
-    private void checkboxCase(AdvancedSearchOption el) {
+    private void checkboxCase(AdvancedSearchOptionInterface el) {
         int count = 1;
         options.add(new AdvancedOptionsCheckbox(SearchType.CHECKBOX, el.getFieldName(), el.getOptionsList()));
         screen.getAdvancedSearchOptions().add(new JLabel(el.getFieldName()+" "));
@@ -113,7 +114,7 @@ public class SearchEngineAdvancedBaseOptions implements Options {
         }
     }
 
-    private void booleanCase(AdvancedSearchOption el) {
+    private void booleanCase(AdvancedSearchOptionInterface el) {
         options.add(new AdvancedOptionsBoolean(SearchType.BOOLEAN, el.getFieldName()));
         screen.getAdvancedSearchOptions().add(new JLabel(el.getFieldName()+" "));
         screen.getAdvancedSearchOptions().add(new JLabel("true: "));

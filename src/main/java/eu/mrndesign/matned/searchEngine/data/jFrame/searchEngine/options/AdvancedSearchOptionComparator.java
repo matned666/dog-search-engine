@@ -1,14 +1,15 @@
 package eu.mrndesign.matned.searchEngine.data.jFrame.searchEngine.options;
 
 import eu.mrndesign.matned.searchEngine.data.mediator.AdvancedSearchOption;
+import eu.mrndesign.matned.searchEngine.data.mediator.AdvancedSearchOptionInterface;
 import eu.mrndesign.matned.searchEngine.data.mediator.SearchType;
 
 import java.util.Comparator;
 
-public class AdvancedSearchOptionComparator implements Comparator<AdvancedSearchOption> {
+public class AdvancedSearchOptionComparator implements Comparator<AdvancedSearchOptionInterface> {
 
     @Override
-    public int compare(AdvancedSearchOption o1, AdvancedSearchOption o2) {
+    public int compare(AdvancedSearchOptionInterface o1, AdvancedSearchOptionInterface o2) {
         if (o1.getSearchType() == SearchType.VARCHAR && (o2.getSearchType() == SearchType.NUMBER || o2.getSearchType() == SearchType.CHECKBOX || o2.getSearchType() == SearchType.BOOLEAN || o2.getSearchType() == SearchType.ENUM))
             return -1;
         else if (o1.getSearchType() == SearchType.ENUM && (o2.getSearchType() == SearchType.NUMBER || o2.getSearchType() == SearchType.CHECKBOX || o2.getSearchType() == SearchType.BOOLEAN))

@@ -1,4 +1,4 @@
-package eu.mrndesign.matned.searchEngine.data.hibernate.entity.enums;
+package eu.mrndesign.matned.searchEngine.data.hibernate.dog;
 
 public enum DogRace {
     AA,

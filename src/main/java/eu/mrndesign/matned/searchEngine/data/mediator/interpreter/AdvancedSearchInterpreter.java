@@ -7,7 +7,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 @Data
-public class AdvancedSearchInterpreter implements OptionsInterpreter {
+public class AdvancedSearchInterpreter implements AdvancedSearchInterpreterInterface {
 
     private List<OptionsInterface> options;
 
@@ -26,21 +26,6 @@ public class AdvancedSearchInterpreter implements OptionsInterpreter {
         optionCheckList = new LinkedList<>();
         integerList = new LinkedList<>();
         initialize();
-    }
-
-    private void initialize() {
-        for (OptionsInterface element : options) {
-            fieldNames.add(element.getFieldName());
-            fieldNames.add(element.getFieldName());
-            checks.add(element.isFirstSelected());
-            checks.add(element.isSecondSelected());
-            integerList.add(element.getFirstNumber());
-            integerList.add(element.getSecondNumber());
-            optionList.add(element.getEnumChoice());
-            optionList.add(element.getEnumChoice());
-            optionCheckList.add(element.isFirstSelected());
-            optionCheckList.add(element.isSecondSelected());
-        }
     }
 
     @Override
@@ -63,11 +48,18 @@ public class AdvancedSearchInterpreter implements OptionsInterpreter {
         return optionList;
     }
 
-
-    @Override
-    public String orderBy() {
-        return null;
+    private void initialize() {
+        for (OptionsInterface element : options) {
+            fieldNames.add(element.getFieldName());
+            fieldNames.add(element.getFieldName());
+            checks.add(element.isFirstSelected());
+            checks.add(element.isSecondSelected());
+            integerList.add(element.getFirstNumber());
+            integerList.add(element.getSecondNumber());
+            optionList.add(element.getEnumChoice());
+            optionList.add(element.getEnumChoice());
+            optionCheckList.add(element.isFirstSelected());
+            optionCheckList.add(element.isSecondSelected());
+        }
     }
-
-
 }

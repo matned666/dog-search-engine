@@ -1,8 +1,8 @@
-package eu.mrndesign.matned.searchEngine.data.hibernate.dao;
+package eu.mrndesign.matned.searchEngine.data.hibernate.user;
 
+import eu.mrndesign.matned.searchEngine.data.hibernate.DaoInterface;
 import eu.mrndesign.matned.searchEngine.data.hibernate.HibernateUtil;
-import eu.mrndesign.matned.searchEngine.data.hibernate.entity.User;
-import eu.mrndesign.matned.searchEngine.data.mediator.interpreter.OptionsInterpreter;
+import eu.mrndesign.matned.searchEngine.data.mediator.interpreter.*;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -14,16 +14,13 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
-import static eu.mrndesign.matned.searchEngine.data.statics.daoStatics.UserDaoStatics.*;
+import static eu.mrndesign.matned.searchEngine.data.hibernate.user.UserDaoStatics.*;
 import static eu.mrndesign.matned.searchEngine.data.statics.Data.*;
 
-public class UserDao implements DaoInterface<User> {
-
-    private int firstResult;
+public class UserDao implements DaoInterface<EntityUser> {
 
     private String item;
-    private OptionsInterpreter advancedInterpreter;
-    private OptionsInterpreter orderInterpreter;
+    private AdvancedSearchInterpreterInterface advancedInterpreter;
 
     private String firstName;
     private String lastName;
@@ -39,24 +36,24 @@ public class UserDao implements DaoInterface<User> {
     public UserDao() {
     }
 
-    public UserDao(String item, OptionsInterpreter advancedInterpreter, OptionsInterpreter orderInterpreter, OptionsInterpreter selectInterpreter, int pageNo) {
+    @Override
+    public List<EntityUser> find(String item,
+                                 AdvancedSearchInterpreterInterface advancedInterpreter,
+                                 OrderByInterpreterInterface orderInterpreter,
+                                 SelectInterpreterInterface selectInterpreter,
+                                 Integer pageNo) {
         this.item = item;
         this.advancedInterpreter = advancedInterpreter;
-        this.orderInterpreter = orderInterpreter;
-        firstResult = MAX_RESULTS_ON_SCREEN * pageNo;
+        int firstResult = MAX_RESULTS_ON_SCREEN * pageNo;
         selectList = new LinkedList(selectInterpreter.getFieldNameList());
         initialize();
-    }
-
-    @Override
-    public List<User> find() {
         String orderBy = orderInterpreter.orderBy() != null ? orderInterpreter.orderBy() : USER_ID;
-        List<User> result = new LinkedList<>();
+        List<EntityUser> result = new LinkedList<>();
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         try (Session session = sessionFactory.openSession()) {
             CriteriaBuilder cb = session.getCriteriaBuilder();
-            CriteriaQuery<User> criteriaQuery = cb.createQuery(User.class);
-            Root<User> rootTable = criteriaQuery.from(User.class);
+            CriteriaQuery<EntityUser> criteriaQuery = cb.createQuery(EntityUser.class);
+            Root<EntityUser> rootTable = criteriaQuery.from(EntityUser.class);
             whereStatement(cb, criteriaQuery, rootTable);
             criteriaQuery.orderBy(orderInterpreter.isDesc() ? cb.desc(rootTable.get(orderBy)) : cb.asc(rootTable.get(orderBy)));
             result.addAll(session.createQuery(criteriaQuery)
@@ -73,12 +70,12 @@ public class UserDao implements DaoInterface<User> {
     @Override
     public List<String> listOfFields() {
         return Arrays.asList(
-                NUMBER_ +USER_ID+ SEP,
-                VARCHAR_ +FIRST_NAME+ SEP,
-                VARCHAR_ +LAST_NAME+ SEP,
-                CHECKBOX_ +GENDER+ SEP +MALE+ SEP +FEMALE,
-                VARCHAR_ +EMAIL+ SEP,
-                VARCHAR_ +IP_ADDRESS+ SEP);
+                NUMBER_+ _i_ +USER_ID+ _i_,
+                VARCHAR_+ _i_ +FIRST_NAME+ _i_,
+                VARCHAR_+ _i_ +LAST_NAME+ _i_,
+                CHECKBOX_+ _i_ +GENDER+ _i_ +MALE+ _i_ +FEMALE,
+                VARCHAR_+ _i_ +EMAIL+ _i_,
+                VARCHAR_+ _i_ +IP_ADDRESS+ _i_);
     }
 
         /*
@@ -94,7 +91,7 @@ public class UserDao implements DaoInterface<User> {
 
      */
 
-    private void whereStatement(CriteriaBuilder cb, CriteriaQuery<User> criteriaQuery, Root<User> rootTable) {
+    private void whereStatement(CriteriaBuilder cb, CriteriaQuery<EntityUser> criteriaQuery, Root<EntityUser> rootTable) {
         criteriaQuery.select(rootTable)
                 .where(
                         cb.and(
@@ -112,8 +109,8 @@ public class UserDao implements DaoInterface<User> {
                 );
     }
 
-    private void changeSelect(List<User> result) {
-        for (User el : result) {
+    private void changeSelect(List<EntityUser> result) {
+        for (EntityUser el : result) {
             if (!selectList.contains(USER_ID)) el.setUserId(null);
             if (!selectList.contains(FIRST_NAME)) el.setFirstName(null);
             if (!selectList.contains(LAST_NAME)) el.setLastName(null);

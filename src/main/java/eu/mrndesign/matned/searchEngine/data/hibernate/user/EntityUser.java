@@ -1,4 +1,4 @@
-package eu.mrndesign.matned.searchEngine.data.hibernate.entity;
+package eu.mrndesign.matned.searchEngine.data.hibernate.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,7 +14,7 @@ import javax.persistence.Table;
 @AllArgsConstructor
 @Entity
 @Table(name = "users")
-public class User {
+public class EntityUser {
 
     @Id
     @Column(name = "id")

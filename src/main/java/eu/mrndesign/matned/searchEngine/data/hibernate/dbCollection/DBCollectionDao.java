@@ -1,7 +1,8 @@
-package eu.mrndesign.matned.searchEngine.data.hibernate.dao;
+package eu.mrndesign.matned.searchEngine.data.hibernate.dbCollection;
 
 import eu.mrndesign.matned.searchEngine.data.hibernate.HibernateUtil;
-import eu.mrndesign.matned.searchEngine.data.hibernate.entity.DBCollection;
+import eu.mrndesign.matned.searchEngine.data.hibernate.DaoInterface;
+import eu.mrndesign.matned.searchEngine.data.mediator.interpreter.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.HibernateException;
@@ -18,19 +19,23 @@ import java.util.List;
 
 @Data
 @NoArgsConstructor
-public class DBCollectionDao implements DaoInterface<DBCollection> {
+public class DBCollectionDao implements DaoInterface<EntityDBCollection> {
 
     private static final String ID = "Id";
     private static final String NAME = "Name";
 
     @Override
-    public List<DBCollection> find() {
+    public List<EntityDBCollection> find(String item,
+                                         AdvancedSearchInterpreterInterface advancedInterpreter,
+                                         OrderByInterpreterInterface orderInterpreter,
+                                         SelectInterpreterInterface selectInterpreter,
+                                         Integer pageNo) {
         List result = new LinkedList<>();
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         try(Session session = sessionFactory.openSession()) {
             CriteriaBuilder cb = session.getCriteriaBuilder();
-            CriteriaQuery<DBCollection> criteriaQuery = cb.createQuery(DBCollection.class);
-            Root<DBCollection> rootTable = criteriaQuery.from(DBCollection.class);
+            CriteriaQuery<EntityDBCollection> criteriaQuery = cb.createQuery(EntityDBCollection.class);
+            Root<EntityDBCollection> rootTable = criteriaQuery.from(EntityDBCollection.class);
             criteriaQuery.select(rootTable);
             result.addAll(session.createQuery(criteriaQuery).list());
         }
@@ -43,8 +48,8 @@ public class DBCollectionDao implements DaoInterface<DBCollection> {
     @Override
     public List<String> listOfFields() {
         return Arrays.asList(
-                NUMBER_+ ID,
-                VARCHAR_+ NAME
+                NUMBER_+_i_+ ID,
+                VARCHAR_+_i_+ NAME
         );
     }
 

@@ -6,8 +6,12 @@ import java.util.List;
 
 public interface Mediator {
 
-    List getResultList(String item, List<OptionsInterface> advanced, List<OptionsInterface> order, List<OptionsInterface> selects, int pageNumber);
-    String[] getListOfBasesFromDatabase();
-    List<AdvancedSearchOption> getListedOptions();
+    List getResultList(String item,
+                       List<OptionsInterface> advanced,
+                       List<OptionsInterface> order,
+                       List<OptionsInterface> selects,
+                       int pageNumber);
+    String[] getListOfTablesFromDatabase();
+    List<AdvancedSearchOptionInterface> getListedOptions();
 
 }

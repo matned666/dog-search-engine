@@ -8,7 +8,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 @Data
-public class OrderByInterpreter implements OptionsInterpreter {
+public class OrderByInterpreter implements OrderByInterpreterInterface{
 
     private List<OptionsInterface> options;
     private OrderBy option;
@@ -23,22 +23,22 @@ public class OrderByInterpreter implements OptionsInterpreter {
         initialize();
     }
 
+    @Override
+    public String orderBy() {
+        getCheckedOption();
+        return fieldName;
+    }
+
+    @Override
+    public boolean isDesc() {
+        return isDesc;
+    }
+
     private void initialize() {
         System.out.println(option);
         for (OptionsInterface element : options) {
             if (element.isFirstSelected()) fieldNames.add(element.getFieldName());
         }
-    }
-
-    @Override
-    public List<String> getFieldNameList() {
-        return fieldNames;
-    }
-
-    @Override
-    public String orderBy() {
-        getCheckedOption();
-        return fieldName;
     }
 
     private void getCheckedOption() {
@@ -51,24 +51,4 @@ public class OrderByInterpreter implements OptionsInterpreter {
             }
         }
     }
-
-
-
-
-    @Override
-    public List<Integer> getIntegers() {
-        return null;
-    }
-
-    @Override
-    public List<Boolean> getChecksList() {
-        return null;
-    }
-
-    @Override
-    public List<String> getOptionsList() {
-        return null;
-    }
-
-
 }

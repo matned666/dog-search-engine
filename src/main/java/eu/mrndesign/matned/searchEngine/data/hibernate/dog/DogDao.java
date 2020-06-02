@@ -1,9 +1,8 @@
-package eu.mrndesign.matned.searchEngine.data.hibernate.dao;
+package eu.mrndesign.matned.searchEngine.data.hibernate.dog;
 
 import eu.mrndesign.matned.searchEngine.data.hibernate.HibernateUtil;
-import eu.mrndesign.matned.searchEngine.data.hibernate.entity.Dog;
-import eu.mrndesign.matned.searchEngine.data.hibernate.entity.enums.DogRace;
-import eu.mrndesign.matned.searchEngine.data.mediator.interpreter.OptionsInterpreter;
+import eu.mrndesign.matned.searchEngine.data.hibernate.DaoInterface;
+import eu.mrndesign.matned.searchEngine.data.mediator.interpreter.*;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -11,16 +10,14 @@ import org.hibernate.SessionFactory;
 import javax.persistence.criteria.*;
 import java.util.*;
 
-import static eu.mrndesign.matned.searchEngine.data.statics.daoStatics.DogDaoStatics.*;
+import static eu.mrndesign.matned.searchEngine.data.hibernate.dog.DogDaoStatics.*;
+import static eu.mrndesign.matned.searchEngine.data.hibernate.dog.DogDaoStatics.DOG;
 import static eu.mrndesign.matned.searchEngine.data.statics.Data.*;
 
-public class DogDao implements DaoInterface<Dog> {
-
-    private int firstResult;
+public class DogDao implements DaoInterface<EntityDog> {
 
     private String item;
-    private OptionsInterpreter advancedInterpreter;
-    private OptionsInterpreter orderInterpreter;
+    private AdvancedSearchInterpreterInterface advancedInterpreter;
 
     private int dogId1;
     private int dogId2;
@@ -43,24 +40,24 @@ public class DogDao implements DaoInterface<Dog> {
     public DogDao() {
     }
 
-    public DogDao(String item, OptionsInterpreter advancedInterpreter, OptionsInterpreter orderInterpreter, OptionsInterpreter selectInterpreter, int pageNo) {
+    @Override
+    public List<EntityDog> find(String item,
+                                AdvancedSearchInterpreterInterface advancedInterpreter,
+                                OrderByInterpreterInterface orderInterpreter,
+                                SelectInterpreterInterface selectInterpreter,
+                                Integer pageNo) {
         this.item = item;
-        this.firstResult = MAX_RESULTS_ON_SCREEN * pageNo;
+        int firstResult = MAX_RESULTS_ON_SCREEN * pageNo;
         this.advancedInterpreter = advancedInterpreter;
-        this.orderInterpreter = orderInterpreter;
         selectList = new LinkedList(selectInterpreter.getFieldNameList());
         initializeCriteria();
-    }
-
-    @Override
-    public List<Dog> find() {
         String orderBy = orderInterpreter.orderBy() != null ? orderInterpreter.orderBy() : DOG_ID;
-        List<Dog> result = new LinkedList<>();
+        List<EntityDog> result = new LinkedList<>();
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         try (Session session = sessionFactory.openSession()) {
             CriteriaBuilder cb = session.getCriteriaBuilder();
-            CriteriaQuery<Dog> criteriaQuery = cb.createQuery(Dog.class);
-            Root<Dog> rootTable = criteriaQuery.from(Dog.class);
+            CriteriaQuery<EntityDog> criteriaQuery = cb.createQuery(EntityDog.class);
+            Root<EntityDog> rootTable = criteriaQuery.from(EntityDog.class);
             whereStatement(cb, criteriaQuery, rootTable);
             criteriaQuery.orderBy(orderInterpreter.isDesc() ? cb.desc(rootTable.get(orderBy)) : cb.asc(rootTable.get(orderBy)));
             result.addAll(session.createQuery(criteriaQuery)
@@ -77,15 +74,15 @@ public class DogDao implements DaoInterface<Dog> {
     @Override
     public List<String> listOfFields() {
         return Arrays.asList(
-                NUMBER_+DOG_ID+SEP,
-                VARCHAR_+DOG_NAME+SEP,
-                CHECKBOX_+DOG_GENDER+SEP+MALE+SEP+FEMALE,
-                NUMBER_+DOG_AGE+SEP,
-                NUMBER_+DOG_WEIGHT+SEP,
-                ENUM_ +DOG_RACE+SEP+ SHEPPARD +SEP+ TERRIER +SEP+ GOLDEN_RETRIEVER +SEP+ BASSET +SEP+ GREYHOUND +SEP+ CHIHUAHUA +SEP+ MOPS +SEP+ HUSKY +SEP+ DOG +SEP+ SPANIEL,
-                BOOLEAN_ +IS_DOG_PURE_RACE,
-                VARCHAR_+OWNER_NAME,
-                VARCHAR_+OWNER_LAST_NAME);
+                NUMBER_+ _i_ +DOG_ID+ _i_,
+                VARCHAR_+ _i_ +DOG_NAME+ _i_,
+                CHECKBOX_+ _i_ +DOG_GENDER+ _i_ +MALE+ _i_ +FEMALE,
+                NUMBER_+ _i_ +DOG_AGE+ _i_,
+                NUMBER_+ _i_ +DOG_WEIGHT+ _i_,
+                ENUM_+ _i_ +DOG_RACE+ _i_ + SHEPPARD + _i_ + TERRIER + _i_ + GOLDEN_RETRIEVER + _i_ + BASSET + _i_ + GREYHOUND + _i_ + CHIHUAHUA + _i_ + MOPS + _i_ + HUSKY + _i_ + DOG + _i_ + SPANIEL,
+                BOOLEAN_+ _i_ +IS_DOG_PURE_RACE,
+                VARCHAR_+ _i_ +OWNER_NAME,
+                VARCHAR_+ _i_ +OWNER_LAST_NAME);
     }
 
 
@@ -106,7 +103,7 @@ public class DogDao implements DaoInterface<Dog> {
 
      */
 
-    private void whereStatement(CriteriaBuilder cb, CriteriaQuery<Dog> criteriaQuery, Root<Dog> rootTable) {
+    private void whereStatement(CriteriaBuilder cb, CriteriaQuery<EntityDog> criteriaQuery, Root<EntityDog> rootTable) {
         criteriaQuery.select(rootTable)
                 .where(
                         cb.and(
@@ -131,8 +128,8 @@ public class DogDao implements DaoInterface<Dog> {
                 );
     }
 
-    private void changeSelect(List<Dog> result) {
-        for (Dog el : result) {
+    private void changeSelect(List<EntityDog> result) {
+        for (EntityDog el : result) {
             if (!selectList.contains(DOG_ID)) el.setDogId(null);
             if (!selectList.contains(DOG_NAME)) el.setDogName(null);
             if (!selectList.contains(DOG_GENDER)) el.setDogGender(null);
@@ -225,6 +222,5 @@ public class DogDao implements DaoInterface<Dog> {
             }
         }
     }
-
 
 }

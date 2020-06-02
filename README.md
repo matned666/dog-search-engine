@@ -21,7 +21,7 @@ privileges, of course password and mapping class to entities.<br />
 BEFORE RUNNING:<br />
 Configure your database data in Hibernate.cfg.xml<br />
  - host, database name, login and password<br />
- - add Entities <mapping class = "eu.mrndesign.matned.searchEngine.data.hibernate.entity.Product"/><br />
+ - add Entities <mapping class = "eu.mrndesign.matned.searchEngine.data.hibernate.product.EntityProduct"/><br />
 Create database and run database queries (/resources) to create first tables and entries.<br />
 
 ## IF YOU D LIKE TO ATTACH ANOTHER DATABASE TABLE:<br />

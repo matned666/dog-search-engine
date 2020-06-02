@@ -2,6 +2,7 @@ package eu.mrndesign.matned.searchEngine.data.jFrame.searchEngine.options;
 
 import eu.mrndesign.matned.searchEngine.data.jFrame.searchEngine.options.optionsObject.*;
 import eu.mrndesign.matned.searchEngine.data.mediator.AdvancedSearchOption;
+import eu.mrndesign.matned.searchEngine.data.mediator.AdvancedSearchOptionInterface;
 import eu.mrndesign.matned.searchEngine.data.mediator.DataMediator;
 import eu.mrndesign.matned.searchEngine.data.jFrame.searchEngine.SearchEngineScreen;
 
@@ -12,7 +13,7 @@ import java.util.List;
 public class SearchEngineOrderByBaseOptions implements Options {
 
     private JPanel panel;
-    private List<AdvancedSearchOption> fields;
+    private List<AdvancedSearchOptionInterface> fields;
     private List<OptionsInterface> options;
 
     int counter;
@@ -28,7 +29,7 @@ public class SearchEngineOrderByBaseOptions implements Options {
     @Override
     public void make() {
         counter = 0;
-        for (AdvancedSearchOption el : fields) {
+        for (AdvancedSearchOptionInterface el : fields) {
             options.add(new OrderBy(el.getFieldName()));
             panel.add(new JLabel(el.getFieldName()));
             panel.add(options.get(counter).getFirst());

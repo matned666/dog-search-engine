@@ -1,8 +1,6 @@
-package eu.mrndesign.matned.searchEngine.data.hibernate.entity;
+package eu.mrndesign.matned.searchEngine.data.hibernate.dog;
 
-import eu.mrndesign.matned.searchEngine.data.hibernate.entity.enums.DogRace;
 import lombok.*;
-import org.hibernate.annotations.Any;
 
 import javax.persistence.*;
 
@@ -11,7 +9,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Entity
 @Table(name = "dog")
-public class Dog {
+public class EntityDog {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,7 +41,7 @@ public class Dog {
     @Column(name="owner_last_name")
     private String ownerLastName;
 
-    public Dog(String dogName) {
+    public EntityDog(String dogName) {
         this.dogName = dogName;
     }
 

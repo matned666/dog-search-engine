@@ -7,7 +7,7 @@ import java.util.List;
 
 
 
-public class SelectInterpreter implements OptionsInterpreter {
+public class SelectInterpreter implements SelectInterpreterInterface {
 
     private final List<OptionsInterface> options;
     private final List<String> fieldNames;
@@ -16,6 +16,11 @@ public class SelectInterpreter implements OptionsInterpreter {
         this.options = options;
         fieldNames = new LinkedList<>();
         initialize();
+    }
+
+    @Override
+    public List<String> getFieldNameList() {
+        return fieldNames;
     }
 
     private void initialize() {
@@ -28,36 +33,5 @@ public class SelectInterpreter implements OptionsInterpreter {
             }
         }
     }
-
-    @Override
-    public List<String> getFieldNameList() {
-        return fieldNames;
-    }
-
-    @Override
-    public List<Integer> getIntegers() {
-        return null;
-    }
-
-    @Override
-    public List<Boolean> getChecksList() {
-        return null;
-    }
-
-    @Override
-    public List<String> getOptionsList() {
-        return null;
-    }
-
-    @Override
-    public boolean isDesc() {
-        return false;
-    }
-
-    @Override
-    public String orderBy() {
-        return null;
-    }
-
 
 }

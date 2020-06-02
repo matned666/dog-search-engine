@@ -1,6 +1,6 @@
 package eu.mrndesign.matned.searchEngine.data.hibernate;
 
-import eu.mrndesign.matned.searchEngine.data.hibernate.entity.DBCollection;
+import eu.mrndesign.matned.searchEngine.data.hibernate.dbCollection.EntityDBCollection;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -15,7 +15,7 @@ import java.util.List;
 public class HibernateUtil {
 
     private static final SessionFactory sessionFactory;
-    private static List<DBCollection> dbCollection;
+    private static List<EntityDBCollection> entityDbCollection;
 
     static {
 
@@ -31,14 +31,14 @@ public class HibernateUtil {
 
 
     private static void collectAllDBEntities() {
-            dbCollection = new LinkedList<>();
+            entityDbCollection = new LinkedList<>();
             SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
             try(Session session = sessionFactory.openSession()) {
                 CriteriaBuilder cb = session.getCriteriaBuilder();
-                CriteriaQuery<DBCollection> criteriaQuery = cb.createQuery(DBCollection.class);
-                Root<DBCollection> rootTable = criteriaQuery.from(DBCollection.class);
+                CriteriaQuery<EntityDBCollection> criteriaQuery = cb.createQuery(EntityDBCollection.class);
+                Root<EntityDBCollection> rootTable = criteriaQuery.from(EntityDBCollection.class);
                 criteriaQuery.select(rootTable);
-                dbCollection.addAll(session.createQuery(criteriaQuery).list());
+                entityDbCollection.addAll(session.createQuery(criteriaQuery).list());
             }
             catch (HibernateException e){
                 e.printStackTrace();

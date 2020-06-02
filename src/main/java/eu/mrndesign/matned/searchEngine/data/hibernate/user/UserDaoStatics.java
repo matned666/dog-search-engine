@@ -1,4 +1,4 @@
-package eu.mrndesign.matned.searchEngine.data.statics.daoStatics;
+package eu.mrndesign.matned.searchEngine.data.hibernate.user;
 
 public class UserDaoStatics {
 

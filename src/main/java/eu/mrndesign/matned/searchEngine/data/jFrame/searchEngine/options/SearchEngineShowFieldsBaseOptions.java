@@ -3,6 +3,7 @@ package eu.mrndesign.matned.searchEngine.data.jFrame.searchEngine.options;
 import eu.mrndesign.matned.searchEngine.data.jFrame.searchEngine.options.optionsObject.OptionsInterface;
 import eu.mrndesign.matned.searchEngine.data.jFrame.searchEngine.options.optionsObject.Select;
 import eu.mrndesign.matned.searchEngine.data.mediator.AdvancedSearchOption;
+import eu.mrndesign.matned.searchEngine.data.mediator.AdvancedSearchOptionInterface;
 import eu.mrndesign.matned.searchEngine.data.mediator.DataMediator;
 import eu.mrndesign.matned.searchEngine.data.jFrame.searchEngine.SearchEngineScreen;
 
@@ -17,7 +18,7 @@ public class SearchEngineShowFieldsBaseOptions implements Options {
     private JPanel panel;
 
 
-    private List<AdvancedSearchOption> fields;
+    private List<AdvancedSearchOptionInterface> fields;
     private List<OptionsInterface> options;
     private  int counter;
 
@@ -45,7 +46,7 @@ public class SearchEngineShowFieldsBaseOptions implements Options {
         panel.add(new JLabel(""));
         panel.add(new JLabel(""));
         counter++;
-        for (AdvancedSearchOption el : fields) {
+        for (AdvancedSearchOptionInterface el : fields) {
             options.add(new Select(el.getFieldName()));
             panel.add(new JLabel(el.getFieldName()));
             panel.add(options.get(counter).getFirst());

@@ -1,4 +1,4 @@
-package eu.mrndesign.matned.searchEngine.data.hibernate.entity;
+package eu.mrndesign.matned.searchEngine.data.hibernate.product;
 
 import lombok.*;
 
@@ -11,7 +11,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Entity
 @Table(name = "product")
-public class Product {
+public class EntityProduct {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

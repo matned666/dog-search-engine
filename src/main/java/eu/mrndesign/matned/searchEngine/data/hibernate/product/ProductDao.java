@@ -1,8 +1,8 @@
-package eu.mrndesign.matned.searchEngine.data.hibernate.dao;
+package eu.mrndesign.matned.searchEngine.data.hibernate.product;
 
+import eu.mrndesign.matned.searchEngine.data.hibernate.DaoInterface;
 import eu.mrndesign.matned.searchEngine.data.hibernate.HibernateUtil;
-import eu.mrndesign.matned.searchEngine.data.hibernate.entity.Product;
-import eu.mrndesign.matned.searchEngine.data.mediator.interpreter.OptionsInterpreter;
+import eu.mrndesign.matned.searchEngine.data.mediator.interpreter.*;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -14,16 +14,13 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
-import static eu.mrndesign.matned.searchEngine.data.statics.daoStatics.ProductDaoStatics.*;
+import static eu.mrndesign.matned.searchEngine.data.hibernate.product.ProductDaoStatics.*;
 import static eu.mrndesign.matned.searchEngine.data.statics.Data.*;
 
-public class ProductDao implements DaoInterface<Product> {
-
-    private int firstResult;
+public class ProductDao implements DaoInterface<EntityProduct> {
 
     private String item;
-    private OptionsInterpreter advancedInterpreter;
-    private OptionsInterpreter orderInterpreter;
+    private AdvancedSearchInterpreterInterface advancedInterpreter;
 
     private String prodName;
     private int id1;
@@ -38,24 +35,25 @@ public class ProductDao implements DaoInterface<Product> {
     public ProductDao() {
     }
 
-    public ProductDao(String item, OptionsInterpreter advancedInterpreter, OptionsInterpreter orderInterpreter, OptionsInterpreter selectInterpreter, int pageNo) {
-        this.item = item;
-        this.advancedInterpreter = advancedInterpreter;
-        this.orderInterpreter = orderInterpreter;
-        firstResult = MAX_RESULTS_ON_SCREEN * pageNo;
-        selectList = new LinkedList(selectInterpreter.getFieldNameList());
-        initialize();
-    }
 
     @Override
-    public List<Product> find() {
+    public List<EntityProduct> find(String item,
+                                    AdvancedSearchInterpreterInterface advancedInterpreter,
+                                    OrderByInterpreterInterface orderInterpreter,
+                                    SelectInterpreterInterface selectInterpreter,
+                                    Integer pageNo) {
+        this.item = item;
+        this.advancedInterpreter = advancedInterpreter;
+        int firstResult = MAX_RESULTS_ON_SCREEN * pageNo;
+        selectList = new LinkedList(selectInterpreter.getFieldNameList());
+        initialize();
         String orderBy = orderInterpreter.orderBy() != null ? orderInterpreter.orderBy() : PRODUCT_ID;
         List result = new LinkedList<>();
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         try(Session session = sessionFactory.openSession()) {
             CriteriaBuilder cb = session.getCriteriaBuilder();
-            CriteriaQuery<Product> criteriaQuery = cb.createQuery(Product.class);
-            Root<Product> rootTable = criteriaQuery.from(Product.class);
+            CriteriaQuery<EntityProduct> criteriaQuery = cb.createQuery(EntityProduct.class);
+            Root<EntityProduct> rootTable = criteriaQuery.from(EntityProduct.class);
             whereStatement(cb, criteriaQuery, rootTable);
             criteriaQuery.orderBy(orderInterpreter.isDesc() ? cb.desc(rootTable.get(orderBy)) : cb.asc(rootTable.get(orderBy)));
             result.addAll(session.createQuery(criteriaQuery)
@@ -73,10 +71,10 @@ public class ProductDao implements DaoInterface<Product> {
     @Override
     public List<String> listOfFields() {
         return Arrays.asList(
-                NUMBER_+PRODUCT_ID+SEP,
-                VARCHAR_+PRODUCT_NAME+SEP,
-                NUMBER_+PRODUCT_VALUE+SEP,
-                NUMBER_+PRODUCT_DETAILS_ID+SEP);
+                NUMBER_+ _i_ +PRODUCT_ID+ _i_,
+                VARCHAR_+ _i_ +PRODUCT_NAME+ _i_,
+                NUMBER_+ _i_ +PRODUCT_VALUE+ _i_,
+                NUMBER_+ _i_ +PRODUCT_DETAILS_ID+ _i_);
     }
 
             /*
@@ -90,7 +88,7 @@ public class ProductDao implements DaoInterface<Product> {
 
      */
 
-    private void whereStatement(CriteriaBuilder cb, CriteriaQuery<Product> criteriaQuery, Root<Product> rootTable) {
+    private void whereStatement(CriteriaBuilder cb, CriteriaQuery<EntityProduct> criteriaQuery, Root<EntityProduct> rootTable) {
         criteriaQuery.select(rootTable)
                 .where(
                         cb.and(
@@ -102,8 +100,8 @@ public class ProductDao implements DaoInterface<Product> {
                 );
     }
 
-    private void changeSelect(List<Product> result) {
-        for (Product el : result) {
+    private void changeSelect(List<EntityProduct> result) {
+        for (EntityProduct el : result) {
             if (!selectList.contains(PRODUCT_ID)) el.setProductId(null);
             if (!selectList.contains(PRODUCT_NAME)) el.setProductName(null);
             if (!selectList.contains(PRODUCT_VALUE)) el.setProductValue(null);

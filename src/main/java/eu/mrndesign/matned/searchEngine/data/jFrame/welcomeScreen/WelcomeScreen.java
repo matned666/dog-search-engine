@@ -73,7 +73,7 @@ public class WelcomeScreen extends BaseSwingScreen implements WelcomeScreenInter
     }
 
     private JComboBox<String> comboBox(){
-        comboBox = new JComboBox<>(dm.getListOfBasesFromDatabase());
+        comboBox = new JComboBox<>(dm.getListOfTablesFromDatabase());
         comboBox.setFont(new Font("Arial", Font.PLAIN, 15));
         comboBox.setBounds(160, 120, 400, 25);
         return comboBox;
