@@ -28,7 +28,6 @@ public class OrderByInterpreter implements OptionsInterpreter {
         for (OptionsInterface element : options) {
             if (element.isFirstSelected()) fieldNames.add(element.getFieldName());
         }
-//        TODO - check and repair
     }
 
     @Override
