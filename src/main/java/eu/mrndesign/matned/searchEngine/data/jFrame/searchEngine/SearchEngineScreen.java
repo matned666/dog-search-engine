@@ -150,6 +150,7 @@ public class SearchEngineScreen extends BaseSwingScreen implements SearchEngineS
             @Override
             public void keyTyped(KeyEvent e) {
                 if (e.getKeyChar() == 10) {
+                    siteNumber.setText(String.valueOf(0));
                     presenter.changeSite();
                 }
             }
@@ -203,6 +204,7 @@ public class SearchEngineScreen extends BaseSwingScreen implements SearchEngineS
             @Override
             public void keyTyped(KeyEvent e) {
                 if (e.getKeyChar() == 10) {
+                    siteNumber.setText(String.valueOf(0));
                     presenter.search();
                 }
             }
@@ -226,7 +228,10 @@ public class SearchEngineScreen extends BaseSwingScreen implements SearchEngineS
 
         acceptButton.setFont(new Font("Arial", Font.PLAIN, 15));
         acceptButton.setText("Search");
-        acceptButton.addActionListener(actionEvent -> presenter.search());
+        acceptButton.addActionListener(actionEvent -> {
+            siteNumber.setText(String.valueOf(0));
+            presenter.search();
+        });
         return acceptButton;
     }
 
