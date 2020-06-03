@@ -3,6 +3,9 @@ package eu.mrndesign.matned.searchEngine.data.hibernate.product;
 import eu.mrndesign.matned.searchEngine.data.hibernate.DaoInterface;
 import eu.mrndesign.matned.searchEngine.data.hibernate.HibernateUtil;
 import eu.mrndesign.matned.searchEngine.data.mediator.interpreter.*;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -17,6 +20,8 @@ import java.util.List;
 import static eu.mrndesign.matned.searchEngine.data.hibernate.product.ProductDaoStatics.*;
 import static eu.mrndesign.matned.searchEngine.data.statics.Data.*;
 
+@NoArgsConstructor
+@Data
 public class ProductDao implements DaoInterface<EntityProduct> {
 
     private String item;
@@ -31,9 +36,6 @@ public class ProductDao implements DaoInterface<EntityProduct> {
     private int detailsId2;
 
     private List<String> selectList;
-
-    public ProductDao() {
-    }
 
 
     @Override

@@ -6,10 +6,13 @@ import eu.mrndesign.matned.searchEngine.data.hibernate.dbCollection.EntityDBColl
 import eu.mrndesign.matned.searchEngine.data.hibernate.dbCollection.DBCollectionDao;
 import eu.mrndesign.matned.searchEngine.data.jFrame.searchEngine.options.optionsObject.OptionsInterface;
 import eu.mrndesign.matned.searchEngine.data.mediator.interpreter.*;
+import lombok.Data;
+
 import java.util.LinkedList;
 import java.util.List;
 import static eu.mrndesign.matned.searchEngine.data.statics.Data.*;
 
+@Data
 public class DataMediator implements Mediator {
 
     private String entityChoice;
@@ -62,10 +65,14 @@ public class DataMediator implements Mediator {
         else dao = new DaoFactory().dao(entity);
     }
 
+    public void setEntityChoice(String entityChoice) {
+        this.entityChoice = entityChoice;
+    }
 
     private void getListOfOptions(String entity) {
         produceDao(entity);
         optionsList = new LinkedList<String>(dao.listOfFields());
     }
+
 
 }

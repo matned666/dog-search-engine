@@ -6,7 +6,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 
+import static eu.mrndesign.matned.searchEngine.data.statics.Data.ALL_FIELDS;
+
 public class Select implements OptionsInterface{
+
     private String fieldName;
     private JCheckBox check;
     private boolean isChecked;
@@ -16,7 +19,7 @@ public class Select implements OptionsInterface{
         this.fieldName = fieldName;
         check = new JCheckBox();
         isChecked = false;
-        if (fieldName.equals("ALL FIELDS")) {
+        if (fieldName.equals(ALL_FIELDS)) {
             check.setSelected(true);
             isChecked = true;
         }

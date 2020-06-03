@@ -14,4 +14,5 @@ public interface Mediator {
     String[] getListOfTablesFromDatabase();
     List<AdvancedSearchOptionInterface> getListedOptions();
 
+
 }
