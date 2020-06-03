@@ -21,8 +21,4 @@ public class EntityDBCollection {
     @Column(name = "db_name")
     private String dbName;
 
-    public EntityDBCollection(String dbName) {
-        this.dbName = dbName;
-    }
-
 }

@@ -1,6 +1,5 @@
 package eu.mrndesign.matned.searchEngine.data.mediator;
 
-import eu.mrndesign.matned.searchEngine.data.mediator.interpreter.AdvancedSearchInterpreterInterface;
 import lombok.Data;
 import static eu.mrndesign.matned.searchEngine.data.statics.Data.*;
 import java.util.Arrays;
@@ -14,7 +13,7 @@ public class AdvancedSearchOption implements AdvancedSearchOptionInterface {
     private String fieldName;
     private List<String> optionsList;
 
-    public AdvancedSearchOption(String entityFieldInfo) {
+    AdvancedSearchOption(String entityFieldInfo) {
         getAdvancedOptionsList(entityFieldInfo);
     }
 

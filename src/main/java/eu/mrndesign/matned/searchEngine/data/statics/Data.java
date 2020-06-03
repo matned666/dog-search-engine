@@ -15,9 +15,6 @@ public class Data {
     public static final String ENUM_ = "ENUM";
     public static final String EMPTY = "";
 
-    //Entities:
-    public static final String PRODUCT = "Product";
-    public static final String USER = "User";
-    public static final String DOG = "Dog";
+
 
 }

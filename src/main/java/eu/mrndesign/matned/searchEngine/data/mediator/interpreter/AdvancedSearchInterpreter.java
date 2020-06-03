@@ -29,11 +29,6 @@ public class AdvancedSearchInterpreter implements AdvancedSearchInterpreterInter
     }
 
     @Override
-    public List<String> getFieldNameList() {
-        return fieldNames;
-    }
-
-    @Override
     public List<Integer> getIntegers() {
         return integerList;
     }

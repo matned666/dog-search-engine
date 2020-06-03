@@ -1,13 +1,13 @@
 package eu.mrndesign.matned.searchEngine.data.hibernate;
 
-import eu.mrndesign.matned.searchEngine.data.hibernate.DaoInterface;
 import eu.mrndesign.matned.searchEngine.data.hibernate.dog.DogDao;
 import eu.mrndesign.matned.searchEngine.data.hibernate.product.ProductDao;
 import eu.mrndesign.matned.searchEngine.data.hibernate.user.UserDao;
 
-import static eu.mrndesign.matned.searchEngine.data.statics.Data.*;
-
 public class DaoFactory {
+
+    private static final String PRODUCT = "Product";
+    private static final String USER = "User";
 
     public DaoFactory() {
     }

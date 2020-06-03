@@ -41,10 +41,6 @@ public class EntityDog {
     @Column(name="owner_last_name")
     private String ownerLastName;
 
-    public EntityDog(String dogName) {
-        this.dogName = dogName;
-    }
-
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();

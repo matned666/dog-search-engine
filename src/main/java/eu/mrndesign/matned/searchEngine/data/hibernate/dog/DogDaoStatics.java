@@ -1,30 +1,30 @@
 package eu.mrndesign.matned.searchEngine.data.hibernate.dog;
 
-public class DogDaoStatics {
+class DogDaoStatics {
 
     //fields
-    public static final String DOG_NAME = "dogName";
-    public static final String OWNER_NAME = "ownerName";
-    public static final String OWNER_LAST_NAME = "ownerLastName";
-    public static final String DOG_ID = "dogId";
-    public static final String DOG_GENDER = "dogGender";
-    public static final String DOG_RACE = "dogRace";
-    public static final String DOG_AGE = "dogAge";
-    public static final String IS_DOG_PURE_RACE = "isDogPureRace";
-    public static final String DOG_WEIGHT = "dogWeight";
+    static final String DOG_NAME = "dogName";
+    static final String OWNER_NAME = "ownerName";
+    static final String OWNER_LAST_NAME = "ownerLastName";
+    static final String DOG_ID = "dogId";
+    static final String DOG_GENDER = "dogGender";
+    static final String DOG_RACE = "dogRace";
+    static final String DOG_AGE = "dogAge";
+    static final String IS_DOG_PURE_RACE = "isDogPureRace";
+    static final String DOG_WEIGHT = "dogWeight";
     //genders
-    public static final String MALE = "Male";
-    public static final String FEMALE = "Female";
+    static final String MALE = "Male";
+    static final String FEMALE = "Female";
     //races
-    public static final String ALL_RACES_SHOW = "ALL";
-    public static final String SPANIEL = "SPANIEL";
-    public static final String SHEPPARD = "SHEPPARD";
-    public static final String TERRIER = "TERRIER";
-    public static final String GOLDEN_RETRIEVER = "GOLDEN_RETRIEVER";
-    public static final String BASSET = "BASSET";
-    public static final String GREYHOUND = "GREYHOUND";
-    public static final String CHIHUAHUA = "CHIHUAHUA";
-    public static final String MOPS = "MOPS";
-    public static final String HUSKY = "HUSKY";
-    public static final String DOG = "DOG";
+    static final String ALL_RACES_SHOW = "ALL";
+    static final String SPANIEL = "SPANIEL";
+    static final String SHEPPARD = "SHEPPARD";
+    static final String TERRIER = "TERRIER";
+    static final String GOLDEN_RETRIEVER = "GOLDEN_RETRIEVER";
+    static final String BASSET = "BASSET";
+    static final String GREYHOUND = "GREYHOUND";
+    static final String CHIHUAHUA = "CHIHUAHUA";
+    static final String MOPS = "MOPS";
+    static final String HUSKY = "HUSKY";
+    static final String DOG = "DOG";
 }

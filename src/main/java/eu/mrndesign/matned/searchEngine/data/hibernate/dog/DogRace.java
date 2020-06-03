@@ -1,6 +1,7 @@
 package eu.mrndesign.matned.searchEngine.data.hibernate.dog;
 
 public enum DogRace {
+
     AA,
     SHEPPARD,
     TERRIER,
@@ -13,4 +14,5 @@ public enum DogRace {
     DOG,
     SPANIEL,
     ZZ
+
 }
