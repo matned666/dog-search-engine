@@ -19,10 +19,15 @@ public class AdvancedSearchOption implements AdvancedSearchOptionInterface {
 
     private void getAdvancedOptionsList(String entityFieldInfo){
         optionsList = new LinkedList<>();
-        String[] temp = entityFieldInfo.split(_i_);
-        searchType = findSearchType(temp[0]);
-        fieldName = temp[1];
-        optionsList.addAll(Arrays.asList(temp).subList(2, temp.length));
+        List<String> temporarySeparatedFieldInfoStringList = Arrays.asList(entityFieldInfo.split(_i_));
+        if (temporarySeparatedFieldInfoStringList.size() > 1) {
+            searchType = findSearchType(temporarySeparatedFieldInfoStringList.get(0));
+            fieldName = temporarySeparatedFieldInfoStringList.get(1);
+            optionsList.addAll(temporarySeparatedFieldInfoStringList.subList(2, temporarySeparatedFieldInfoStringList.size()));
+        }else {
+            fieldName = EMPTY;
+            searchType = SearchType.VARCHAR;
+        }
     }
 
     private SearchType findSearchType(String searchOption) {

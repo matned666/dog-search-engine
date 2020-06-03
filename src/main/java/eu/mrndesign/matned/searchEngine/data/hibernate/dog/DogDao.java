@@ -81,8 +81,8 @@ public class DogDao implements DaoInterface<EntityDog> {
                 NUMBER_+ _i_ +DOG_WEIGHT+ _i_,
                 ENUM_+ _i_ +DOG_RACE+ _i_ + SHEPPARD + _i_ + TERRIER + _i_ + GOLDEN_RETRIEVER + _i_ + BASSET + _i_ + GREYHOUND + _i_ + CHIHUAHUA + _i_ + MOPS + _i_ + HUSKY + _i_ + DOG + _i_ + SPANIEL,
                 BOOLEAN_+ _i_ +IS_DOG_PURE_RACE,
-                VARCHAR_+ _i_ +OWNER_NAME,
-                VARCHAR_+ _i_ +OWNER_LAST_NAME);
+                VARCHAR_+ _i_ +OWNER_NAME+ _i_,
+                VARCHAR_+ _i_ +OWNER_LAST_NAME+ _i_);
     }
 
 

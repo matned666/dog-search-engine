@@ -36,7 +36,6 @@ class EntityDogDaoTest<DBConnection> {
     @BeforeEach
     void setUp(){
         MockitoAnnotations.initMocks(this);
-
     }
 
 
@@ -47,6 +46,7 @@ class EntityDogDaoTest<DBConnection> {
         Mockito.when(mockConnection.createStatement().executeQuery(Mockito.any())).thenReturn((ResultSet) testList);
         assertEquals(dao.find(null,null,null,null,0).size(), testList.getFetchSize());
         Mockito.verify(mockConnection.createStatement(), Mockito.times(1));
+        //TODO
     }
 
     @Test

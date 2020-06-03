@@ -1,5 +1,6 @@
 package eu.mrndesign.matned.searchEngine.data.hibernate.dbCollection;
 
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -7,7 +8,7 @@ import lombok.ToString;
 import javax.persistence.*;
 
 @ToString
-@NoArgsConstructor
+@Builder
 @Data
 @Entity
 @Table(name = "db_collection")
